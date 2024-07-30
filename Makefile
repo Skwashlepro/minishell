@@ -1,12 +1,12 @@
 NAME 		= minishell
 LIB			= includes/libft/libft.a
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra 
 CC			= cc
 VPATH		= srcs
 LIBFT_PATH 	= ./includes/libft
 INC = -Iincludes/
 
-SRC_FILES	= 
+SRC_FILES	=	main
 
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 
@@ -16,7 +16,7 @@ all: $(LIB) $(NAME)
 	$(CC) $(CFLAGS) $(INC) -I/usr/include -O2 -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CC) $(INC) $(OBJ) $(LIB) -o $(NAME)
+	$(CC) $(INC) $(OBJ) $(LIB) -o $(NAME) -lreadline 
 
 $(LIB): 
 	@make -s -C $(LIBFT_PATH)
