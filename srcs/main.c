@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/01 14:36:57 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/01 14:40:58 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	INThandler(int sig)
 {
 	signal(sig, SIG_IGN);
+	printf("CTRL + C detected");
 }
 
 char	*prompter(void)
