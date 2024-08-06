@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/06 18:03:53 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/06 18:45:42 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	main()
 	{
 		data.prompt = prompter();
 		// printf("%s\n", data.prompt);
+		if (data.prompt == NULL)
+			break ;
 		if (ft_strncmp(data.prompt, "exit", 4) == 0)
 			break ;
 		if (ft_strnstr(data.prompt, "pwd", 3))
