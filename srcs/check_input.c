@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/06 17:11:59 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/06 17:45:29 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	check_input(char *str)
 	return (0);
 }
 
-int	main(int ac, char **av)
-{
-	(void)ac;
-	if (check_input(av[1]))
-		return (1);
-}
+// int	main(int ac, char **av)
+// {
+// 	(void)ac;
+// 	if (check_input(av[1]))
+// 		return (1);
+// }

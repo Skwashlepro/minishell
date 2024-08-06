@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/06 17:19:09 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/06 18:03:53 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,12 @@ int	check_input(char *str)
 
 void	INThandler(int sig)
 {
-	signal(sig, SIG_IGN);
-	printf("CTRL + C detected");
+	(void)sig;
+	write (1, "\n", 1);
+	rl_replace_line("", 0);
+    rl_on_new_line();
+    rl_redisplay();
+	return ;
 }
 
 char	*prompter(void)
@@ -67,17 +71,19 @@ int	parsing(char *prompt)
 
 int	main()
 {
-	char *prompt;
+	t_data data;
 	
 	while (1)
 	{
-		prompt = prompter();
-		printf("%s\n", prompt);
-		if (ft_strncmp(prompt, "exit", 4) == 0)
+		data.prompt = prompter();
+		// printf("%s\n", data.prompt);
+		if (ft_strncmp(data.prompt, "exit", 4) == 0)
 			break ;
-		check_input(prompt);
-		free(prompt);
+		if (ft_strnstr(data.prompt, "pwd", 3))
+			printf("%s\n", getenv("PWD"));
+		check_input(data.prompt);
+		free(data.prompt);
 	}
-	free(prompt);
+	free(data.prompt);
 	return (0);	
 }
