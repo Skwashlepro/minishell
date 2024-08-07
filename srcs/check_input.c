@@ -3,32 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/06 17:45:29 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/07 19:16:11 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "minishell.h"
 
-// int	logical_operator(char *str)
-// {
-// 	while (*str)
-// 	{
-// 		if (*str == '&' && *(str + 1) == '&')
-// 			return (1);
-// 		if (*str == '&' && *(str + 1) != '&')
-// 			return (1);
-// 		str++;
-// 	}
-// 	return (0);
-// }
-
-char	check_quotes(char *str)
+static char	check_quotes(char *str)
 {
 	char	quote;
-	
+
 	quote = 'N';
 	while (*str)
 	{
@@ -41,7 +28,6 @@ char	check_quotes(char *str)
 		else if (*str == '\"' && quote == '\"')
 			quote = 'N';
 		str++;
-		
 	}
 	return (quote);
 }
@@ -52,10 +38,3 @@ int	check_input(char *str)
 		return (printf("Error\n"), 1);
 	return (0);
 }
-
-// int	main(int ac, char **av)
-// {
-// 	(void)ac;
-// 	if (check_input(av[1]))
-// 		return (1);
-// }

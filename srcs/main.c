@@ -3,89 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/06 18:45:42 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/07 19:16:04 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-char	check_quotes(char *str)
-{
-	char	quote;
-	
-	quote = 'N';
-	while (*str)
-	{
-		if (*str == '\'' && quote == 'N')
-			quote = '\'';
-		else if (*str == '\"' && quote == 'N')
-			quote = '\"';
-		else if (*str == '\'' && quote == '\'')
-			quote = 'N';
-		else if (*str == '\"' && quote == '\"')
-			quote = 'N';
-		str++;
-		
-	}
-	return (quote);
-}
-
-int	check_input(char *str)
-{
-	if (check_quotes(str) != 'N')
-		return (printf("Error\n"), 1);
-	return (0);
-}
-
-
-void	INThandler(int sig)
-{
-	(void)sig;
-	write (1, "\n", 1);
-	rl_replace_line("", 0);
-    rl_on_new_line();
-    rl_redisplay();
-	return ;
-}
+int		g_var = 0;
 
 char	*prompter(void)
 {
-	char *input;
+	char	*input;
 
 	input = NULL;
-	signal(SIGINT, INThandler);
 	input = readline("$minishell ");
 	return (input);
 }
 
-int	parsing(char *prompt)
+int	main(int ac, char **av, char **envp)
 {
-	if (prompt)
-		return (1);
-	return (0);
-}
-
-int	main()
-{
-	t_data data;
-	
+	t_data data = {0};
+	(void)av;
+	init_env(&data, envp, ac);
 	while (1)
 	{
+		ft_signal();
 		data.prompt = prompter();
-		// printf("%s\n", data.prompt);
 		if (data.prompt == NULL)
 			break ;
-		if (ft_strncmp(data.prompt, "exit", 4) == 0)
+		ft_putstr_fd(data.prompt, 1);
+		if (ft_strncmp(data.prompt, "exit\n", 4) == 0)
 			break ;
 		if (ft_strnstr(data.prompt, "pwd", 3))
 			printf("%s\n", getenv("PWD"));
+		if (ft_strncmp(data.prompt, "env", 3) == 0)
+			print_env(&data);
 		check_input(data.prompt);
 		free(data.prompt);
 	}
 	free(data.prompt);
-	return (0);	
+	return (0);
 }

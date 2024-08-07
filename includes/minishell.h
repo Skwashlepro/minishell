@@ -3,30 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/06 18:46:47 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/07 18:55:49 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdio.h>
+# define _POSIX_C_SOURCE 200809L
+
 # include "libft/libft.h"
 # include <fcntl.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <signal.h>
 
-typedef struct s_data{
+extern int	g_var;
 
-	char **env;
-	char *prompt;
+typedef struct s_data
+{
+	char	**env;
+	char	*prompt;
 
-}	t_data;
+}			t_data;
+
+int			check_input(char *str);
+void		print_env(t_data *data);
+void		ft_signal(void);
+void		init_env(t_data *data, char **envp, int ac);
 
 #endif

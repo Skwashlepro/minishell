@@ -6,7 +6,10 @@ VPATH		= srcs
 LIBFT_PATH 	= ./includes/libft
 INC = -Iincludes/
 
-SRC_FILES	=	main
+SRC_FILES	=	main \
+				check_input \
+				env \
+				signals \
 
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 
