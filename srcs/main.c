@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/07 19:16:04 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/08 19:16:01 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	main(int ac, char **av, char **envp)
 		data.prompt = prompter();
 		if (data.prompt == NULL)
 			break ;
-		ft_putstr_fd(data.prompt, 1);
+		if (*data.prompt)
+			printf("%s\n", data.prompt);
 		if (ft_strncmp(data.prompt, "exit\n", 4) == 0)
 			break ;
 		if (ft_strnstr(data.prompt, "pwd", 3))
