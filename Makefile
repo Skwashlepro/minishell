@@ -7,9 +7,10 @@ LIBFT_PATH 	= ./includes/libft
 INC = -Iincludes/
 
 SRC_FILES	=	main \
-				check_input \
+				check_input\
 				env \
 				signals \
+				check_input_utils \
 
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 

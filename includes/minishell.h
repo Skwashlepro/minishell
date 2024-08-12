@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/08 18:04:53 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/12 20:27:57 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,7 @@ int			check_input(char *str);
 void		print_env(t_data *data);
 void		ft_signal(void);
 void		init_env(t_data *data, char **envp, int ac);
+int			check_space(char c);
+int			inquotes(char c, int i);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/08 19:18:16 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/12 20:27:07 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,47 +32,63 @@ static char	check_quotes(char *str)
 	return (quote);
 }
 
-// static int check_all(char *str)
-// {
-// 	bool 	quote;
-// 	int		sq;
+static int	special_char(char c, int i)
+{
+	if (ft_strchr("|&()", c) && i == 0)
+		return (1);
+	else if (ft_strchr("|&()", c) && i == 1)
+		return (0);
+	else
+		return (1);
+}
 
-// 	sq = 0;
-// 	quote = false;
-// 	while (*str)
-// 	{
-// 		if (*str == '\'' && !quote)
-// 		{
-// 			sq = 1;
-// 			quote = true;
-// 		}
-// 		else if (*str == '\"' && !quote && !sq)
-// 			quote = true;
-// 		else if (*str == '\'' && sq)
-// 			quote = false;
-// 		else if (*str == '\"' && quote)
-// 			quote = false;
-// 		else if (quote && *str != '\"')
-// 		{
-// 			if (ft_strchr("&|;", *str))
-// 				str++;
-// 		}
-// 		else if (sq && quote && *str != '\'')
-// 		{
-// 			if (ft_strchr("&|;", *str))
-// 				str++;	
-// 		}
-// 		else if (!quote && ft_strchr("&|';", *str))
-// 				return (1);
-// 	}
-// 	return (quote);
-// }
+int	check2(char *str, int i, bool pipe)
+{
+	while (*str)
+	{
+		i = (inquotes(*str, i));
+		if (special_char(*str, i))
+		{
+			if (ft_strchr("|", *str) && !pipe)
+				pipe = true;
+			else if (ft_strchr("()&", *str))
+				return (1);
+			else if (*str == '|' && *(str + 1) == '|')
+				return (1);
+			else if (check_space(*str))
+				str++;
+			else if (ft_isalpha(*str) && pipe)
+				pipe = false;
+			else
+				str++;
+		}
+		else
+			str++;
+	}
+	if (pipe || i == 1)
+		return (1);
+	return (0);
+}
+
+int	check_char(char *str)
+{
+	int	i;
+	int	pipe;
+
+	i = 0;
+	pipe = false;
+	while (*str && check_space(*str))
+		str++;
+	if (ft_strchr("|()&", *str))
+		return (1);
+	return (check2(str, i, pipe));
+}
 
 int	check_input(char *str)
 {
 	if (check_quotes(str) != 'N')
 		return (printf("Error\n"), 1);
-	if (check_all(str))
+	if (check_char(str))
 		return (ft_putstr_fd("Error\n", 2), 1);
 	return (0);
 }
