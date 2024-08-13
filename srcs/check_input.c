@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/13 15:09:47 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/13 16:26:30 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static char	check_quotes(char *str)
 		if (*str == '\'' && quote == 'N')
 			quote = '\'';
 		else if (*str == '\"' && quote == 'N')
-			quote = '\"';
+			quote = '"';
 		else if (*str == '\'' && quote == '\'')
 			quote = 'N';
-		else if (*str == '\"' && quote == '\"')
+		else if (*str == '"' && quote == '"')
 			quote = 'N';
 		str++;
 	}
@@ -34,9 +34,9 @@ static char	check_quotes(char *str)
 
 static int	special_char(char c, int i)
 {
-	if (ft_strchr("|&()", c) && i == 0)
+	if (ft_strchr("|&()", c) && !i)
 		return (1);
-	else if (ft_strchr("|&()", c) && i == 1)
+	else if (ft_strchr("|&()", c) && i)
 		return (0);
 	else
 		return (1);
