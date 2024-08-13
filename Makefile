@@ -1,6 +1,7 @@
 NAME 		= minishell
 LIB			= includes/libft/libft.a
-CFLAGS		= -Wall -Werror -Wextra 
+# CFLAGS		= -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g3
 CC			= cc
 VPATH		= srcs
 LIBFT_PATH 	= ./includes/libft

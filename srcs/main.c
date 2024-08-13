@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/13 16:36:27 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/13 19:26:00 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ char	*prompter(void)
 
 int	main(int ac, char **av, char **envp)
 {
-	t_data data = {0};
+	t_data	data;
+
+	data = {0};
 	(void)av;
 	init_env(&data, envp, ac);
 	while (1)
