@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/12 20:27:57 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/14 03:53:37 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@ typedef struct s_data
 
 }			t_data;
 
-int			check_input(char *str);
+int			check_input(char *str, t_data *data);
 void		print_env(t_data *data);
 void		ft_signal(void);
 void		init_env(t_data *data, char **envp, int ac);
 int			check_space(char c);
 int			inquotes(char c, int i);
+void		ft_exit(char *str);
+void		free_tab(char **str);
 
 #endif

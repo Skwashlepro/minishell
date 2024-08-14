@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/13 19:24:35 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/14 03:11:15 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,14 @@ int	check_char(char *str)
 	return (check2(str, i, pipe));
 }
 
-int	check_input(char *str)
+int	check_input(char *str, t_data *data)
 {
+	if (ft_strncmp(str, "exit\n", 4) == 0)
+		ft_exit(str);
+	if (ft_strnstr(str, "pwd", 3))
+		printf("%s\n", getenv("PWD"));
+	if (ft_strncmp(str, "env", 3) == 0)
+		print_env(data);
 	if (check_quotes(str) != 'N')
 		return (printf("syntax error unclosed quotes\n"), 1);
 	if (check_char(str))

@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/13 19:26:00 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/14 02:56:19 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	main(int ac, char **av, char **envp)
 {
 	t_data	data;
 
-	data = {0};
 	(void)av;
 	init_env(&data, envp, ac);
 	while (1)
@@ -36,13 +35,7 @@ int	main(int ac, char **av, char **envp)
 		data.prompt = prompter();
 		if (data.prompt == NULL)
 			break ;
-		if (ft_strncmp(data.prompt, "exit\n", 4) == 0)
-			break ;
-		if (ft_strnstr(data.prompt, "pwd", 3))
-			printf("%s\n", getenv("PWD"));
-		if (ft_strncmp(data.prompt, "env", 3) == 0)
-			print_env(&data);
-		if (!check_input(data.prompt))
+		if (!check_input(data.prompt, &data))
 			printf("%s\n", data.prompt);
 		free(data.prompt);
 	}
