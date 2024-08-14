@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:47:15 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/14 03:51:22 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/14 04:00:04 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ void	ft_exit(char *str)
 	while (args[i])
 		i++;
 	if (i > 2)
-		return ((void)!printf("%s\n", "minishell: exit: too many arguments"));
+		return ((void) !printf("%s\n", "minishell: exit: too many arguments"));
 	else if (i == 2 && !nb_check(args[1]))
-		return ((void)!printf("%s%s: %s\n", "minishell: exit: ", args[1], "numeric argument required"), 
+		return ((void) !printf("%s%s: %s\n", "minishell: exit: ",
+				args[1], "numeric argument required"),
 			exit(2));
 	else if (i == 2)
 	{

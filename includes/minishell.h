@@ -6,12 +6,12 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/14 03:53:37 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/14 04:01:25 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-
+# define MINISHELL_H
 # define _POSIX_C_SOURCE 200809L
 
 # include "libft/libft.h"
