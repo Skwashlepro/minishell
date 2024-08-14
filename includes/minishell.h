@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/14 04:01:25 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/14 18:32:41 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@
 
 extern int	g_var;
 
+typedef enum s_token_type
+{
+	WORD,
+	PIPE,
+	INFILE,
+	OUTFILE,
+	REDIR_IN,
+	REDIR_OUT,
+	HERE_DOC,
+	APPEND,
+}			t_token_type;
+
 typedef struct s_data
 {
 	char	**env;
@@ -39,7 +51,7 @@ int			check_input(char *str, t_data *data);
 void		print_env(t_data *data);
 void		ft_signal(void);
 void		init_env(t_data *data, char **envp, int ac);
-int			check_space(char c);
+int			is_space(char c);
 int			inquotes(char c, int i);
 void		ft_exit(char *str);
 void		free_tab(char **str);
