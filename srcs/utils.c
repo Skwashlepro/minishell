@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 03:51:40 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/15 18:15:04 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/15 19:11:47 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,14 @@ void	free_tab(char **str)
 	free(str);
 }
 
-long long	ft_atol(const char *nb)
+void	nb_error(char **args)
+{
+	printf("minishell: exit: %s: numeric argument required\n", args[1]);
+	free_tab(args);
+	exit(2);
+}
+
+long	ft_atol(char **nb)
 {
 	long	n;
 	int		i;
@@ -31,18 +38,19 @@ long long	ft_atol(const char *nb)
 	sign = 1;
 	i = 0;
 	n = 0;
-	while (nb[i] == ' ' || nb[i] == '\t' || nb[i] == '\n' || nb[i] == '\r'
-		|| nb[i] == '\f' || nb[i] == '\v')
+	while (nb[1][i] == 32 || (nb[1][i] >= 9 && nb[1][i] <= 13))
 		i++;
-	if (nb[i] == '+' || nb[i] == '-')
+	if (nb[1][i] == '+' || nb[1][i] == '-')
 	{
-		if (nb[i] == '-')
+		if (nb[1][i] == '-')
 			sign = -1;
 		i++;
 	}
-	while (nb[i] && ft_isdigit(nb[i]))
+	while (nb[1][i] && nb[1][i] >= '0' && nb[1][i] <= '9')
 	{
-		n = n * 10 + (nb[i++] - 48);
+		if (n > (LONG_MAX - (nb[1][i] - '0')) / 10)
+			nb_error(nb);
+		n = n * 10 + (nb[1][i++] - '0');
 	}
 	return (n * sign);
 }

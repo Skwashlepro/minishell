@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   check_input_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:47:15 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/15 18:28:58 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/15 19:06:50 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -37,18 +36,18 @@ int	nb_check(char *str)
 void	ft_exit(char *str)
 {
 	char	**args;
-	int			i;
-	long long	nb;
+	int		i;
+	long	nb;
 
 	i = 0;
 	args = ft_split(str, ' ');
-	nb = ft_atol(args[1]);
-	printf("%lli\n", nb);
+	nb = ft_atol(args);
+	printf("%li\n", nb);
 	while (args[i])
 		i++;
 	if (i > 2)
 		return ((void) !printf("%s\n", "minishell: exit: too many arguments"));
-	else if ((i == 2 && !nb_check(args[1])) || nb > LLONG_MAX || nb < LLONG_MIN)
+	else if ((i == 2 && !nb_check(args[1])))
 		return ((void) !printf("%s%s: %s\n", "minishell: exit: ",
 				args[1], "numeric argument required"), exit(2));
 	else if (i == 2)

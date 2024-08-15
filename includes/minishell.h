@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/15 18:29:18 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/15 19:01:41 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ int			is_space(char c);
 int			inquotes(char c, int i);
 void		ft_exit(char *str);
 void		free_tab(char **str);
-long long	ft_atol(const char *nb);
+long		ft_atol(char **nb);
 
 #endif
