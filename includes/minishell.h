@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/14 18:32:41 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/15 17:16:40 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-extern int	g_var;
+extern int			g_var;
 
 typedef enum s_token_type
 {
+	CMD,
+	ARG,
 	WORD,
 	PIPE,
 	INFILE,
@@ -38,22 +40,32 @@ typedef enum s_token_type
 	REDIR_OUT,
 	HERE_DOC,
 	APPEND,
-}			t_token_type;
+	LIMITER,
+	ENV_VAR,
+}					t_token_type;
+
+typedef struct s_token
+{
+	char			*str;
+	t_token_type	type;
+	struct s_token	*next;
+	struct s_token	*prev;
+}					t_token;
 
 typedef struct s_data
 {
-	char	**env;
-	char	*prompt;
+	char			**env;
+	char			*prompt;
 
-}			t_data;
+}					t_data;
 
-int			check_input(char *str, t_data *data);
-void		print_env(t_data *data);
-void		ft_signal(void);
-void		init_env(t_data *data, char **envp, int ac);
-int			is_space(char c);
-int			inquotes(char c, int i);
-void		ft_exit(char *str);
-void		free_tab(char **str);
+int					check_input(char *str, t_data *data);
+void				print_env(t_data *data);
+void				ft_signal(void);
+void				init_env(t_data *data, char **envp, int ac);
+int					is_space(char c);
+int					inquotes(char c, int i);
+void				ft_exit(char *str);
+void				free_tab(char **str);
 
 #endif

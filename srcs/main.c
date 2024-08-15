@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/14 02:56:19 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/15 17:44:10 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	*prompter(void)
 {
 	char	*input;
 
-	input = NULL;
 	input = readline("minishell$ ");
 	return (input);
 }
@@ -35,8 +34,11 @@ int	main(int ac, char **av, char **envp)
 		data.prompt = prompter();
 		if (data.prompt == NULL)
 			break ;
-		if (!check_input(data.prompt, &data))
+		if (!check_input(data.prompt, &data) && *data.prompt)
+		{
 			printf("%s\n", data.prompt);
+			add_history(data.prompt);
+		}
 		free(data.prompt);
 	}
 	free(data.prompt);
