@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:47:15 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/15 19:06:50 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/15 19:19:18 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void	ft_exit(char *str)
 
 	i = 0;
 	args = ft_split(str, ' ');
-	nb = ft_atol(args);
-	printf("%li\n", nb);
 	while (args[i])
 		i++;
 	if (i > 2)
@@ -52,13 +50,14 @@ void	ft_exit(char *str)
 				args[1], "numeric argument required"), exit(2));
 	else if (i == 2)
 	{
+		nb = ft_atol(args);
 		while (nb < 0)
 			nb += 256;
 		free_tab(args);
-		exit((int)nb);
+		return (printf("exit\n"), exit((int)nb));
 	}
 	else
-		exit(0);
+		return (printf("exit\n"), exit(0));
 }
 
 int	is_space(char c)

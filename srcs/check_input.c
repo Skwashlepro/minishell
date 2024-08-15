@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/15 19:06:14 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/15 19:16:14 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,15 @@ int	check_char(char *str)
 
 	i = 0;
 	pipe = false;
-	while (*str && is_space(*str))
-		str++;
 	if (*str && ft_strchr("|()&", *str))
 		return (1);
 	return (check2(str, i, pipe));
 }
 
 int	check_input(char *str, t_data *data)
-{
+{	
+	while (*str && is_space(*str))
+		str++;
 	if (check_quotes(str) != 'N')
 		return (ft_putstr_fd("syntax error unclosed quotes\n", 2), 1);
 	if (check_char(str))
