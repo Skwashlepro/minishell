@@ -6,9 +6,10 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:47:15 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/15 18:23:46 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/15 18:28:58 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -68,9 +69,9 @@ int	is_space(char c)
 
 int	inquotes(char c, int i)
 {
-	if ((c == '"' || c == '\'') && i == 0)
+	if ((c == '"' || c == '\'') && !i)
 		i = 1;
-	else if ((c == '"' || c == '\'') && i == 1)
+	else if ((c == '"' || c == '\'') && i)
 		i = 0;
 	return (i);
 }

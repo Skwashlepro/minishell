@@ -6,9 +6,10 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/15 18:23:21 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/15 18:29:00 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -74,7 +75,7 @@ int	check_char(char *str)
 	pipe = false;
 	while (*str && is_space(*str))
 		str++;
-	if (ft_strchr("|()&", *str))
+	if (*str && ft_strchr("|()&", *str))
 		return (1);
 	return (check2(str, i, pipe));
 }
@@ -82,7 +83,7 @@ int	check_char(char *str)
 int	check_input(char *str, t_data *data)
 {
 	if (check_quotes(str) != 'N')
-		return (printf("syntax error unclosed quotes\n"), 1);
+		return (ft_putstr_fd("syntax error unclosed quotes\n", 2), 1);
 	if (check_char(str))
 		return (ft_putstr_fd("minishell: syntax error near unexpected token\n",
 				2), 1);

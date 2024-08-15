@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/15 18:15:26 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/15 18:29:18 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-extern int	g_var;
+extern int			g_var;
 
 typedef enum s_token_type
 {
+	CMD,
+	ARG,
 	WORD,
 	PIPE,
 	INFILE,
@@ -38,14 +40,24 @@ typedef enum s_token_type
 	REDIR_OUT,
 	HERE_DOC,
 	APPEND,
-}			t_token_type;
+	LIMITER,
+	ENV_VAR,
+}					t_token_type;
+
+typedef struct s_token
+{
+	char			*str;
+	t_token_type	type;
+	struct s_token	*next;
+	struct s_token	*prev;
+}					t_token;
 
 typedef struct s_data
 {
-	char	**env;
-	char	*prompt;
+	char			**env;
+	char			*prompt;
 
-}			t_data;
+}					t_data;
 
 int			check_input(char *str, t_data *data);
 void		print_env(t_data *data);
