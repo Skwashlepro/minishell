@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:47:15 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/14 17:52:23 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/15 18:23:46 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,26 @@ int	nb_check(char *str)
 void	ft_exit(char *str)
 {
 	char	**args;
-	int		i;
-	int		nb;
+	int			i;
+	long long	nb;
 
 	i = 0;
 	args = ft_split(str, ' ');
+	nb = ft_atol(args[1]);
+	printf("%lli\n", nb);
 	while (args[i])
 		i++;
 	if (i > 2)
 		return ((void) !printf("%s\n", "minishell: exit: too many arguments"));
-	else if (i == 2 && !nb_check(args[1]))
+	else if ((i == 2 && !nb_check(args[1])) || nb > LLONG_MAX || nb < LLONG_MIN)
 		return ((void) !printf("%s%s: %s\n", "minishell: exit: ",
-				args[1], "numeric argument required"),
-			exit(2));
+				args[1], "numeric argument required"), exit(2));
 	else if (i == 2)
 	{
-		nb = ft_atoi(args[1]);
 		while (nb < 0)
 			nb += 256;
 		free_tab(args);
-		exit(nb);
+		exit((int)nb);
 	}
 	else
 		exit(0);

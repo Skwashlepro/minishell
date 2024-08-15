@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:17:57 by luctan            #+#    #+#             */
-/*   Updated: 2024/05/06 15:45:21 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/15 18:09:28 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
