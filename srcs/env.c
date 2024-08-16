@@ -6,11 +6,21 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:33:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/15 19:24:12 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/16 18:30:48 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	init_data(t_data *data)
+{
+	t_token	*head;
+
+	head = NULL;
+	data->env = NULL;
+	data->prompt = NULL;
+	data->token = NULL;
+}
 
 void	print_env(t_data *data)
 {
@@ -28,6 +38,7 @@ void	init_env(t_data *data, char **envp, int ac)
 {
 	int	i;
 
+	init_data(data);
 	if (ac != 1)
 	{
 		ft_putstr_fd("Error too many args\n", 2);
