@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/16 18:30:14 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/20 23:24:03 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,10 @@ int	check2(char *str, int i, bool pipe)
 		{
 			if (ft_strchr("|", *str) && !pipe)
 				pipe = true;
-			else if (ft_strchr("()&", *str))
+			else if (ft_strchr("()&", *str) || (*str == '|' && pipe))
 				return (1);
 			else if (ft_isalpha(*str) && pipe)
 				pipe = false;
-			else if (*str == '|' && pipe)
-				return (1);
 			str++;
 		}
 		else

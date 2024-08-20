@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:33:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/16 18:30:48 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/20 23:36:33 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	init_data(t_data *data)
 {
-	t_token	*head;
+	// t_token	*head;
 
-	head = NULL;
+	// head = NULL;
 	data->env = NULL;
 	data->prompt = NULL;
 	data->token = NULL;
@@ -39,6 +39,7 @@ void	init_env(t_data *data, char **envp, int ac)
 	int	i;
 
 	init_data(data);
+	ft_signal();
 	if (ac != 1)
 	{
 		ft_putstr_fd("Error too many args\n", 2);
@@ -47,11 +48,11 @@ void	init_env(t_data *data, char **envp, int ac)
 	i = 0;
 	while (envp[i])
 		i++;
-	data->env = malloc(sizeof(char **) * i + 1);
-	data->env[i - 1] = 0;
+	data->env = malloc(sizeof(char **) * (i + 1));
 	if (!data->env)
 		exit(1);
 	i = -1;
 	while (envp && envp[++i])
 		data->env[i] = ft_strdup(envp[i]);
+	data->env[i + 1] = 0;
 }
