@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
+/*   Updated: 2024/08/21 15:35:06 by tpassin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-t_token *token_add(t_data *data, char *str, char *input)
+int	token_add(t_data *data, char *input)
 {
-    check_input(input, data);
+	return (check_input(input, data));
 }

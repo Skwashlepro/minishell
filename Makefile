@@ -13,6 +13,7 @@ SRC_FILES	=	main \
 				signals \
 				check_input_utils \
 				utils \
+				tokenizer \
 
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 

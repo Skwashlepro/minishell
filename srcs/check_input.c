@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/20 23:24:03 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/21 15:32:09 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,15 @@ static int	special_char(char c, int i)
 		return (0);
 }
 
-int	check2(char *str, int i, bool pipe)
+int	check_metachar(char *str)
 {
+	int		i;
+	bool	pipe;
+
+	i = 0;
+	pipe = false;
+	if (*str && ft_strchr("|()&", *str))
+		return (1);
 	while (*str)
 	{
 		i = (inquotes(*str, i));
@@ -63,25 +70,13 @@ int	check2(char *str, int i, bool pipe)
 	return (pipe);
 }
 
-int	check_char(char *str)
-{
-	int		i;
-	bool	pipe;
-
-	i = 0;
-	pipe = false;
-	if (*str && ft_strchr("|()&", *str))
-		return (1);
-	return (check2(str, i, pipe));
-}
-
 int	check_input(char *str, t_data *data)
-{	
+{
 	while (*str && is_space(*str))
 		str++;
 	if (check_quotes(str) != 'N')
 		return (ft_putstr_fd("syntax error unclosed quotes\n", 2), 1);
-	if (check_char(str))
+	if (check_metachar(str))
 		return (ft_putstr_fd("minishell: syntax error near unexpected token\n",
 				2), 1);
 	if (ft_strncmp(str, "exit\n", 4) == 0)

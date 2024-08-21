@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/16 17:16:37 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/21 15:20:42 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,15 @@ typedef struct s_data
 
 }					t_data;
 
-int			check_input(char *str, t_data *data);
-void		print_env(t_data *data);
-void		ft_signal(void);
-void		init_env(t_data *data, char **envp, int ac);
-int			is_space(char c);
-int			inquotes(char c, int i);
-void		ft_exit(char *str);
-void		free_tab(char **str);
-long		ft_atol(char **nb);
+int					check_input(char *str, t_data *data);
+void				print_env(t_data *data);
+void				ft_signal(void);
+void				init_env(t_data *data, char **envp, int ac);
+int					is_space(char c);
+int					inquotes(char c, int i);
+void				ft_exit(char *str);
+void				free_tab(char **str);
+long				ft_atol(char **nb);
+int					token_add(t_data *data, char *input);
 
 #endif

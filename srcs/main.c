@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/20 23:34:03 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/21 15:35:27 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*prompter(void)
 
 	input = readline("minishell$ ");
 	if (input == NULL)
-			return (NULL);
+		return (NULL);
 	if (*input)
 	{
 		printf("%s\n", input);
@@ -29,13 +29,14 @@ char	*prompter(void)
 	return (input);
 }
 
-void loop_prog(t_data *data)
+void	loop_prog(t_data *data)
 {
 	while (1)
 	{
 		data->prompt = prompter();
 		if (!data->prompt)
 			break ;
+		token_add(data, data->prompt);
 	}
 }
 
@@ -46,6 +47,5 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	init_env(&data, envp, ac);
 	loop_prog(&data);
-
 	return (0);
 }
