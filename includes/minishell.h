@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/21 15:20:42 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/21 19:47:32 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define _POSIX_C_SOURCE 200809L
 
 # include "libft/libft.h"
 # include <fcntl.h>
@@ -26,7 +25,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-extern int			g_var;
+extern int	g_var;
 
 typedef enum s_token_type
 {
@@ -42,7 +41,7 @@ typedef enum s_token_type
 	APPEND,
 	LIMITER,
 	ENV_VAR,
-}					t_token_type;
+}	t_token_type;
 
 typedef struct s_token
 {
@@ -50,25 +49,28 @@ typedef struct s_token
 	t_token_type	type;
 	struct s_token	*next;
 	struct s_token	*prev;
-}					t_token;
+}	t_token;
 
 typedef struct s_data
 {
-	char			**env;
-	char			*prompt;
-	t_token			*token;
+	char	**env;
+	char	*prompt;
+	t_token	*token;
 
-}					t_data;
+}	t_data;
 
-int					check_input(char *str, t_data *data);
-void				print_env(t_data *data);
-void				ft_signal(void);
-void				init_env(t_data *data, char **envp, int ac);
-int					is_space(char c);
-int					inquotes(char c, int i);
-void				ft_exit(char *str);
-void				free_tab(char **str);
-long				ft_atol(char **nb);
-int					token_add(t_data *data, char *input);
+int		check_input(char *str, t_data *data);
+void	print_env(t_data *data);
+void	ft_signal(void);
+void	init_env(t_data *data, char **envp, int ac);
+void	init_data(t_data *data, t_token *head);
+int		is_space(char c);
+int		inquotes(char c, int i);
+void	ft_exit(char *str);
+void	free_tab(char **str);
+long	ft_atol(char **nb);
+void	word_token(char **tab, t_token **head);
+int		tokenizer(t_token **head, t_data *data, char *input);
+void	add_token(t_token **token_head, t_token_type type, char *str);
 
 #endif

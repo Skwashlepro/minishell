@@ -14,6 +14,7 @@ SRC_FILES	=	main \
 				check_input_utils \
 				utils \
 				tokenizer \
+				token_utils \
 
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 

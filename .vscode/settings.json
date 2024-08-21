@@ -3,6 +3,7 @@
 		"history.h": "c",
 		"signal.h": "c",
 		"stdio.h": "c",
-		"readline.h": "c"
+		"readline.h": "c",
+		"types.h": "c"
 	}
 }

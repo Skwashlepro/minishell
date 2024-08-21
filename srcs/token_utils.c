@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 17:14:16 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/21 15:17:36 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/21 19:56:12 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_token	*last_node(t_token *token)
+{
+	t_token	*tmp;
+
+	if (!token)
+		return (NULL);
+	tmp = token;
+	while (tmp->next)
+		tmp = tmp->next;
+	return (tmp);
+}
 
 void	add_token(t_token **token_head, t_token_type type, char *str)
 {
@@ -34,16 +46,4 @@ void	add_token(t_token **token_head, t_token_type type, char *str)
 		last_token->next = token;
 		token->prev = last_token;
 	}
-}
-
-t_token	*last_node(t_token *token)
-{
-	t_token	*tmp;
-
-	if (!token)
-		return (NULL);
-	tmp = token;
-	while (tmp->next)
-		tmp = tmp->next;
-	return (tmp);
 }

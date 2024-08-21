@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:47:15 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/21 15:32:11 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/21 16:42:20 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ void	ft_exit(char *str)
 	long	nb;
 
 	i = 0;
+	if (i > 2)
+		return ((void) !printf("minishell: exit: too many arguments\n"));
 	args = ft_split(str, ' ');
 	while (args[i])
 		i++;
-	if (i > 2)
-		return ((void) !printf("%s\n", "minishell: exit: too many arguments"));
-	else if ((i == 2 && !nb_check(args[1])))
-		return ((void) !printf("%s%s: %s\n", "minishell: exit: ",
-				args[1], "numeric argument required"), exit(2));
+	if ((i == 2 && !nb_check(args[1])))
+		return (printf("minishell: exit: %s: numeric argument required\n",
+				args[1]), free_tab(args), exit(2));
 	else if (i == 2)
 	{
 		nb = ft_atol(args);
@@ -57,7 +57,7 @@ void	ft_exit(char *str)
 		return (printf("exit\n"), exit((int)nb));
 	}
 	else
-		return (printf("exit\n"), exit(0));
+		return (free_tab(args), printf("exit\n"), exit(0));
 }
 
 int	is_space(char c)

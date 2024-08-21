@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:33:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/21 15:32:53 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/21 17:14:36 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_data(t_data *data)
+void	init_data(t_data *data, t_token *head)
 {
-	t_token	*head;
-
 	head = NULL;
 	data->env = NULL;
 	data->prompt = NULL;
@@ -38,7 +36,6 @@ void	init_env(t_data *data, char **envp, int ac)
 {
 	int	i;
 
-	init_data(data);
 	ft_signal();
 	if (ac != 1)
 	{
@@ -54,5 +51,5 @@ void	init_env(t_data *data, char **envp, int ac)
 	i = -1;
 	while (envp && envp[++i])
 		data->env[i] = ft_strdup(envp[i]);
-	data->env[i + 1] = 0;
+	data->env[i] = 0;
 }
