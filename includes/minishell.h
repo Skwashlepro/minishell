@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/21 19:47:32 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/22 16:45:28 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_data
 {
 	char	**env;
 	char	*prompt;
-	t_token	*token;
+	t_token	*head;
 
 }	t_data;
 
@@ -63,14 +63,14 @@ int		check_input(char *str, t_data *data);
 void	print_env(t_data *data);
 void	ft_signal(void);
 void	init_env(t_data *data, char **envp, int ac);
-void	init_data(t_data *data, t_token *head);
+void	init_data(t_data *data);
 int		is_space(char c);
 int		inquotes(char c, int i);
 void	ft_exit(char *str);
 void	free_tab(char **str);
 long	ft_atol(char **nb);
-void	word_token(char **tab, t_token **head);
-int		tokenizer(t_token **head, t_data *data, char *input);
+void	word_token(char **tab, t_data *data);
+int		tokenizer(t_data *data, char *input);
 void	add_token(t_token **token_head, t_token_type type, char *str);
 
 #endif

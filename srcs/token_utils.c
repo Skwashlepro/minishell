@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 17:14:16 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/21 19:56:12 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/22 16:30:53 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	add_token(t_token **token_head, t_token_type type, char *str)
 	t_token	*token;
 	t_token	*last_token;
 
+	if (!str)
+		return ;
 	token = malloc(sizeof(t_token));
 	if (!token)
 		return ;

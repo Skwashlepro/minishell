@@ -6,18 +6,17 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:33:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/21 17:14:36 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/22 16:40:31 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_data(t_data *data, t_token *head)
+void	init_data(t_data *data)
 {
-	head = NULL;
 	data->env = NULL;
 	data->prompt = NULL;
-	data->token = NULL;
+	data->head = NULL;
 }
 
 void	print_env(t_data *data)

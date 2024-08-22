@@ -6,13 +6,13 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/22 16:26:10 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/22 16:50:47 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int worder(t_token **head, char *input, int pipe, int i)
+int worder(t_data *data, char *input, int pipe, int i)
 {
 	char *str;
 	char **tab;
@@ -36,22 +36,20 @@ int worder(t_token **head, char *input, int pipe, int i)
 	if (str)
 	{
 		tab = ft_split(str, ' ');
-		word_token(tab, head);
+		word_token(tab, data);
 	}
 	return (i);
 }
 
-void	word_token(char **tab, t_token **head)
+void	word_token(char **tab, t_data *data)
 {
 	int	k;
 	int	i;
-	int	inq;
 	int	index;
 	char *str;
 	
 	i = -1;
 	k = 0;
-	inq = 0;
 	index = 0;
 	str = NULL;
 	while (tab[++i])
@@ -59,46 +57,39 @@ void	word_token(char **tab, t_token **head)
 		while (tab[i][k] != '"' || tab[i][k] != '\'')
 			k++;
 		str = ft_substr(tab[i], index, k);
-		if (str)
-			add_token(head, WORD, str);
+		add_token(&data->head, WORD, str);
 		str = NULL;
+		index = k + 1;
 		if (tab[i][k] == '\'')
-		{
-			index = k + 1;
 			while (tab[i][k] != '\'')
 				k++;
-		}
 		else if (tab[i][k] == '"')
-		{
-			index = k + 1;
 			while (tab[i][k] != '"')
 				k++;
-		}
 		str = ft_substr(tab[i], index, k - index);
-		if (str)
-			add_token(head, WORD, str);
+		add_token(&data->head, WORD, str);
 	}
 }
 
-void	isredirect(t_token **head, char *input, int *i)
+void	isredirect(t_data *data, char *input, int *i)
 {
 	if (input[*i] == '<')
 	{
 		if (input[++*i] == '<')
-			add_token(head, HERE_DOC, "<<");
+			add_token(&data->head, HERE_DOC, "<<");
 		else
-			add_token(head, REDIR_IN, "<");
+			add_token(&data->head, REDIR_IN, "<");
 	}
 	else if (input[*i] == '>')
 	{
 		if (input[++*i] == '>')
-			add_token(head, APPEND, ">>");
+			add_token(&data->head, APPEND, ">>");
 		else
-			add_token(head, REDIR_OUT, ">");
+			add_token(&data->head, REDIR_OUT, ">");
 	}	
 }
 
-int	tokenizer(t_token **head, t_data *data, char *input)
+int	tokenizer(t_data *data, char *input)
 {
 	int	i;
 	int	j;
@@ -108,17 +99,17 @@ int	tokenizer(t_token **head, t_data *data, char *input)
 	j = 0;
 	pipe = 0;
 	if (check_input(input, data))
-		return(g_var = 2, 2);
+		return(g_var = 2);
 	while (input[i])
 	{
 		if (input[i] == '<' || input[i] == '>')
-			isredirect(head, input, &i);
+			isredirect(data, input, &i);
 		else if (input[i] == '|')
 		{
-			add_token(head, PIPE, "|");
+			add_token(&data->head, PIPE, "|");
 			pipe = i + 1;
 		}
-		i = worder(head, input, pipe, i);
+		i = worder(data, input, pipe, i);
 	}
 	return (0);
 }
