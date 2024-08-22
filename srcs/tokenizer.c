@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/22 22:00:15 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/22 22:16:15 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int worder(t_data *data, char *input, int pipe, int i)
 		while (input[pipe] != '|' && input[pipe] != '>' && input[pipe] != '<' && input[pipe])
 			str[j++] = input[pipe++];
 		i = pipe;
+		pipe = 0;
 	}
 	else if (!pipe)
 		while (input[i] != '|' && input[i] != '>' && input[i] != '<' && input[i])
@@ -75,9 +76,7 @@ void	word_token(char **tab, t_data *data)
 			free_array(str);
 		}
 		if ((tab[i][k] == '"' || tab[i][k] == '\'') && tab[i][k])
-		{
 			inquoteword(data, (tab + i), index, k);
-		}
 	}
 }
 
@@ -118,6 +117,7 @@ int	tokenizer(t_data *data, char *input)
 		return(g_var = 2);
 	while (input[i])
 	{
+		pipe = 0;
 		if (input[i] == '<' || input[i] == '>')
 			isredirect(data, input, &i);
 		else if (input[i] == '|')
