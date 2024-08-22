@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/21 20:02:33 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/22 16:26:10 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,18 @@ void	word_token(char **tab, t_token **head)
 	}
 }
 
-void	isredirect(t_token **head, char *input)
+void	isredirect(t_token **head, char *input, int *i)
 {
-	int	i;
-
-	i = 0;
-	if (input[i] == '<')
+	if (input[*i] == '<')
 	{
-		if (input[i + 1] == '<')
+		if (input[++*i] == '<')
 			add_token(head, HERE_DOC, "<<");
 		else
 			add_token(head, REDIR_IN, "<");
 	}
-	else if (input[i] == '>')
+	else if (input[*i] == '>')
 	{
-		if (input[i + 1] == '>')
+		if (input[++*i] == '>')
 			add_token(head, APPEND, ">>");
 		else
 			add_token(head, REDIR_OUT, ">");
@@ -115,14 +112,13 @@ int	tokenizer(t_token **head, t_data *data, char *input)
 	while (input[i])
 	{
 		if (input[i] == '<' || input[i] == '>')
-			isredirect(head, input + i);
+			isredirect(head, input, &i);
 		else if (input[i] == '|')
 		{
 			add_token(head, PIPE, "|");
 			pipe = i + 1;
 		}
-		else
-			i = worder(head, input, pipe, i);
+		i = worder(head, input, pipe, i);
 	}
 	return (0);
 }
