@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:47:15 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/21 16:42:20 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/22 17:22:29 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,20 @@ int	is_space(char c)
 
 int	inquotes(char c, int i)
 {
-	if ((c == '"' || c == '\'') && !i)
+	int dq;
+	int sq;
+
+	dq = 0;
+	sq = 0;
+	if (c == '"' && !i && !sq)
+	{
 		i = 1;
-	else if ((c == '"' || c == '\'') && i)
+		dq = 1;
+	}
+	else if (c == '"' && i && !sq)
+	{
 		i = 0;
+		dq = 0;
+	}
 	return (i);
 }
