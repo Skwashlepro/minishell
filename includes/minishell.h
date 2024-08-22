@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/22 16:45:28 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/22 19:13:30 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ long	ft_atol(char **nb);
 void	word_token(char **tab, t_data *data);
 int		tokenizer(t_data *data, char *input);
 void	add_token(t_token **token_head, t_token_type type, char *str);
+void	free_array(char *str);
 
 #endif

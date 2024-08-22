@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/22 16:44:17 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/22 20:12:36 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ void	loop_prog(t_data *data)
 		if (!data->prompt)
 			break ;
 		tokenizer(data, data->prompt);
+		while (data->head)
+		{
+			printf("string: %s\ntype: %u\n", data->head->str, data->head->type);
+			printf("\n----------------------------------------\n");
+			data->head = data->head->next;
+		}
 	}
 }
 

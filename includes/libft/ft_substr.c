@@ -6,11 +6,12 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:37:38 by luctan            #+#    #+#             */
-/*   Updated: 2023/11/13 18:37:34 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/22 19:21:37 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "../minishell.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
