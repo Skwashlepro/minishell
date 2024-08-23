@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:47:15 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/22 17:22:29 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/23 19:02:59 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_exit(char *str)
 
 	i = 0;
 	if (i > 2)
-		return ((void) !printf("minishell: exit: too many arguments\n"));
+		return ((void)!printf("minishell: exit: too many arguments\n"));
 	args = ft_split(str, ' ');
 	while (args[i])
 		i++;
@@ -67,20 +67,25 @@ int	is_space(char c)
 
 int	inquotes(char c, int i)
 {
-	int dq;
-	int sq;
+	static int	dq = 0;
+	static int	sq = 0;
 
-	dq = 0;
-	sq = 0;
-	if (c == '"' && !i && !sq)
-	{
-		i = 1;
-		dq = 1;
-	}
-	else if (c == '"' && i && !sq)
-	{
-		i = 0;
-		dq = 0;
-	}
+	if (c == '"' && !sq)
+		dq = !dq;
+	else if (c == '\'' && !dq)
+		sq = !sq;
+	i = (dq || sq);
 	return (i);
+}
+
+void	char_redir(char *str, int *redir_out, int *redir)
+{
+	if (*str == '<')
+		redir++;
+	else if (*str == '>')
+		redir_out++;
+	else if (ft_isalnum(*str) && *redir <= 2 && !*redir_out)
+		redir = 0;
+	else if (ft_isalnum(*str) && *redir_out <= 2 && !*redir)
+		redir_out = 0;
 }

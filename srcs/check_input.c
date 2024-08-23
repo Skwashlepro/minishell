@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/21 15:32:09 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/23 19:02:01 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	check_metachar(char *str)
 				pipe = true;
 			else if (ft_strchr("()&", *str) || (*str == '|' && pipe))
 				return (1);
-			else if (ft_isalpha(*str) && pipe)
+			else if (ft_isalnum(*str) && pipe)
 				pipe = false;
 			str++;
 		}
@@ -70,13 +70,41 @@ int	check_metachar(char *str)
 	return (pipe);
 }
 
+int	check_redir(char *str)
+{
+	int	redir;
+	int	redir_out;
+	int	i;
+
+	redir = 0;
+	redir_out = 0;
+	i = 0;
+	while (*str)
+	{
+		if (!inquotes(*str, i))
+		{
+			char_redir(str, &redir_out, &redir);
+			str++;
+		}
+		else
+		{
+			if (redir && !is_space(*str))
+				redir = 0;
+			else if (redir_out && !is_space(*str))
+				redir_out = 0;
+			str++;
+		}
+	}
+	return (redir || redir_out);
+}
+
 int	check_input(char *str, t_data *data)
 {
 	while (*str && is_space(*str))
 		str++;
 	if (check_quotes(str) != 'N')
 		return (ft_putstr_fd("syntax error unclosed quotes\n", 2), 1);
-	if (check_metachar(str))
+	if (check_metachar(str) || check_redir(str))
 		return (ft_putstr_fd("minishell: syntax error near unexpected token\n",
 				2), 1);
 	if (ft_strncmp(str, "exit\n", 4) == 0)

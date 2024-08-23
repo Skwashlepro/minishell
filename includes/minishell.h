@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/22 19:13:30 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/23 19:02:17 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef enum s_token_type
 	APPEND,
 	LIMITER,
 	ENV_VAR,
+
 }	t_token_type;
 
 typedef struct s_token
@@ -73,5 +74,6 @@ void	word_token(char **tab, t_data *data);
 int		tokenizer(t_data *data, char *input);
 void	add_token(t_token **token_head, t_token_type type, char *str);
 void	free_array(char *str);
+void	char_redir(char *str, int *redir_out, int *redir);
 
 #endif

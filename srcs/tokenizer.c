@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/22 22:16:15 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/23 18:23:49 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	tokenizer(t_data *data, char *input)
 	j = 0;
 	pipe = 0;
 	if (check_input(input, data))
-		return(g_var = 2);
+		return (2);
 	while (input[i])
 	{
 		pipe = 0;
