@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:47:15 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/23 19:02:59 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/24 11:09:14 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ int	inquotes(char c, int i)
 void	char_redir(char *str, int *redir_out, int *redir)
 {
 	if (*str == '<')
-		redir++;
+		(*redir)++;
 	else if (*str == '>')
-		redir_out++;
+		(*redir_out)++;
 	else if (ft_isalnum(*str) && *redir <= 2 && !*redir_out)
-		redir = 0;
+		*redir = 0;
 	else if (ft_isalnum(*str) && *redir_out <= 2 && !*redir)
-		redir_out = 0;
+		*redir_out = 0;
 }

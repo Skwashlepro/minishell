@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/23 18:23:49 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/24 11:08:09 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	inquoteword(t_data *data, char **tab, int index, int k)
 	int	i;
 
 	i = 0;
-	str = NULL; 
+	str = NULL;
 	if (tab[i][k] == '\'' && tab[i][k])
 		while (tab[i][++k] != '\'' && tab[i][k])
 			k++;
@@ -107,11 +107,9 @@ void	isredirect(t_data *data, char *input, int *i)
 int	tokenizer(t_data *data, char *input)
 {
 	int	i;
-	int	j;
 	int pipe;
 
 	i = 0;
-	j = 0;
 	pipe = 0;
 	if (check_input(input, data))
 		return (2);
