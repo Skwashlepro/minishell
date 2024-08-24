@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:37:38 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/22 19:21:37 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/24 04:49:03 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "../minishell.h"
+// #include "../minishell.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
