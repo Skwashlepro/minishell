@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/23 19:02:01 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/24 11:38:03 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ int	check_redir(char *str)
 	i = 0;
 	while (*str)
 	{
-		if (!inquotes(*str, i))
+		i = inquotes(*str, i);
+		if (!i)
 		{
 			char_redir(str, &redir_out, &redir);
 			str++;
