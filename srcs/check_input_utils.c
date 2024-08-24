@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:47:15 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/24 11:36:53 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/24 11:48:40 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int	is_space(char c)
 
 int	inquotes(char c, int i)
 {
-	int	dq = 0;
-	int	sq = 0;
+	static int	dq = 0;
+	static int	sq = 0;
 
 	if (c == '"' && !sq)
 		dq = !dq;
