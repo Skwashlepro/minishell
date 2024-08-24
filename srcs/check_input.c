@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/24 11:47:54 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/24 14:18:01 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,18 @@ int	check_redir(char *str)
 	{
 		if (!inquotes(*str, i))
 		{
+			if(((*str == '<' || *str) && is_space(*(str - 1)) && (redir || redir_out)))
+				return (1);
 			char_redir(str, &redir_out, &redir);
-			str++;
 		}
 		else
 		{
-			if (redir && !is_space(*str))
+			if (redir && !is_space(*str) && redir <= 2 && !redir_out)
 				redir = 0;
-			else if (redir_out && !is_space(*str))
+			else if (redir_out && !is_space(*str) && redir_out <= 2 && !redir)
 				redir_out = 0;
-			str++;
 		}
+		str++;
 	}
 	return (redir || redir_out);
 }
