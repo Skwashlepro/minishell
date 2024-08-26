@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/26 04:10:34 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/26 04:22:57 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,27 @@ int worder(t_data *data, char *input, int pipe, int i)
 	char *str;
 	char **tab;
 	int	j;
+	int inq;
 
 	j = 0;
+	inq = 0;
 	str = malloc(sizeof(char) * (ft_strlen(input) + 1));
+	if (ft_strchr("\'\"", input[i]))
+		inq = 1;
 	if (pipe)
 	{
-		while (input[pipe] != '|' && input[pipe] != '>' && input[pipe] != '<' && input[pipe])
+		while (!ft_strchr("<|>", input[i]) && inq && input[pipe])
 			str[j++] = input[pipe++];
 		i = pipe;
 		pipe = 0;
 	}
 	else if (!pipe)
-		while (input[i] != '|' && input[i] != '>' && input[i] != '<' && input[i])
+		while (!ft_strchr("<|>", input[i]) && inq && input[i])
 			str[j++] = input[i++];
 	str[j] = '\0';
 	tab = ft_split(str, ' ');
 	word_token(tab, data);
+	free_array(str);
 	return (i);
 }
 
@@ -72,6 +77,8 @@ void	word_token(char **tab, t_data *data)
 		str = ft_substr(tab[i], index, k - (index));
 		add_token(&data->head, WORD, str);
 	}
+	free_tab(tab);
+	free_array(str);
 }
 
 void	isredirect(t_data *data, char *input, int *i)
@@ -110,14 +117,18 @@ int	tokenizer(t_data *data, char *input)
 	while (input[i])
 	{
 		pipe = 0;
-		if (input[i] == '<' || input[i] == '>')
-			isredirect(data, input, &i);
-		else if (input[i] == '|')
+		if (ft_strchr("<|>", input[i]))
 		{
-			add_token(&data->head, PIPE, "|");
-			pipe = ++i;
+			if (input[i] == '<' || input[i] == '>')
+				isredirect(data, input, &i);
+			else if (input[i] == '|')
+			{
+				add_token(&data->head, PIPE, "|");
+				pipe = ++i;
+			}
 		}
-		i = worder(data, input, pipe, i);
+		else if (!ft_strchr("<|>", input[i]))
+			i = worder(data, input, pipe, i);
 	}
 	return (0);
 }
