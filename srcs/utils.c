@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 03:51:40 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/22 19:13:33 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/26 19:06:55 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,24 @@ long	ft_atol(char **nb)
 		n = n * 10 + (nb[1][i++] - '0');
 	}
 	return (n * sign);
+}
+
+int	redirection_input(char *s, int in, int out)
+{
+	static int	redir = 0;
+
+	if (((ft_strchr("<>", *s)) && is_space(*(s - 1)) && (in || out)))
+		return (1);
+	if (*s == '|' && ((out == 2 || in)))
+		return (1);
+	if (*s == '>')
+	{
+		redir = 1;
+		s++;
+		while (*s && is_space(*s))
+			s++;
+		if (*s && *s == '|' && is_space(*(s - 1)) && redir)
+			return (1);
+	}
+	return (0);
 }

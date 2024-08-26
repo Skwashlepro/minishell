@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/26 18:07:07 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/26 18:59:07 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	check_metachar(char *str)
 				pipe = true;
 			else if (ft_strchr("()&", *str) || (*str == '|' && pipe))
 				return (1);
-			else if (pipe)
+			else if (!is_space(*str) && pipe)
 				pipe = false;
 			str++;
 		}
@@ -83,9 +83,7 @@ int	check_redir(char *s)
 	{
 		if (!inquotes(*s, i) && *s)
 		{
-			if (((ft_strchr("<>", *s)) && is_space(*(s - 1)) && (in || out)))
-				return (1);
-			if (*s == '|' && ((out == 2 || in)))
+			if (redirection_input(s, in, out))
 				return (1);
 			char_redir(s, &out, &in);
 		}
