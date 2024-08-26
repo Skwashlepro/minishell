@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/26 03:59:19 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/26 04:08:23 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	inquoteword(t_data *data, char **tab, int index, int *k)
 	else if (tab[i][*k] == '"' && tab[i][*k])
 		while (tab[i][++*k] != '"' && tab[i][*k])
 			++*k;
-		str = ft_substr(tab[i], index, *k - (index));
+	str = ft_substr(tab[i], index, *k - (index));
 	add_token(&data->head, WORD, str);
 }
 
@@ -57,29 +57,17 @@ void	word_token(char **tab, t_data *data)
 {
 	int		k;
 	int		i;
-	char	*str;
 	int		index;
 
-	i = -1;
 	index = 0;
-	str = NULL;
+	i = -1;
+	k = 0;
 	while (tab[++i])
 	{
 		k = 0;
-		while (tab[i][k])
-		{
-			index = k;
-			if (tab[i][k] != '"' && tab[i][k] != '\'' && tab[i][k])
-			{
-				while ((tab[i][k] != '"' && tab[i][k] != '\'') && tab[i][k])
-					k++;
-				str = ft_substr(tab[i], index, k);
-				add_token(&data->head, WORD, str);
-				free_array(str);
-			}
-			else if ((tab[i][k] == '"' || tab[i][k] == '\'') && tab[i][k])
-				inquoteword(data, (tab + i), index, &k);
-		}
+		while (!ft_strchr("<|>", tab[i][k]))
+			k++;
+		inquoteword(data, (tab + i), index, &k);
 	}
 }
 
