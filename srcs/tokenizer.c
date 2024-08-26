@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/26 04:08:23 by luctan           ###   ########.fr       */
+/*   Updated: 2024/08/26 04:10:34 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,38 +36,41 @@ int worder(t_data *data, char *input, int pipe, int i)
 	return (i);
 }
 
-void	inquoteword(t_data *data, char **tab, int index, int *k)
-{
-	char *str;
-	int	i;
+// void	inquoteword(t_data *data, char **tab, int index, int *k)
+// {
+// 	char *str;
+// 	int	i;
 
-	i = 0;
-	str = NULL;
-	if (tab[i][*k] == '\'' && tab[i][*k])
-		while (tab[i][++*k] != '\'' && tab[i][*k])
-			++*k;
-	else if (tab[i][*k] == '"' && tab[i][*k])
-		while (tab[i][++*k] != '"' && tab[i][*k])
-			++*k;
-	str = ft_substr(tab[i], index, *k - (index));
-	add_token(&data->head, WORD, str);
-}
+// 	i = 0;
+// 	str = NULL;
+// 	if (tab[i][*k] == '\'' && tab[i][*k])
+// 		while (tab[i][++*k] != '\'' && tab[i][*k])
+// 			++*k;
+// 	else if (tab[i][*k] == '"' && tab[i][*k])
+// 		while (tab[i][++*k] != '"' && tab[i][*k])
+// 			++*k;
+// 	str = ft_substr(tab[i], index, *k - (index));
+// 	add_token(&data->head, WORD, str);
+// }
 
 void	word_token(char **tab, t_data *data)
 {
 	int		k;
 	int		i;
 	int		index;
+	char	*str;
 
 	index = 0;
 	i = -1;
 	k = 0;
+	str = 0;
 	while (tab[++i])
 	{
 		k = 0;
 		while (!ft_strchr("<|>", tab[i][k]))
 			k++;
-		inquoteword(data, (tab + i), index, &k);
+		str = ft_substr(tab[i], index, k - (index));
+		add_token(&data->head, WORD, str);
 	}
 }
 
