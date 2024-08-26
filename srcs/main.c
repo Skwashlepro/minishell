@@ -6,13 +6,35 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/24 10:58:06 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/26 16:11:07 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int		g_var = 0;
+
+void print_node(char *str, int type)
+{
+	printf("\n----------------------------------------\n");
+	printf("string: %s\n", str);
+    switch(type) 
+	{
+        case 0: printf("type: CMD\n"); break;
+        case 1: printf("type: ARG\n"); break;
+        case 2: printf("type: WORD\n"); break;
+        case 3: printf("type: PIPE\n"); break;
+        case 4: printf("type: INFILE\n"); break;
+        case 5: printf("type: OUFILE\n"); break;
+        case 6: printf("type: REDIR_IN\n"); break;
+        case 7: printf("type: REDIR_OUT\n"); break;
+        case 8: printf("type: HERE_DOC\n"); break;
+        case 9: printf("type: APPEND\n"); break;
+        case 10: printf("type: LIMITER\n"); break;
+        case 11: printf("type: ENV_VAR\n"); break;
+	}
+	printf("----------------------------------------\n");
+}
 
 char	*prompter(void)
 {
@@ -39,8 +61,7 @@ void	loop_prog(t_data *data)
 		tokenizer(data, data->prompt);
 		while (data->head)
 		{
-			printf("string: %s\ntype: %u\n", data->head->str, data->head->type);
-			printf("\n----------------------------------------\n");
+			print_node(data->head->str, data->head->type);
 			data->head = data->head->next;
 		}
 	}

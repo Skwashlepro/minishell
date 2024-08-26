@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/24 04:56:12 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/26 17:34:55 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,23 @@ typedef struct s_token
 	struct s_token	*prev;
 }	t_token;
 
+typedef struct s_env
+{
+	char *name;
+	struct s_env *next;
+	struct s_env *prev;
+}	t_env;
+
 typedef struct s_data
 {
 	char	**env;
 	char	*prompt;
 	t_token	*head;
+	t_env	*get_env;
 
 }	t_data;
+
+
 
 int		check_input(char *str, t_data *data);
 void	print_env(t_data *data);

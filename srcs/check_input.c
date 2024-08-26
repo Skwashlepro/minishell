@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/24 14:18:01 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/26 18:07:07 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	check_metachar(char *str)
 				pipe = true;
 			else if (ft_strchr("()&", *str) || (*str == '|' && pipe))
 				return (1);
-			else if (ft_isalnum(*str) && pipe)
+			else if (pipe)
 				pipe = false;
 			str++;
 		}
@@ -70,33 +70,35 @@ int	check_metachar(char *str)
 	return (pipe);
 }
 
-int	check_redir(char *str)
+int	check_redir(char *s)
 {
-	int	redir;
-	int	redir_out;
+	int	in;
+	int	out;
 	int	i;
 
-	redir = 0;
-	redir_out = 0;
+	in = 0;
+	out = 0;
 	i = 0;
-	while (*str)
+	while (*s)
 	{
-		if (!inquotes(*str, i))
+		if (!inquotes(*s, i) && *s)
 		{
-			if(((*str == '<' || *str) && is_space(*(str - 1)) && (redir || redir_out)))
+			if (((ft_strchr("<>", *s)) && is_space(*(s - 1)) && (in || out)))
 				return (1);
-			char_redir(str, &redir_out, &redir);
+			if (*s == '|' && ((out == 2 || in)))
+				return (1);
+			char_redir(s, &out, &in);
 		}
 		else
 		{
-			if (redir && !is_space(*str) && redir <= 2 && !redir_out)
-				redir = 0;
-			else if (redir_out && !is_space(*str) && redir_out <= 2 && !redir)
-				redir_out = 0;
+			if (in && !is_space(*s) && in <= 2 && !out)
+				in = 0;
+			else if (out && !is_space(*s) && out <= 2 && !in)
+				out = 0;
 		}
-		str++;
+		s++;
 	}
-	return (redir || redir_out);
+	return (in || out);
 }
 
 int	check_input(char *str, t_data *data)
