@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 18:30:51 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/21 15:17:30 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/27 14:55:42 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	ft_signal(void)
 	memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = inthandler;
 	if (sigaction(SIGINT, &sa, NULL) == -1)
-		error_msg("SIGINT");
+		error_msg("SIGINT\n");
 	sa.sa_handler = SIG_IGN;
 	if (sigaction(SIGQUIT, &sa, NULL) == -1)
-		error_msg("SIGQUIT");
+		error_msg("SIGQUIT\n");
 }

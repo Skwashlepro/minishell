@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/26 19:15:13 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/27 18:16:06 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	init_data(&data);
 	init_env(&data, envp, ac);
+	get_env(&data);
 	loop_prog(&data);
 	return (0);
 }
