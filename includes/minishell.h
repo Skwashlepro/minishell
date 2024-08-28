@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/27 18:15:30 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/28 16:19:28 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef enum s_token_type
 	APPEND,
 	LIMITER,
 	ENV_VAR,
-
 }	t_token_type;
 
 typedef struct s_token
@@ -54,9 +53,10 @@ typedef struct s_token
 
 typedef struct s_env
 {
-	char *key;
-	char *value;
-	struct s_env *next;
+	char			*key;
+	char			*value;
+	int				equal;
+	struct s_env	*next;
 }	t_env;
 
 typedef struct s_data
@@ -67,8 +67,6 @@ typedef struct s_data
 	t_env	*get_env;
 
 }	t_data;
-
-
 
 int		check_input(char *str, t_data *data);
 void	print_env(t_data *data);
@@ -87,5 +85,6 @@ void	free_array(char *str);
 void	char_redir(char *str, int *redir_out, int *redir);
 int		redirection_input(char *s, int in, int out);
 void	get_env(t_data *data);
+t_env	*lst_env(t_env *env);
 
 #endif

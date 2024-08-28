@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:47:15 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/26 18:01:44 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/28 19:11:46 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_exit(char *str)
 
 	i = 0;
 	if (i > 2)
-		return ((void)!printf("minishell: exit: too many arguments\n"));
+		return ((void) !printf("minishell: exit: too many arguments\n"));
 	args = ft_split(str, ' ');
 	while (args[i])
 		i++;

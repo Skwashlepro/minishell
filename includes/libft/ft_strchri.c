@@ -6,13 +6,13 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 17:08:46 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/27 18:33:56 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/28 19:09:01 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_strchri(const char *s, int c)
+int	ft_strchri(const char *s, int c)
 {
 	int	i;
 	int	len;
