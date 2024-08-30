@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/28 16:19:28 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/30 20:21:45 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,9 @@ void	add_token(t_token **token_head, t_token_type type, char *str);
 void	free_array(char *str);
 void	char_redir(char *str, int *redir_out, int *redir);
 int		redirection_input(char *s, int in, int out);
-void	get_env(t_data *data);
+void	copy_env(t_data *data);
 t_env	*lst_env(t_env *env);
+void	ft_clean(t_data *data);
+int		lst_size(t_env *lst);
 
 #endif

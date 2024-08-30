@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/28 19:11:09 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/30 19:42:57 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		g_var = 0;
 char	*prompter(void)
 {
 	char	*input;
-
+	
 	input = readline("minishell$ ");
 	if (input == NULL)
 		return (NULL);
@@ -56,9 +56,10 @@ void	loop_prog(t_data *data)
 	while (1)
 	{
 		data->prompt = prompter();
-		if (!data->prompt)
+		if (!*data->prompt || !data->prompt)
 			break ;
 		tokenizer(data, data->prompt);
+		ft_clean(data);
 		// while (data->head)
 		// {
 		// 	print_node(data->head->str, data->head->type);
@@ -74,7 +75,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	init_data(&data);
 	init_env(&data, envp, ac);
-	get_env(&data);
+	copy_env(&data);
 	loop_prog(&data);
 	return (0);
 }

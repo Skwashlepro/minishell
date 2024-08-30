@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:33:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/28 18:27:26 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/08/30 20:27:19 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	init_env(t_data *data, char **envp, int ac)
 	i = 0;
 	while (envp[i])
 		i++;
-	data->env = malloc(sizeof(char **) * (i + 1));
+	data->env = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!data->env)
 		exit(1);
 	i = -1;

@@ -16,6 +16,7 @@ SRC_FILES	=	main \
 				tokenizer \
 				token_utils \
 				env_utils \
+				clean \
 
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 
