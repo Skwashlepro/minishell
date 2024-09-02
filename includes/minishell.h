@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/30 20:21:45 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/02 13:54:05 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	init_env(t_data *data, char **envp, int ac);
 void	init_data(t_data *data);
 int		is_space(char c);
 int		inquotes(char c, int i);
-void	ft_exit(char *str);
+void	ft_exit(char *str, t_data *data);
 void	free_tab(char **str);
 long	ft_atol(char **nb);
 void	word_token(char **tab, t_data *data);
@@ -88,5 +88,7 @@ void	copy_env(t_data *data);
 t_env	*lst_env(t_env *env);
 void	ft_clean(t_data *data);
 int		lst_size(t_env *lst);
+void	free_env(t_data **data);
+char	**env_to_tab(t_data *data);
 
 #endif

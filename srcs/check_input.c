@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/30 16:42:56 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/02 15:47:21 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	check_input(char *str, t_data *data)
 		return (ft_putstr_fd("minishell: syntax error near unexpected token\n",
 				2), 1);
 	if (ft_strncmp(str, "exit\n", 4) == 0)
-		ft_exit(str);
+		ft_exit(str, data);
 	if (ft_strnstr(str, "pwd", 3))
 		printf("%s\n", getenv("PWD"));
 	if (ft_strncmp(str, "env", 3) == 0)

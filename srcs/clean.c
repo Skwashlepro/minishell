@@ -6,42 +6,43 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:09:07 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/30 20:39:31 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/02 15:46:42 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void free_node(t_data **data)
+void	free_node(t_data **data)
 {
-    t_token *tmp;
+	t_token	*tmp;
 
-    while ((*data)->head)
-    {
-        tmp = (*data)->head->next;
-        free((*data)->head);
-        (*data)->head = tmp;
-    }
-    (*data)->head = NULL;
+	while ((*data)->head)
+	{
+		tmp = (*data)->head->next;
+		free((*data)->head);
+		(*data)->head = tmp;
+	}
+	(*data)->head = NULL;
 }
 
-void free_env(t_data **data)
+void	free_env(t_data **data)
 {
-    t_env *tmp;
+	t_env	*tmp;
 
-    while((*data)->get_env)
-    {
-        tmp = (*data)->get_env->next;
-        free((*data)->get_env);
-        (*data)->get_env = tmp;
-    }
-    (*data)->get_env = NULL;
+	while ((*data)->get_env)
+	{
+		tmp = (*data)->get_env->next;
+		free((*data)->get_env);
+		(*data)->get_env = tmp;
+	}
+	(*data)->get_env = NULL;
 }
 
-void ft_clean(t_data *data)
+void	ft_clean(t_data *data)
 {
-    free(data->prompt);
-    free(data->env);
-    free_env(&data);
-    free_node(&data);
+	if (data->prompt)
+		free(data->prompt);
+	free(data->env);
+	// free_env(&data);
+	free_node(&data);
 }

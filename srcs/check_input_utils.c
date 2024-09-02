@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:47:15 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/30 16:53:18 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/02 15:47:25 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	nb_check(char *str)
 	return (error);
 }
 
-void	ft_exit(char *str)
+void	ft_exit(char *str, t_data *data)
 {
 	char	**args;
 	int		i;
@@ -41,23 +41,26 @@ void	ft_exit(char *str)
 
 	i = 0;
 	if (i > 2)
-		return ((void) !printf("minishell: exit: too many arguments\n"));
+		return ((void)!printf("minishell: exit: too many arguments\n"));
 	args = ft_split(str, ' ');
 	while (args[i])
 		i++;
 	if ((i == 2 && !nb_check(args[1])))
 		return (printf("minishell: exit: %s: numeric argument required\n",
-				args[1]), free_tab(args), exit(2));
+				args[1]), free_tab(args), free_env(&data), ft_clean(data),
+			free(data), exit(2));
 	else if (i == 2)
 	{
 		nb = ft_atol(args);
 		while (nb < 0)
 			nb += 256;
 		free_tab(args);
-		return (printf("exit\n"), exit((int)nb));
+		return (ft_clean(data), free_env(&data), printf("exit\n"), free(data),
+			exit((int)nb));
 	}
 	else
-		return (free_tab(args), printf("exit\n"), exit(0));
+		return (free_tab(args), free_env(&data), ft_clean(data),
+			printf("exit\n"), free(data), exit(0));
 }
 
 int	is_space(char c)
