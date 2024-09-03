@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:47:15 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/02 15:47:25 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/03 14:44:06 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,17 @@ void	ft_exit(char *str, t_data *data)
 	if ((i == 2 && !nb_check(args[1])))
 		return (printf("minishell: exit: %s: numeric argument required\n",
 				args[1]), free_tab(args), free_env(&data), ft_clean(data),
-			free(data), exit(2));
+			exit(2));
 	else if (i == 2)
 	{
 		nb = ft_atol(args);
 		while (nb < 0)
 			nb += 256;
 		free_tab(args);
-		return (ft_clean(data), free_env(&data), printf("exit\n"), free(data),
-			exit((int)nb));
+		return (free_env(&data), ft_clean(data), exit((int)nb));
 	}
 	else
-		return (free_tab(args), free_env(&data), ft_clean(data),
-			printf("exit\n"), free(data), exit(0));
+		return (free_tab(args), free_env(&data), ft_clean(data), exit(0));
 }
 
 int	is_space(char c)

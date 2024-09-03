@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:42:55 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/02 16:03:32 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/03 14:24:44 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	copy_env(t_data *data)
 
 char	**env_to_tab(t_data *data)
 {
-	t_env	*cp;
+	t_env	*copy;
 	char	**tab;
 	int		i;
 
@@ -88,13 +88,13 @@ char	**env_to_tab(t_data *data)
 	tab = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!tab)
 		return (NULL);
-	cp = data->get_env;
+	copy = data->get_env;
 	i = 0;
-	while (cp)
+	while (copy)
 	{
-		tab[i] = ft_strjoin(cp->key, "=");
-		tab[i] = ft_strjoin(tab[i], cp->value);
-		cp = cp->next;
+		tab[i] = ft_strjoin(copy->key, "=");
+		tab[i] = ft_strjoin(tab[i], copy->value);
+		copy = copy->next;
 		i++;
 	}
 	tab[i] = NULL;

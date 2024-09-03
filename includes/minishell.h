@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/02 13:54:05 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/03 15:06:50 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		inquotes(char c, int i);
 void	ft_exit(char *str, t_data *data);
 void	free_tab(char **str);
 long	ft_atol(char **nb);
-void	word_token(char **tab, t_data *data);
+// void	word_token(char **tab, t_data *data);
 int		tokenizer(t_data *data, char *input);
 void	add_token(t_token **token_head, t_token_type type, char *str);
 void	free_array(char *str);

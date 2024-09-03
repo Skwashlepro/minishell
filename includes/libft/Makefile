@@ -38,6 +38,7 @@ SRC_FILES	=ft_atoi \
 			ft_striteri	\
 			ft_strmapi \
 			ft_strchri \
+			is_sep \
 
 SRC_BFILES	= ft_lstadd_back \
 			ft_lstadd_front \
