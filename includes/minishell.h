@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/03 15:06:50 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/04 13:07:22 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_env
 
 typedef struct s_data
 {
+	char	cquote;
 	char	**env;
 	char	*prompt;
 	t_token	*head;

@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:33:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/02 18:19:40 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/04 13:45:51 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_data(t_data *data)
 	data->prompt = NULL;
 	data->head = NULL;
 	data->get_env = NULL;
+	data->cquote = 'N';
 }
 
 void	print_env(t_data *data)

@@ -6,117 +6,59 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/03 20:04:05 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/04 15:36:35 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int	worder(t_data *data, char *input, int pipe, int i)
-// {
-// 	char	*str;
-// 	char	**tab;
-// 	int		j;
-
-// 	j = 0;
-// 	str = malloc(sizeof(char) * (ft_strlen(input) + 1));
-// 	if (pipe)
-// 	{
-// 		while (input[pipe] != '|' && input[pipe] != '>' && input[pipe] != '<'
-// 			&& input[pipe])
-// 			str[j++] = input[pipe++];
-// 		i = pipe;
-// 		pipe = 0;
-// 	}
-// 	else if (!pipe)
-// 		while (input[i] != '|' && input[i] != '>' && input[i] != '<'
-// 			&& input[i])
-// 			str[j++] = input[i++];
-// 	str[j] = '\0';
-// 	tab = ft_split(str, ' ');
-// 	// if (tab[0] && (input[i] != '|' && input[i] != '>' && input[i] != '<'))
-// 	word_token(tab, data);
-// 	return (i);
-// }
-
-// void	inquoteword(t_data *data, char **tab, int index, int k)
-// {
-// 	char	*str;
-// 	int		i;
-
-// 	i = 0;
-// 	str = NULL;
-// 	if (tab[i][k] == '\'' && tab[i][k])
-// 		while (tab[i][++k] != '\'' && tab[i][k])
-// 			k++;
-// 	else if (tab[i][k] == '"' && tab[i][k])
-// 		while (tab[i][++k] != '"' && tab[i][k])
-// 			k++;
-// 	str = ft_substr(tab[i], index, k - index);
-// 	add_token(&data->head, WORD, str);
-// }
-
-// void	word_token(char **tab, t_data *data)
-// {
-// 	int		k;
-// 	int		i;
-// 	char	*str;
-// 	int		index;
-
-// 	i = -1;
-// 	index = 0;
-// 	str = NULL;
-// 	while (tab[++i])
-// 	{
-// 		k = 0;
-// 		if (tab[i][k] != '"' && tab[i][k] != '\'' && tab[i][k])
-// 		{
-// 			while ((tab[i][k] != '"' && tab[i][k] != '\'') && tab[i][k])
-// 				k++;
-// 			str = ft_substr(tab[i], index, k);
-// 			add_token(&data->head, WORD, str);
-// 			free_array(str);
-// 		}
-// 		if ((tab[i][k] == '"' || tab[i][k] == '\'') && tab[i][k])
-// 			inquoteword(data, (tab + i), index, k);
-// 	}
-// }
-
-int	wordinquote(char c)
+int	wordinquote(char c, t_data *data)
 {
-	static int	dq = 0;
-	static int	sq = 0;
-
-	if (c == '"' && !sq)
-		dq = !dq;
-	else if (c == '\'' && !dq)
-		sq = !sq;
-	return (dq || sq);
+	if (c == '"')
+	{
+		if (data->cquote == 'N')
+			data->cquote = c;
+		else if (data->cquote == c)
+			data->cquote = 'N';
+	}
+	else if (c == '\'')
+	{
+		if (data->cquote == 'N')
+			data->cquote = c;
+		else if (data->cquote == c)
+			data->cquote = 'N';
+	}
+	if (data->cquote == 'N')
+		return (0);
+	return (1);
 }
 
-int worder(t_data *data, char *str, int i, int quote)
+int	worder(t_data *data, char *str, int i)
 {
-	int j;
-	char *new;
+	int		j;
+	char	*new;
 
 	j = i;
 	new = NULL;
-	if (!quote)
-		while (str[i] && !is_sep(str[i]))
-			i++;
-	else if (quote)	
-		while (str[i])
-			i++;
-	if (((str[i] == '\0' || is_sep(str[i]) && !quote))) // pas termine
+	if (str[i] == '\'' || str[i] == '"')
+		i++;
+	while (str[i])
 	{
-		new = ft_substr(str, j, i);
+		wordinquote(str[i], data);
+		if (data->cquote != 'N')
+			i++;
+		else if (is_sep(str[i]) && data->cquote == 'N')
+			break ;
+		else
+			i++;
+	}
+	if (j != i)
+	{
+		new = ft_substr(str, j, i - j);
 		add_token(&data->head, WORD, new);
 	}
-	else if (str[i] && quote) // pas termine;
-	{
-		new = ft_substr(str, j, i);
-		add_token(&data->head, WORD, new);
-	}
+	if (str[i] && is_space(str[i]) && data->cquote == 'N')
+		i++;
 	return (i);
 }
 
@@ -155,7 +97,7 @@ int	tokenizer(t_data *data, char *input)
 		return (2);
 	while (input[i])
 	{
-		quote = wordinquote(input[i]);
+		quote = wordinquote(input[i], data);
 		if (ft_strchr("<|>", input[i]) && !quote)
 		{
 			if (input[i] == '<' || input[i] == '>')
@@ -167,7 +109,7 @@ int	tokenizer(t_data *data, char *input)
 			}
 		}
 		else
-			i = worder(data, input, i, quote);
+			i = worder(data, input, i);
 	}
 	return (0);
 }

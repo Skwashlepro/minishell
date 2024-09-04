@@ -6,16 +6,16 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:17:57 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/03 15:28:46 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/04 15:18:43 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 
 # define LIBFT_H
+# include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
 
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
@@ -50,8 +50,7 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);
-void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 int		ft_strchri(const char *s, int c);
-int     is_sep(int c);
-
+int		is_sep(int c);
 #endif
