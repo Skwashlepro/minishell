@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/04 15:40:22 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/06 15:48:05 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ int	main(int ac, char **av, char **envp)
 	loop_prog(&data);
 	ft_clean(&data);
 	clean_env(&data);
+	printf("exit\n");
 	return (0);
 }

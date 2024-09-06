@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 03:51:40 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/02 15:47:15 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/06 15:43:35 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,9 @@ long	ft_atol(char **nb)
 
 int	redirection_input(char *s, int in, int out)
 {
-	static int	redir = 0;
-
 	if (((ft_strchr("<>", *s)) && is_space(*(s - 1)) && (in || out)))
 		return (1);
-	if (*s == '|' && ((out == 2 || in)))
+	if (*s == '|' && ((out || in)))
 		return (1);
-	if (*s == '>')
-	{
-		redir = 1;
-		s++;
-		while (*s && is_space(*s))
-			s++;
-		if (*s && *s == '|' && is_space(*(s - 1)) && redir)
-			return (1);
-	}
 	return (0);
 }
