@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/04 15:36:35 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/06 20:09:43 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	worder(t_data *data, char *str, int i)
 	if (j != i)
 	{
 		new = ft_substr(str, j, i - j);
-		add_token(&data->head, WORD, new);
+		add_type_node(&data->head, new);
 	}
 	if (str[i] && is_space(str[i]) && data->cquote == 'N')
 		i++;
