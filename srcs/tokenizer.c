@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/06 20:09:43 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/07 20:32:23 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,23 @@ int	wordinquote(char c, t_data *data)
 {
 	if (c == '"')
 	{
-		if (data->cquote == 'N')
+		if (data->cquote == '\'')
+			return (1);
+		else if (data->cquote == 'N')
 			data->cquote = c;
 		else if (data->cquote == c)
 			data->cquote = 'N';
+		data->count++;
 	}
 	else if (c == '\'')
 	{
-		if (data->cquote == 'N')
+		if (data->cquote == '"')
+			return (1);
+		else if (data->cquote == 'N')
 			data->cquote = c;
 		else if (data->cquote == c)
 			data->cquote = 'N';
+		data->count++;
 	}
 	if (data->cquote == 'N')
 		return (0);
@@ -55,7 +61,8 @@ int	worder(t_data *data, char *str, int i)
 	if (j != i)
 	{
 		new = ft_substr(str, j, i - j);
-		add_type_node(&data->head, new);
+		add_token(&data->head, WORD, new);
+		data->count = 0;
 	}
 	if (str[i] && is_space(str[i]) && data->cquote == 'N')
 		i++;
@@ -68,21 +75,21 @@ void	isredirect(t_data *data, char *input, int *i)
 	{
 		if (input[++(*i)] == '<')
 		{
-			add_token(&data->head, HERE_DOC, "<<");
+			add_token(&data->head, REDIRECTION, "<<");
 			(*i)++;
 		}
 		else
-			add_token(&data->head, REDIR_IN, "<");
+			add_token(&data->head, REDIRECTION, "<");
 	}
 	else if (input[*i] == '>')
 	{
 		if (input[++(*i)] == '>')
 		{
-			add_token(&data->head, APPEND, ">>");
+			add_token(&data->head, REDIRECTION, ">>");
 			(*i)++;
 		}
 		else
-			add_token(&data->head, REDIR_OUT, ">");
+			add_token(&data->head, REDIRECTION, ">");
 	}
 }
 

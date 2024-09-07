@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 17:14:16 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/04 15:19:58 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/07 21:08:31 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@ t_token	*last_node(t_token *token)
 	while (tmp->next)
 		tmp = tmp->next;
 	return (tmp);
+}
+
+int	lst_size(t_env *lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
 }
 
 void	add_token(t_token **token_head, t_token_type type, char *str)
@@ -48,17 +61,4 @@ void	add_token(t_token **token_head, t_token_type type, char *str)
 		last_token->next = token;
 		token->prev = last_token;
 	}
-}
-
-int	lst_size(t_env *lst)
-{
-	int	i;
-
-	i = 0;
-	while (lst)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
 }

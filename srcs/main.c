@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/06 19:19:14 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/07 21:01:06 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,9 @@ void print_node(char *str, int type)
 	printf("string: %s\n", str);
     switch(type)
 	{
-        case 0: printf("type: CMD\n"); break ;
-        case 1: printf("type: ARG\n"); break ;
-        case 2: printf("type: WORD\n"); break ;
-        case 3: printf("type: PIPE\n"); break ;
-        case 4: printf("type: INFILE\n"); break ;
-        case 5: printf("type: OUFILE\n"); break ;
-        case 6: printf("type: REDIR_IN\n"); break ;
-        case 7: printf("type: REDIR_OUT\n"); break ;
-        case 8: printf("type: HERE_DOC\n"); break ;
-        case 9: printf("type: APPEND\n"); break ;
-        case 10: printf("type: LIMITER\n"); break ;
-        case 11: printf("type: ENV_VAR\n"); break ;
+        case 0: printf("type: WORD\n"); break ;
+        case 1: printf("type: PIPE\n"); break ;
+        case 2: printf("type: REDIRECTION\n"); break ;
 	}
 	printf("----------------------------------------\n");
 }

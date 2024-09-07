@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:42:55 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/04 15:40:14 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/07 18:14:39 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,3 @@ char	**env_to_tab(t_data *data)
 	tab[i] = NULL;
 	return (tab);
 }
-// tab = ["USER=mgamil"] lst = key = "USER" value = "mgamil" next
