@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/10 17:35:17 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/10 19:19:58 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	loop_prog(t_data *data)
 		// 	print_node(data->head->str, data->head->type);
 		// 	data->head = data->head->next;
 		// }
-		ft_clean(data);
 		data->env = env_to_tab(data);
 		free(data->prompt);
 	}
