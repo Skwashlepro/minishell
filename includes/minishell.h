@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/07 21:07:43 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/10 17:36:15 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_token
 typedef struct s_redir
 {
 	char	*file;
+	int		fd_heredoc;
 	t_redir_type	type;
 	struct s_redir	*next;
 }	t_redir;
@@ -105,10 +106,11 @@ void	copy_env(t_data *data);
 t_env	*lst_env(t_env *env);
 void	ft_clean(t_data *data);
 int		lst_size(t_env *lst);
-void	free_env(t_data **data);
+void	free_env(t_data *data);
 char	**env_to_tab(t_data *data);
 t_token	*last_node(t_token *token);
 int		wordinquote(char c, t_data *data);
-char	*ft_expand(char *str, t_data *data);
+char	**ft_join_tab(char **oldtab, char *str);
+// char	*ft_expand(char *str, t_data *data);
 
 #endif

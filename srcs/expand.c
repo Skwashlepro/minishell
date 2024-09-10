@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:02:26 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/07 20:00:56 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/10 14:31:43 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,26 @@ static int	wquote(char c, int *i, t_data *data)
 	return (1);
 }
 
-char	*ft_expand(char *str, t_data *data)
+char	*get_varenv(char *str, t_data *data, t_command *command)
+{
+	int	i;
+
+	i = 0;
+	if (command && command->redirection)
+		if (command->redirection->fd_heredoc != 0)
+			return (str);
+	while (str[i])
+	{
+		wordinquote(str[i], data);
+		if (str[i] == '$' && data->cquote != '\'')
+			is_valid(str, i, *data);
+		else
+		{
+		}
+	}
+}
+
+char	*ft_expand(char *str, t_data *data, t_command *command)
 {
 	int		i;
 	int		j;
@@ -52,6 +71,7 @@ char	*ft_expand(char *str, t_data *data)
 	// printf("count: %d\n", data->count);
 	if (data->count)
 	{
+		// str = get_varenv(str, data, command);
 		s = malloc(sizeof(char *) * ((ft_strlen(str) - data->count) + 1));
 		if (!s)
 			return (NULL);

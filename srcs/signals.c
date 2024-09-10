@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 18:30:51 by tpassin           #+#    #+#             */
-/*   Updated: 2024/08/30 20:38:37 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/10 17:38:42 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_signal(void)
 {
 	struct sigaction	sa;
 
-	memset(&sa, 0, sizeof(sa));
+	ft_memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = inthandler;
 	if (sigaction(SIGINT, &sa, NULL) == -1)
 		error_msg("SIGINT\n");

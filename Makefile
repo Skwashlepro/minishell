@@ -18,8 +18,7 @@ SRC_FILES	=	main \
 				env_utils \
 				clean \
 				token_utils2 \
-				expand \
-
+				# expand
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 
 all: $(LIB) $(NAME)

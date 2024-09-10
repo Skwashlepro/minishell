@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/07 21:01:06 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/10 17:35:17 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,32 @@
 
 int		g_var = 0;
 
-void print_node(char *str, int type)
+// void print_node(char *str, int type)
+// {
+// 	printf("\n----------------------------------------\n");
+// 	printf("string: %s\n", str);
+//     switch(type)
+// 	{
+//         case 0: printf("type: WORD\n"); break ;
+//         case 1: printf("type: PIPE\n"); break ;
+//         case 2: printf("type: REDIRECTION\n"); break ;
+// 	}
+// 	printf("----------------------------------------\n");
+// }
+
+void	clean_env(t_data *data)
 {
-	printf("\n----------------------------------------\n");
-	printf("string: %s\n", str);
-    switch(type)
-	{
-        case 0: printf("type: WORD\n"); break ;
-        case 1: printf("type: PIPE\n"); break ;
-        case 2: printf("type: REDIRECTION\n"); break ;
-	}
-	printf("----------------------------------------\n");
+	if (data->get_env)
+		free_env(data);
 }
 
-char	*prompter(void)
+char	*prompter(t_data *data)
 {
 	char	*input;
 
 	input = readline("minishell$ ");
 	if (input == NULL)
-		return (NULL);
+		return (ft_clean(data), clean_env(data), exit(1), NULL);
 	if (*input)
 	{
 		printf("%s\n", input);
@@ -46,24 +52,17 @@ void	loop_prog(t_data *data)
 {
 	while (1)
 	{
-		data->prompt = prompter();
-		if (!data->prompt)
-			break ;
+		data->prompt = prompter(data);
 		tokenizer(data, data->prompt);
-		while (data->head)
-		{
-			print_node(data->head->str, data->head->type);
-			data->head = data->head->next;
-		}
+		// while (data->head)
+		// {
+		// 	print_node(data->head->str, data->head->type);
+		// 	data->head = data->head->next;
+		// }
 		ft_clean(data);
 		data->env = env_to_tab(data);
+		free(data->prompt);
 	}
-}
-
-void	clean_env(t_data *data)
-{
-	if (data->get_env)
-		free_env(&data);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -76,6 +75,6 @@ int	main(int ac, char **av, char **envp)
 	loop_prog(&data);
 	ft_clean(&data);
 	clean_env(&data);
-	printf("exit\n");
+	// printf("exit\n");
 	return (0);
 }

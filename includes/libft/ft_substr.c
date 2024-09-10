@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:37:38 by luctan            #+#    #+#             */
-/*   Updated: 2024/08/24 04:49:03 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/09 18:07:48 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (ft_strdup(""));
 	if (len > ft_strlen(s) - start)
 		len = ft_strlen(s) - start;
-	dest = malloc(sizeof(char) * len + 1);
+	dest = malloc(sizeof(char) * (len + 1));
 	if (!dest)
 		return (NULL);
 	while (i < len && s[start])

@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:42:55 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/07 18:14:39 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/10 17:24:08 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ t_env	*lstnew(char *env)
 	if (!new_node)
 		return (NULL);
 	new_node->key = ft_substr(env, 0, ft_strchri(env, '='));
-	new_node->value = ft_substr(env, ft_strchri(env, '=') + 1, ft_strlen(env
-				+ 1));
+	if (new_node->key)
+			return (free(new_node->key), NULL);
+	new_node->value = ft_substr(env, ft_strchri(env, '=') + 1, ft_strlen(env)
+			- (ft_strchri(env, '=') + 1));
+	if ( !new_node->value)
+		return (free(new_node->value), NULL);
 	new_node->equal = 1;
 	new_node->next = NULL;
 	return (new_node);
@@ -31,7 +35,7 @@ t_env	*lst_env(t_env *env)
 {
 	t_env	*tmp;
 
-	if (!env)
+	if (!env || !env->next)
 		return (NULL);
 	tmp = env;
 	while (tmp->next)
@@ -43,7 +47,7 @@ void	lst_addback(t_env **node, t_env *new)
 {
 	t_env	*last;
 
-	if (node)
+	if (node && new)
 	{
 		if (!(*node))
 			*node = new;
