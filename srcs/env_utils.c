@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:42:55 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/10 17:24:08 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/10 18:11:09 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_env	*lstnew(char *env)
 	if (!new_node)
 		return (NULL);
 	new_node->key = ft_substr(env, 0, ft_strchri(env, '='));
-	if (new_node->key)
+	if (!new_node->key)
 			return (free(new_node->key), NULL);
 	new_node->value = ft_substr(env, ft_strchri(env, '=') + 1, ft_strlen(env)
 			- (ft_strchri(env, '=') + 1));
