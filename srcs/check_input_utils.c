@@ -6,11 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:47:15 by tpassin           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/09/10 18:04:30 by luctan           ###   ########.fr       */
-=======
-/*   Updated: 2024/09/10 17:42:55 by tpassin          ###   ########.fr       */
->>>>>>> 5e21041c0598195380ca9469a1dff84fc3283837
+/*   Updated: 2024/09/10 18:14:39 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +60,7 @@ void	ft_exit(char *str, t_data *data)
 		return (ft_clean(data), free_env(data), exit((int)nb));
 	}
 	else
-<<<<<<< HEAD
-		return (free_tab(args), ft_clean(data), 
-=======
 		return (free_tab(args), ft_clean(data), free_env(data),
->>>>>>> 5e21041c0598195380ca9469a1dff84fc3283837
 			exit(0));
 }
 
