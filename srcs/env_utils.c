@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:42:55 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/10 18:11:09 by luctan           ###   ########.fr       */
+/*   Updated: 2024/09/11 17:06:07 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 t_env	*lstnew(char *env)
 {
-	t_env	*new_node;
+	t_env			*new_env;
 
-	new_node = malloc(sizeof(t_env));
-	if (!new_node)
+	new_env = malloc(sizeof(t_env));
+	if (!new_env)
 		return (NULL);
-	new_node->key = ft_substr(env, 0, ft_strchri(env, '='));
-	if (!new_node->key)
-			return (free(new_node->key), NULL);
-	new_node->value = ft_substr(env, ft_strchri(env, '=') + 1, ft_strlen(env)
+	new_env->key = ft_substr(env, 0, ft_strchri(env, '='));
+	if (!new_env->key)
+		return (NULL);
+	new_env->value = ft_substr(env, ft_strchri(env, '=') + 1, ft_strlen(env)
 			- (ft_strchri(env, '=') + 1));
-	if ( !new_node->value)
-		return (free(new_node->value), NULL);
-	new_node->equal = 1;
-	new_node->next = NULL;
-	return (new_node);
+	if (!new_env->value)
+		return (NULL);
+	new_env->equal = 1;
+	new_env->next = NULL;
+	return (new_env);
 }
 
 t_env	*lst_env(t_env *env)
 {
 	t_env	*tmp;
 
-	if (!env || !env->next)
+	if (!env)
 		return (NULL);
 	tmp = env;
 	while (tmp->next)
@@ -47,9 +47,9 @@ void	lst_addback(t_env **node, t_env *new)
 {
 	t_env	*last;
 
-	if (node && new)
+	if (node)
 	{
-		if (!(*node))
+		if ((*node) == NULL)
 			*node = new;
 		else
 		{
@@ -59,7 +59,7 @@ void	lst_addback(t_env **node, t_env *new)
 	}
 }
 
-void	copy_env(t_data *data)
+t_env	*copy_env(char **envp)
 {
 	t_env	*new;
 	t_env	*new_node;
@@ -68,18 +68,15 @@ void	copy_env(t_data *data)
 	i = 0;
 	new = NULL;
 	new_node = NULL;
-	while (data->env[i])
+	while (envp[i] && envp)
 	{
-		new_node = lstnew(data->env[i]);
+		new_node = lstnew(envp[i]);
 		if (!new_node)
-			return ;
-		if (!new)
-			new = new_node;
-		else
-			lst_addback(&new, new_node);
+			return (NULL);
+		lst_addback(&new, new_node);
 		i++;
 	}
-	data->get_env = new;
+	return (new);
 }
 
 char	**env_to_tab(t_data *data)
@@ -88,6 +85,7 @@ char	**env_to_tab(t_data *data)
 	char	**tab;
 	int		i;
 
+	tab = NULL;
 	i = lst_size(data->get_env);
 	tab = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!tab)

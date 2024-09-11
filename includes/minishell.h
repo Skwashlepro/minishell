@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/10 17:36:15 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/11 17:09:43 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_data
 int		check_input(char *str, t_data *data);
 void	print_env(t_data *data);
 void	ft_signal(void);
-void	init_env(t_data *data, char **envp, int ac);
+t_env	*init_env(char **envp, int ac);
 void	init_data(t_data *data);
 int		is_space(char c);
 int		inquotes(char c, int i);
@@ -102,7 +102,7 @@ void	add_token(t_token **token_head, t_token_type type, char *str);
 void	free_array(char *str);
 void	char_redir(char *str, int *redir_out, int *redir);
 int		redirection_input(char *s, int in, int out);
-void	copy_env(t_data *data);
+t_env	*copy_env(char **envp);
 t_env	*lst_env(t_env *env);
 void	ft_clean(t_data *data);
 int		lst_size(t_env *lst);
@@ -111,6 +111,8 @@ char	**env_to_tab(t_data *data);
 t_token	*last_node(t_token *token);
 int		wordinquote(char c, t_data *data);
 char	**ft_join_tab(char **oldtab, char *str);
+void	command_addback(t_command **command, t_command *new);
+void	clean_all(t_data *data);
 // char	*ft_expand(char *str, t_data *data);
 
 #endif

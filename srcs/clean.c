@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:09:07 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/10 18:04:08 by luctan           ###   ########.fr       */
+/*   Updated: 2024/09/11 17:08:41 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	free_env(t_data *data)
 
 void	ft_clean(t_data *data)
 {
-	if (data->env)
-		free_tab(data->env);
 	if (data->head)
 		free_node(data);
-	if (data->get_env)
-		free_env(data);
-	rl_clear_history();
+	if (data->prompt)
+	{
+		free(data->prompt);
+		data->prompt = NULL;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:21:08 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/10 17:38:23 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/11 15:59:28 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,15 @@ int	add_redirection(t_token *token, t_data *data, t_command *command)
 	redir->file = str;
 	redir->next = NULL;
 	return (0);
-	
 }
 
 int	add_word(t_token *token, t_data *data, t_command *command)
 {
-	char **args;
-
-	
+	command->arguments = ft_join_tab(command->arguments, ft_expand(data,
+				token->str));
+	if (!command->arguments[0])
+		return (1);
+	return (0);
 }
 
 int	parse_token(t_data *data, t_token *token, t_command *command)
@@ -80,5 +81,6 @@ int	parsing(t_data *data)
 		}
 		if (token)
 			token = token->next;
+		command_addback(&data->command, command);
 	}
 }
