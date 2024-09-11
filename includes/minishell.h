@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/11 17:09:43 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/11 17:27:19 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_env	*copy_env(char **envp);
 t_env	*lst_env(t_env *env);
 void	ft_clean(t_data *data);
 int		lst_size(t_env *lst);
-void	free_env(t_data *data);
+void	free_env(t_env *get_env);
 char	**env_to_tab(t_data *data);
 t_token	*last_node(t_token *token);
 int		wordinquote(char c, t_data *data);
