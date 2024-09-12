@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:09:07 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/11 19:15:09 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/12 18:02:58 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_node(t_token *head)
 void	free_env(t_env *get_env)
 {
 	t_env	*tmp;
-	
+
 	while (get_env)
 	{
 		tmp = get_env->next;

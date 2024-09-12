@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:21:08 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/12 13:42:29 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/12 18:06:11 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	add_redirection(t_token *token, t_data *data, t_command *command)
 	if (!redir)
 		return (1);
 	redir->type = type_redirection(token);
-	str = ft_expand(data, token->str, redir->type);
+	str = ft_expand(data, token->str, redir->type, token->nb_quotes);
 	if (!str)
 		return (free(redir), 1);
 	redir->file = str;
@@ -43,7 +43,7 @@ int	add_redirection(t_token *token, t_data *data, t_command *command)
 bool	add_word(t_token *token, t_data *data, t_command *command)
 {
 	command->arguments = ft_join_tab(command->arguments, ft_expand(data,
-				token->str, WORD));
+				token->str, WORD, token->nb_quotes));
 	if (!command->arguments)
 		return (false);
 	return (true);
@@ -66,8 +66,8 @@ int	parse_token(t_data *data, t_token *token, t_command *command)
 
 int	parsing(t_data *data)
 {
-	t_command *command;
-	t_token *token;
+	t_command	*command;
+	t_token		*token;
 
 	token = data->head;
 	while (token)

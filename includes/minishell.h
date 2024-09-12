@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/12 13:26:13 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/12 17:56:47 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-extern int	g_var;
+extern int				g_var;
 
 typedef enum s_token_type
 {
-	
 	WORD,
 	PIPE,
 	REDIRECTION,
@@ -46,6 +45,7 @@ typedef enum s_redir_type
 typedef struct s_token
 {
 	char			*str;
+	int				nb_quotes;
 	t_token_type	type;
 	struct s_token	*next;
 	struct s_token	*prev;
@@ -53,18 +53,18 @@ typedef struct s_token
 
 typedef struct s_redir
 {
-	char	*file;
-	int		fd_heredoc;
+	char			*file;
+	int				fd_heredoc;
 	t_redir_type	type;
 	struct s_redir	*next;
 }	t_redir;
 
 typedef struct s_command
 {
-	char	*command;
-	char	**arguments;
-	t_redir	*redirection;
-	struct	s_command *next;
+	char				*command;
+	char				**arguments;
+	t_redir				*redirection;
+	struct s_command	*next;
 }	t_command;
 
 typedef struct s_env
@@ -77,13 +77,13 @@ typedef struct s_env
 
 typedef struct s_data
 {
-	int		count;
-	char	cquote;
-	char	**env;
-	char	*path;
-	char	*prompt;
-	t_token	*head;
-	t_env	*get_env;
+	int			count;
+	char		cquote;
+	char		**env;
+	char		*path;
+	char		*prompt;
+	t_token		*head;
+	t_env		*get_env;
 	t_command	*command;
 }	t_data;
 
@@ -98,7 +98,8 @@ void	ft_exit(char *str, t_data *data);
 void	free_tab(char **str);
 long	ft_atol(char **nb);
 t_token	*tokenizer(t_data *data, char *input);
-void	add_token(t_token **token_head, t_token_type type, char *str);
+void	add_token(t_token **token_head, t_token_type type,
+			char *str, int nb_quotes);
 void	free_array(char *str);
 void	char_redir(char *str, int *redir_out, int *redir);
 int		redirection_input(char *s, int in, int out);

@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:02:26 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/12 14:11:35 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/12 18:28:15 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,28 @@ static int	wquote(char c, int *i, t_data *data)
 	return (1);
 }
 
-char	*get_varenv(char *str, t_data *data, t_command *command)
+char	*get_varenv(t_data *data, char *str, int TYPE)
 {
 	int	i;
+	int j;
 
 	i = 0;
-	if (command && command->redirection)
-		if (command->redirection->fd_heredoc != 0)
-			return (str);
+	if (TYPE == HERE_DOC)
+		return (str);
 	while (str[i])
 	{
+		j = 0;
 		wordinquote(str[i], data);
 		if (str[i] == '$' && data->cquote != '\'')
-			is_valid(str, i, *data);
-		else
-		{
-		}
+			while(str[i + j] != '$' && data->cquote != '"')
+			{
+				j++;
+			}
+			
 	}
 }
 
-char	*ft_expand(t_data *data, char *str, int heredoc)
+char	*ft_expand(t_data *data, char *str, int heredoc, int nb_quotes)
 {
 	int		i;
 	int		j;
@@ -68,10 +70,9 @@ char	*ft_expand(t_data *data, char *str, int heredoc)
 
 	i = 0;
 	j = 0;
-	// printf("count: %d\n", data->count);
-	if (data->count)
+	str = get_varenv(str, data, heredoc);
+	if (nb_quotes)
 	{
-		// str = get_varenv(str, data, command);
 		s = malloc(sizeof(char *) * ((ft_strlen(str) - data->count) + 1));
 		if (!s)
 			return (NULL);

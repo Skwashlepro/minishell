@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 17:14:16 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/11 18:27:26 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/12 17:57:47 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	lst_size(t_env *lst)
 	return (i);
 }
 
-void	add_token(t_token **token_head, t_token_type type, char *str)
+void	add_token(t_token **token_head, t_token_type type, char *str,
+		int nb_quotes)
 {
 	t_token	*token;
 	t_token	*last_token;
@@ -50,6 +51,7 @@ void	add_token(t_token **token_head, t_token_type type, char *str)
 	token->next = NULL;
 	token->str = ft_strdup(str);
 	token->type = type;
+	token->nb_quotes = nb_quotes;
 	if (!(*token_head))
 	{
 		*token_head = token;

@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/12 14:07:07 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/12 18:07:25 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,11 @@ int	worder(t_data *data, char *str, int i)
 	if (j != i)
 	{
 		new = ft_substr(str, j, i - j);
-		add_token(&data->head, WORD, new);
-		data->count = 0;
+		add_token(&data->head, WORD, new, data->count);
 	}
 	if (str[i] && is_space(str[i]) && data->cquote == 'N')
 		i++;
-	free(new);
-	return (i);
+	return (free(new), i);
 }
 
 void	isredirect(t_data *data, char *input, int *i)
@@ -76,21 +74,21 @@ void	isredirect(t_data *data, char *input, int *i)
 	{
 		if (input[++(*i)] == '<')
 		{
-			add_token(&data->head, REDIRECTION, "<<");
+			add_token(&data->head, REDIRECTION, "<<", 0);
 			(*i)++;
 		}
 		else
-			add_token(&data->head, REDIRECTION, "<");
+			add_token(&data->head, REDIRECTION, "<", 0);
 	}
 	else if (input[*i] == '>')
 	{
 		if (input[++(*i)] == '>')
 		{
-			add_token(&data->head, REDIRECTION, ">>");
+			add_token(&data->head, REDIRECTION, ">>", 0);
 			(*i)++;
 		}
 		else
-			add_token(&data->head, REDIRECTION, ">");
+			add_token(&data->head, REDIRECTION, ">", 0);
 	}
 }
 
@@ -105,6 +103,7 @@ t_token	*tokenizer(t_data *data, char *input)
 		return (NULL);
 	while (input[i])
 	{
+		data->count = 0;
 		quote = wordinquote(input[i], data);
 		if (ft_strchr("<|>", input[i]) && !quote)
 		{
@@ -112,7 +111,7 @@ t_token	*tokenizer(t_data *data, char *input)
 				isredirect(data, input, &i);
 			else if (input[i] == '|')
 			{
-				add_token(&data->head, PIPE, "|");
+				add_token(&data->head, PIPE, "|", 0);
 				++i;
 			}
 		}

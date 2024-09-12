@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/12 14:04:52 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/12 18:17:29 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void print_node(t_token *token, int type)
 	{
 		printf("\n----------------------------------------\n");
 		printf("string: %s\n", token->str);
+		printf("nb_quotes: %d\n", token->nb_quotes);
     	switch(type)
 		{
     	    case 0: printf("type: WORD\n"); break ;
@@ -74,6 +75,8 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	init_data(&data);
 	data.get_env = init_env(envp, ac);
+	if (!data.get_env)
+		return (free_env(data.get_env), 1);
 	loop_prog(&data);
 	clean_all(&data);
 	// printf("exit\n");

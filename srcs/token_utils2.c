@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 17:14:18 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/11 12:47:56 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/12 18:06:50 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	command_addback(t_command **command, t_command *new)
 
 char	**ft_join_tab(char **oldtab, char *str)
 {
-	int i;
-	char **newtab;
+	int		i;
+	char	**newtab;
 
 	i = 0;
 	while (oldtab[i])

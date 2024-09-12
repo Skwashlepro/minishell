@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:42:55 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/12 13:59:51 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/12 18:03:39 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,27 +94,4 @@ t_env	*copy_env(char **envp)
 		lst_addback(&new, new_node);
 	}
 	return (new);
-}
-
-char	**env_to_tab(t_data *data)
-{
-	t_env	*copy;
-	char	**tab;
-	int		i;
-
-	i = lst_size(data->get_env);
-	tab = (char **)malloc(sizeof(char *) * (i + 1));
-	if (!tab)
-		return (NULL);
-	copy = data->get_env;
-	i = 0;
-	while (copy)
-	{
-		tab[i] = ft_strjoin(copy->key, "=");
-		tab[i] = ft_strjoin(tab[i], copy->value);
-		copy = copy->next;
-		i++;
-	}
-	tab[i] = NULL;
-	return (tab);
 }
