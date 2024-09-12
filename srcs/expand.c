@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:02:26 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/10 14:31:43 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/12 14:11:35 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*get_varenv(char *str, t_data *data, t_command *command)
 	}
 }
 
-char	*ft_expand(char *str, t_data *data, t_command *command)
+char	*ft_expand(t_data *data, char *str, int heredoc)
 {
 	int		i;
 	int		j;

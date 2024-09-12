@@ -6,26 +6,39 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:42:55 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/11 17:29:10 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/12 13:59:51 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*lstnew(char *env)
+static void	free_value(char *key, char *value)
 {
-	t_env			*new_env;
+	if (key)
+	{
+		free(key);
+		key = NULL;
+	}
+	if (value)
+	{
+		free(value);
+		value = NULL;
+	}
+}
+
+t_env	*lstnew(char *key, char *value)
+{
+	t_env	*new_env;
 
 	new_env = malloc(sizeof(t_env));
 	if (!new_env)
 		return (NULL);
-	new_env->key = ft_substr(env, 0, ft_strchri(env, '='));
+	new_env->key = key;
 	if (!new_env->key)
-		return (NULL);
-	new_env->value = ft_substr(env, ft_strchri(env, '=') + 1, ft_strlen(env)
-			- (ft_strchri(env, '=') + 1));
+		return (free_value(key, value), NULL);
+	new_env->value = value;
 	if (!new_env->value)
-		return (NULL);
+		return (free_value(key, value), NULL);
 	new_env->equal = 1;
 	new_env->next = NULL;
 	return (new_env);
@@ -63,18 +76,22 @@ t_env	*copy_env(char **envp)
 {
 	t_env	*new;
 	t_env	*new_node;
+	char	*key;
+	char	*value;
 	int		i;
 
-	i = 0;
+	i = -1;
 	new = NULL;
 	new_node = NULL;
-	while (envp[i] && envp)
+	while (envp[++i])
 	{
-		new_node = lstnew(envp[i]);
+		key = ft_substr(envp[i], 0, ft_strchri(envp[i], '='));
+		value = ft_substr(envp[i], (ft_strchri(envp[i], '=') + 1),
+				ft_strlen(envp[i]) - ft_strchri(envp[i], '='));
+		new_node = lstnew(key, value);
 		if (!new_node)
-			return (NULL);
+			return (free_value(key, value), NULL);
 		lst_addback(&new, new_node);
-		i++;
 	}
 	return (new);
 }
@@ -85,7 +102,6 @@ char	**env_to_tab(t_data *data)
 	char	**tab;
 	int		i;
 
-	tab = NULL;
 	i = lst_size(data->get_env);
 	tab = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!tab)

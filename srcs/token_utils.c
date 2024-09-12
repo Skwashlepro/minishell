@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 17:14:16 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/10 17:23:36 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/11 18:27:26 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_token	*last_node(t_token *token)
 	if (!token)
 		return (NULL);
 	tmp = token;
-	while (tmp->next)
+	while (tmp && tmp->next)
 		tmp = tmp->next;
 	return (tmp);
 }

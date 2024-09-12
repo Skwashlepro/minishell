@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/11 17:27:19 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/12 13:26:13 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int		inquotes(char c, int i);
 void	ft_exit(char *str, t_data *data);
 void	free_tab(char **str);
 long	ft_atol(char **nb);
-int		tokenizer(t_data *data, char *input);
+t_token	*tokenizer(t_data *data, char *input);
 void	add_token(t_token **token_head, t_token_type type, char *str);
 void	free_array(char *str);
 void	char_redir(char *str, int *redir_out, int *redir);
@@ -113,6 +113,7 @@ int		wordinquote(char c, t_data *data);
 char	**ft_join_tab(char **oldtab, char *str);
 void	command_addback(t_command **command, t_command *new);
 void	clean_all(t_data *data);
+int		parsing(t_data *data);
 // char	*ft_expand(char *str, t_data *data);
 
 #endif

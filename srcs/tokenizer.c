@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/10 17:49:14 by luctan           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:07:07 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	isredirect(t_data *data, char *input, int *i)
 	}
 }
 
-int	tokenizer(t_data *data, char *input)
+t_token	*tokenizer(t_data *data, char *input)
 {
 	int	i;
 	int	quote;
@@ -102,7 +102,7 @@ int	tokenizer(t_data *data, char *input)
 	i = 0;
 	quote = 0;
 	if (check_input(input, data))
-		return (2);
+		return (NULL);
 	while (input[i])
 	{
 		quote = wordinquote(input[i], data);
@@ -119,5 +119,5 @@ int	tokenizer(t_data *data, char *input)
 		else
 			i = worder(data, input, i);
 	}
-	return (0);
+	return (data->head);
 }

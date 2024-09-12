@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:21:08 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/11 15:59:28 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/12 13:42:29 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	add_redirection(t_token *token, t_data *data, t_command *command)
 	if (!redir)
 		return (1);
 	redir->type = type_redirection(token);
-	str = ft_expand(data, token->str);
+	str = ft_expand(data, token->str, redir->type);
 	if (!str)
 		return (free(redir), 1);
 	redir->file = str;
@@ -40,13 +40,13 @@ int	add_redirection(t_token *token, t_data *data, t_command *command)
 	return (0);
 }
 
-int	add_word(t_token *token, t_data *data, t_command *command)
+bool	add_word(t_token *token, t_data *data, t_command *command)
 {
 	command->arguments = ft_join_tab(command->arguments, ft_expand(data,
-				token->str));
-	if (!command->arguments[0])
-		return (1);
-	return (0);
+				token->str, WORD));
+	if (!command->arguments)
+		return (false);
+	return (true);
 }
 
 int	parse_token(t_data *data, t_token *token, t_command *command)
@@ -83,4 +83,5 @@ int	parsing(t_data *data)
 			token = token->next;
 		command_addback(&data->command, command);
 	}
+	return (0);
 }

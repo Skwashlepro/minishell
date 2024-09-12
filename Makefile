@@ -18,6 +18,7 @@ SRC_FILES	=	main \
 				env_utils \
 				clean \
 				token_utils2 \
+				#parsing \
 				# expand
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 
