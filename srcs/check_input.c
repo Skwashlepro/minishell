@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/11 19:52:55 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/17 18:45:00 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,5 @@ int	check_input(char *str, t_data *data)
 	if (check_metachar(str) || check_redir(str))
 		return (ft_putstr_fd("minishell: syntax error near unexpected token\n",
 				2), 1);
-	if (ft_strncmp(str, "exit", 4) == 0)
-		ft_exit(str, data);
-	if (ft_strnstr(str, "pwd", 3))
-		printf("%s\n", getenv("PWD"));
-	if (ft_strncmp(str, "env", 3) == 0)
-		print_env(data);
 	return (0);
 }
