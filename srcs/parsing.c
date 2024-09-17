@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:21:08 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/12 18:06:11 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/16 15:37:16 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_redir_type	type_redirection(t_token *token)
 	return (REDIR_OUT);
 }
 
-int	add_redirection(t_token *token, t_data *data, t_command *command)
+int	add_redirection(t_token *token, t_data *data)
 {
 	t_redir	*redir;
 	char	*str;
@@ -40,48 +40,53 @@ int	add_redirection(t_token *token, t_data *data, t_command *command)
 	return (0);
 }
 
-bool	add_word(t_token *token, t_data *data, t_command *command)
+bool	add_word(t_token *token, t_command *command, t_data *data)
 {
-	command->arguments = ft_join_tab(command->arguments, ft_expand(data,
-				token->str, WORD, token->nb_quotes));
-	if (!command->arguments)
+	command->arguments = ft_join_tab(command->arguments, ft_expand(data, token->str,
+				token->type, token->nb_quotes));
+	if (command->arguments)
 		return (false);
 	return (true);
 }
 
-int	parse_token(t_data *data, t_token *token, t_command *command)
+int	parse_token(t_data *data, t_token **token, t_command *command)
 {
-	if (token && token->type == REDIRECTION)
+	if (*token && (*token)->type == REDIRECTION)
 	{
-		if (add_redirection(token, data, command))
+		if (add_redirection(*token, data))
 			return (1);
-		token = token->next;
+		*token = (*token)->next;
 	}
-	else if (token && token->type == WORD)
-		if (add_word(token, data, command))
+	else if (*token && (*token)->type == WORD)
+		if (add_word(*token, command, data))
 			return (1);
-	token = token->next;
+	*token = (*token)->next;
 	return (0);
 }
 
-int	parsing(t_data *data)
+t_command	*parsing(t_data *data)
 {
-	t_command	*command;
 	t_token		*token;
+	t_command	*tmp;
+	t_command	*copy;
 
+	tmp = data->cmd;
+	copy = data->cmd;
 	token = data->head;
 	while (token)
 	{
-		command = malloc(sizeof(t_command));
-		ft_memset(command, 0, sizeof(t_command));
+		tmp = malloc(sizeof(t_command));
+		if (!tmp)
+			return (NULL);
+		ft_memset(tmp, 0, sizeof(t_command));
 		while (token && token->type != PIPE)
 		{
-			if (parse_token(data, token, command))
-				return (1);
+			if (parse_token(data, &token, tmp))
+				return (NULL);
 		}
 		if (token)
 			token = token->next;
-		command_addback(&data->command, command);
+		command_addback(&copy, tmp);
 	}
-	return (0);
+	return (copy);
 }

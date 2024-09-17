@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/12 17:56:47 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/14 01:26:41 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_data
 	char		*prompt;
 	t_token		*head;
 	t_env		*get_env;
-	t_command	*command;
+	t_command	*cmd;
 }	t_data;
 
 int		check_input(char *str, t_data *data);
@@ -114,7 +114,7 @@ int		wordinquote(char c, t_data *data);
 char	**ft_join_tab(char **oldtab, char *str);
 void	command_addback(t_command **command, t_command *new);
 void	clean_all(t_data *data);
-int		parsing(t_data *data);
-// char	*ft_expand(char *str, t_data *data);
+t_command	*parsing(t_data *data);
+char	*ft_expand(t_data *data, char *str, int heredoc, int nb_quotes);
 
 #endif

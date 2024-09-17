@@ -18,14 +18,15 @@ SRC_FILES	=	main \
 				env_utils \
 				clean \
 				token_utils2 \
-				#parsing \
-				# expand
+				parsing \
+				expand \
+
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 
 all: $(LIB) $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INC) -I/usr/include -O2 -c $< -o $@
+	$(CC) $(CFLAGS) $(INC) -I/usr/include -c $< -o $@
 
 $(NAME): $(OBJ)
 	$(CC) $(INC) $(OBJ) $(LIB) -o $(NAME) -lreadline 
