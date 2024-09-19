@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:17:57 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/11 14:05:17 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/18 16:38:15 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,6 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 int		ft_strchri(const char *s, int c);
 int		is_sep(int c);
+char	*ft_strncat(char *dest, char *src, unsigned int nb);
+int     ft_strcmp(const char *s1, const char *s2);
 #endif

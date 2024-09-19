@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:09:07 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/12 18:02:58 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:50:05 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,27 @@ void	free_env(t_env *get_env)
 	}
 }
 
+void	clean_cmd(t_command *cmd)
+{
+	t_command	*tmp;
+
+	while (cmd)
+	{
+		tmp = cmd->next;
+		if (cmd->arguments)
+			free_tab(cmd->arguments);
+		free(cmd);
+		cmd = tmp;
+	}
+}
+
 void	ft_clean(t_data *data)
 {
+	if (data->cmd)
+	{
+		clean_cmd(data->cmd);
+		data->cmd = NULL;
+	}
 	if (data->head)
 	{
 		free_node(data->head);

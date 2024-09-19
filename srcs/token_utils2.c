@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 17:14:18 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/16 17:00:20 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:53:21 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,11 @@ char	**ft_join_tab(char **oldtab, char *str)
 	newtab[i++] = str;
 	newtab[i] = 0;
 	return (free(oldtab), newtab);
+}
+
+int	is_quotes(int c)
+{
+	if (c != '"' && c != '\'')
+		return (0);
+	return (1);
 }

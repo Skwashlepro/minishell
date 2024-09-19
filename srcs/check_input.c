@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:45:37 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/17 18:45:00 by luctan           ###   ########.fr       */
+/*   Updated: 2024/09/18 11:28:30 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	check_redir(char *s)
 	return (in || out);
 }
 
-int	check_input(char *str, t_data *data)
+int	check_input(char *str)
 {
 	while (*str && is_space(*str))
 		str++;

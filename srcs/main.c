@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/16 13:40:16 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:47:41 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,27 @@
 
 int		g_var = 0;
 
-void print_node(t_token *token, int type)
-{
-	while (token)
-	{
-		printf("\n----------------------------------------\n");
-		printf("string: %s\n", token->str);
-		printf("nb_quotes: %d\n", token->nb_quotes);
-    	switch(type)
-		{
-    	    case 0: printf("type: WORD\n"); break ;
-    	    case 1: printf("type: PIPE\n"); break ;
-    	    case 2: printf("type: REDIRECTION\n"); break ;
-		}
-		printf("----------------------------------------\n");
-		token = token->next;
-	}
-}
+// void print_node(t_token *token, int type)
+// {
+// 	while (token)
+// 	{
+// 		printf("\n----------------------------------------\n");
+// 		printf("string: %s\n", token->str);
+// 		printf("nb_quotes: %d\n", token->nb_quotes);
+//     	switch(type)
+// 		{
+//     		 case 0: printf("type: WORD\n"); break ;
+//     		 case 1: printf("type: PIPE\n"); break ;
+//     		 case 2: printf("type: REDIRECTION\n"); break ;
+// 		}
+// 		printf("----------------------------------------\n");
+// 		token = token->next;
+// 	}
+// }
 
 void	clean_all(t_data *data)
 {
+	clean_cmd(data->cmd);
 	ft_clean(data);
 	free_env(data->get_env);
 	rl_clear_history();
@@ -51,7 +52,7 @@ char	*prompter(t_data *data)
 		return (free(input), ft_strdup(""));
 	if (*input)
 	{
-		printf("%s\n", input);
+		// printf("%s\n", input);
 		add_history(input);
 	}
 	return (input);
@@ -59,7 +60,8 @@ char	*prompter(t_data *data)
 
 void	loop_prog(t_data *data)
 {
-	int i;
+	int	i;
+
 	while (1)
 	{
 		data->prompt = prompter(data);
@@ -69,7 +71,8 @@ void	loop_prog(t_data *data)
 		{
 			i = 0;
 			while (data->cmd->arguments[i])
-				printf("%s\n", data->cmd->arguments[i++]);
+				printf("%s ", data->cmd->arguments[i++]);
+			printf("\n");
 		}
 		// print_node(data->head, data->head->type);
 		ft_clean(data);
@@ -82,6 +85,8 @@ int	main(int ac, char **av, char **envp)
 
 	(void)av;
 	init_data(&data);
+	// char *s = malloc(sizeof(char *) * (1000));
+	// s = ft_strdup("HELLO");
 	data.get_env = init_env(envp, ac);
 	if (!data.get_env)
 		return (free_env(data.get_env), 1);
