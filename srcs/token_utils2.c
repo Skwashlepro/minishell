@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 17:14:18 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/19 15:53:21 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/20 18:10:33 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ char	**ft_join_tab(char **oldtab, char *str)
 		oldtab[1] = NULL;
 		return (oldtab);
 	}
-	while (oldtab[i])
-		i++;
+	while (oldtab[i++])
 	newtab = malloc(sizeof(char *) * (i + 2));
 	if (!newtab)
 		return (NULL);
