@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/19 15:47:41 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/19 18:33:31 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,7 @@ void	loop_prog(t_data *data)
 		{
 			i = 0;
 			while (data->cmd->arguments[i])
-				printf("%s ", data->cmd->arguments[i++]);
-			printf("\n");
+				printf("%s\n", data->cmd->arguments[i++]);
 		}
 		// print_node(data->head, data->head->type);
 		ft_clean(data);

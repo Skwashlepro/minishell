@@ -20,6 +20,7 @@ SRC_FILES	=	main \
 				token_utils2 \
 				parsing \
 				expand \
+				expand_utils \
 
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 

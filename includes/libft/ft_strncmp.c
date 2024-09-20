@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:22:51 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/18 18:14:35 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:58:56 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
-
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
