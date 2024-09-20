@@ -22,36 +22,41 @@ char	*oldpwd(t_data *data)
 	return (tmp->value);
 }
 
+t_env *search_key(t_env *get_env, char *key)
+{
+	t_env *tmp;
+
+	tmp = get_env;
+	while (tmp->key != key && tmp)
+		tmp = tmp->next;
+	if (tmp->key == key)
+		return (tmp);
+	else
+		return (NULL);
+}
+
 void	cd(t_data *data, char *new_path)
 {
-	t_env *fst;
-	t_env *old_pwd;
+	t_env	*old_pwd;
+	t_env	*tmp;
+	t_env	*pwd;
 
-	fst = data->get_env;
-	old_pwd = oldpwd(data);
-	if (new_path)
+	tmp = NULL;
+	old_pwd = search_key(data->get_env, "OLDPWD");
+	pwd = search_key(data->get_env, "PWD");
+	if (!new_path)
 	{
-		if (chdir(new_path) != -1)
-		{
-			while (data->get_env->key != "PATH" && data->get_env)
-				data->get_env = data->get_env->next;
-			if (data->get_env)
-			{
-				free_array(data->get_env->value);
-				data->get_env->value = ft_strdup(new_path);
-			}
-		}
+		tmp = search_key(data->get_env, "HOME");
+		if (!tmp)
+			return ((void)printf("$minishell cd: HOME not set\n"));
+		old_pwd->value = pwd->value;
+		pwd->value = tmp->value;
+		chdir(tmp->value);
+		return ;
 	}
-	else
-	{
-		while (data->get_env->key != "HOME" && data->get_env)
-			data->get_env = data->get_env->next;
-		if (data->get_env)
-		{
-			if (!chdir(data->get_env->value) == -1);
-				return ;
-		}
-	}
-	data->get_env = fst;
+	if (chdir(new_path) == -1)
+		return ((void)printf("$minishell cd: No such file or directory\n"));
+	old_pwd->value = pwd->value;
+	pwd->value = new_path;
 	return ;
 }
