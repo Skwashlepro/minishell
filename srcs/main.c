@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/19 18:33:31 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/21 15:57:38 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,18 @@ char	*prompter(t_data *data)
 
 void	loop_prog(t_data *data)
 {
-	int	i;
-
 	while (1)
 	{
 		data->prompt = prompter(data);
 		data->head = tokenizer(data, data->prompt);
 		data->cmd = parsing(data);
-		if (data->cmd)
+		if (data->cmd->redirection)
 		{
-			i = 0;
-			while (data->cmd->arguments[i])
-				printf("%s\n", data->cmd->arguments[i++]);
+			while (data->cmd->redirection)
+			{
+				printf("%s\n", data->cmd->redirection->file);
+				data->cmd->redirection = data->cmd->redirection->next;
+			}
 		}
 		// print_node(data->head, data->head->type);
 		ft_clean(data);
@@ -84,8 +84,6 @@ int	main(int ac, char **av, char **envp)
 
 	(void)av;
 	init_data(&data);
-	// char *s = malloc(sizeof(char *) * (1000));
-	// s = ft_strdup("HELLO");
 	data.get_env = init_env(envp, ac);
 	if (!data.get_env)
 		return (free_env(data.get_env), 1);

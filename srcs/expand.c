@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:02:26 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/20 18:02:42 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:09:40 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*get_varenv(char *str, t_data *data, int TYPE)
 	int		len;
 	int		pos;
 
-	if (TYPE == HERE_DOC)
+	if (TYPE == HERE_DOC || !ft_strchr(str, '$'))
 		return (ft_strdup(str));
 	i = 0;
 	pos = 0;

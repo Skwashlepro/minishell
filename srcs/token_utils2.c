@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 17:14:18 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/20 18:10:33 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/21 13:19:19 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,25 @@ void	command_addback(t_command **command, t_command *new)
 			current = *command;
 			while (current->next)
 				current = current->next;
-			current->next = *command;
+			current->next = new;
+		}
+	}
+}
+
+void	redirection_addback(t_redir **redir, t_redir *new)
+{
+	t_redir	*current;
+
+	if (redir)
+	{
+		if (*redir == NULL)
+			*redir = new;
+		else
+		{
+			current = *redir;
+			while (current->next)
+				current = current->next;
+			current->next = new;
 		}
 	}
 }
@@ -48,7 +66,7 @@ char	**ft_join_tab(char **oldtab, char *str)
 		return (oldtab);
 	}
 	while (oldtab[i++])
-	newtab = malloc(sizeof(char *) * (i + 2));
+		newtab = malloc(sizeof(char *) * (i + 2));
 	if (!newtab)
 		return (NULL);
 	i = -1;

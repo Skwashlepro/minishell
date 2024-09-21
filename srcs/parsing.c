@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:21:08 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/19 15:48:29 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/21 14:35:05 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_redir_type	type_redirection(t_token *token)
 	return (REDIR_OUT);
 }
 
-int	add_redirection(t_token *token, t_data *data)
+int	add_redirection(t_token *token, t_data *data, t_command *command)
 {
 	t_redir	*redir;
 	char	*str;
@@ -32,11 +32,13 @@ int	add_redirection(t_token *token, t_data *data)
 	if (!redir)
 		return (1);
 	redir->type = type_redirection(token);
-	str = ft_expand(data, token->str, redir->type, token->nb_quotes);
+	str = ft_expand(data, token->next->str, redir->type,
+			token->next->nb_quotes);
 	if (!str)
 		return (free(redir), 1);
 	redir->file = str;
 	redir->next = NULL;
+	redirection_addback(&command->redirection, redir);
 	return (0);
 }
 
@@ -53,7 +55,7 @@ int	parse_token(t_data *data, t_token **token, t_command *command)
 {
 	if (*token && (*token)->type == REDIRECTION)
 	{
-		if (add_redirection(*token, data))
+		if (add_redirection(*token, data, command))
 			return (1);
 		*token = (*token)->next;
 	}
