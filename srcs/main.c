@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/21 15:57:38 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/23 18:52:45 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,20 @@ void	loop_prog(t_data *data)
 		data->prompt = prompter(data);
 		data->head = tokenizer(data, data->prompt);
 		data->cmd = parsing(data);
-		if (data->cmd->redirection)
+		// if (data->cmd)
+		// {
+		// 	int i = 0;
+		// 	while (data->cmd)
+		// 	{
+		// 		while (data->cmd->arguments[i])
+		// 			printf("%s\n", data->cmd->arguments[i++]);
+		// 		data->cmd = data->cmd->next;
+		// 	}
+		// }
+		if (data->cmd)
 		{
-			while (data->cmd->redirection)
-			{
-				printf("%s\n", data->cmd->redirection->file);
-				data->cmd->redirection = data->cmd->redirection->next;
-			}
+			data->env = env_to_tab(data);
+			ft_exec(data->cmd, data);
 		}
 		// print_node(data->head, data->head->type);
 		ft_clean(data);

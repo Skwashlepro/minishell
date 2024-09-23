@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/21 13:20:55 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/23 17:21:27 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct s_data
 	char		*new;
 	char		*value;
 	char		**env;
-	char		*path;
+	char		**path;
 	char		*prompt;
 	t_token		*head;
 	t_env		*get_env;
@@ -126,5 +126,6 @@ void		loop_len(char *str, t_data *data, int *len, int *i);
 char		*get_value(char *str, int *i, t_data *data);
 int			wquote(char c, int *i, t_data *data);
 void		redirection_addback(t_redir **redir, t_redir *new);
+int			ft_exec(t_command *command, t_data *data);
 
 #endif

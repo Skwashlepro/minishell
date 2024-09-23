@@ -21,6 +21,7 @@ SRC_FILES	=	main \
 				parsing \
 				expand \
 				expand_utils \
+				get_path \
 
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 

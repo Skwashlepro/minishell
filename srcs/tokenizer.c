@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/18 11:29:24 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/23 11:52:59 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_token	*tokenizer(t_data *data, char *input)
 	i = 0;
 	quote = 0;
 	if (check_input(input))
-		return (NULL);
+		return (data->exit_status = 2, NULL);
 	while (input[i])
 	{
 		data->count = 0;
