@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/23 17:21:27 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/25 18:45:40 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,6 @@ char		*get_value(char *str, int *i, t_data *data);
 int			wquote(char c, int *i, t_data *data);
 void		redirection_addback(t_redir **redir, t_redir *new);
 int			ft_exec(t_command *command, t_data *data);
+void		lst_addback(t_env **node, t_env *new);
 
 #endif
