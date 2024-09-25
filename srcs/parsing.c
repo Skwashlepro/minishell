@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:21:08 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/23 18:26:50 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/25 17:48:32 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 t_redir_type	type_redirection(t_token *token)
 {
-	if (ft_strncmp(token->str, "<<", ft_strlen(token->str)) == 0)
+	if (ft_strcmp(token->str, "<<") == 0)
 		return (HERE_DOC);
-	if (ft_strncmp(token->str, "<", ft_strlen(token->str)) == 0)
+	if (ft_strcmp(token->str, "<") == 0)
 		return (REDIR_IN);
-	if (ft_strncmp(token->str, ">>", ft_strlen(token->str)) == 0)
+	if (ft_strcmp(token->str, ">>") == 0)
 		return (APPEND);
 	return (REDIR_OUT);
 }

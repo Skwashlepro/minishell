@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/23 17:21:27 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/25 16:02:39 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_redir
 
 typedef struct s_command
 {
+	pid_t				pid;
 	char				*command;
 	char				**arguments;
 	t_redir				*redirection;
@@ -77,12 +78,13 @@ typedef struct s_env
 
 typedef struct s_data
 {
+	int			fd[2];
+	int			prev;
 	int			exit_status;
 	int			count;
 	char		cquote;
 	char		*new;
 	char		*value;
-	char		**env;
 	char		**path;
 	char		*prompt;
 	t_token		*head;
@@ -126,6 +128,9 @@ void		loop_len(char *str, t_data *data, int *len, int *i);
 char		*get_value(char *str, int *i, t_data *data);
 int			wquote(char c, int *i, t_data *data);
 void		redirection_addback(t_redir **redir, t_redir *new);
-int			ft_exec(t_command *command, t_data *data);
+int			ft_exec(t_data *data);
+void		ft_executor(t_data *data, char **env, int i);
+void		free_node(t_token *head);
+void		clean_cmd(t_command *cmd);
 
 #endif
