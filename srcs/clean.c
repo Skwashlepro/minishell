@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:09:07 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/23 16:53:14 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/25 18:30:46 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,19 @@ void	ft_clean(t_data *data)
 {
 	if (data->cmd)
 	{
+		printf("TAMEREEE\n");
 		clean_cmd(data->cmd);
 		data->cmd = NULL;
 	}
 	if (data->head)
 	{
+		printf("TAMEREEE22222\n");
 		free_node(data->head);
 		data->head = NULL;
 	}
 	if (data->prompt)
 	{
+		printf("TAMEREEE33333333333333\n");
 		free(data->prompt);
 		data->prompt = NULL;
 	}

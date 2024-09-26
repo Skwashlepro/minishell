@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/23 18:52:45 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/25 18:23:01 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		g_var = 0;
 
 void	clean_all(t_data *data)
 {
-	clean_cmd(data->cmd);
+	printf("SIU22222222222222222222\n");
 	ft_clean(data);
 	free_env(data->get_env);
 	rl_clear_history();
@@ -65,21 +65,19 @@ void	loop_prog(t_data *data)
 		data->prompt = prompter(data);
 		data->head = tokenizer(data, data->prompt);
 		data->cmd = parsing(data);
-		// if (data->cmd)
+		// t_command *command = data->cmd;
+		// if (command)
 		// {
 		// 	int i = 0;
-		// 	while (data->cmd)
+		// 	while (command)
 		// 	{
-		// 		while (data->cmd->arguments[i])
-		// 			printf("%s\n", data->cmd->arguments[i++]);
-		// 		data->cmd = data->cmd->next;
+		// 		while (command->arguments[i])
+		// 			printf("%s\n", command->arguments[i++]);
+		// 		command = command->next;
 		// 	}
 		// }
 		if (data->cmd)
-		{
-			data->env = env_to_tab(data);
-			ft_exec(data->cmd, data);
-		}
+			data->exit_status = ft_exec(data);
 		// print_node(data->head, data->head->type);
 		ft_clean(data);
 	}

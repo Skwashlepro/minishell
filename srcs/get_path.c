@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:46:53 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/23 18:52:55 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/25 18:37:11 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,35 @@ static char	**find_path(t_env *env)
 	return (NULL);
 }
 
-int	ft_exec(t_command *command, t_data *data)
+int	ft_exec(t_data *data)
 {
-	t_env	*env;
-	pid_t	pid;
+	t_env		*env_lst;
+	char		**env;
+	int			i;
 
-	int i = 0;
-	(void)command;
-	env = data->get_env;
-	data->path = find_path(env);
-	while (++i < size_command(data->cmd))
+	// pid_t	pid;
+	i = 0;
+	data->prev = -1;
+	env = env_to_tab(data);
+	env_lst = data->get_env;
+	data->path = find_path(env_lst);
+	t_command *head = data->cmd;
+	while (data->cmd)
 	{
-		ft_executor(data, &i, data->env);
+		ft_executor(data, env, i);
+		data->cmd = data->cmd->next;
+		i++;
 	}
-	pid = fork();
-	if (pid == -1)
-		exit(1);
-	if (pid == 0)
+	close(data->fd[0]);
+	data->cmd = head;
+	while (data->cmd)
 	{
-		execve(data->cmd->arguments[0], data->cmd->arguments, data->env);
+		waitpid(data->cmd->pid, &data->exit_status, 0);
+		if (WIFEXITED(data->exit_status))
+			data->exit_status = WEXITSTATUS(data->exit_status);
+		data->cmd = data->cmd->next;
 	}
-	waitpid(pid, &data->exit_status, 0);
-	if (WIFEXITED(data->exit_status))
-		data->exit_status = WEXITSTATUS(data->exit_status);
+	free_tab(env);
+	free_tab(data->path);
 	return (data->exit_status);
 }
