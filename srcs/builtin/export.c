@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:28:17 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/25 18:54:17 by luctan           ###   ########.fr       */
+/*   Updated: 2024/09/26 15:53:08 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	export(t_data *data, char **args)
 			node->value = ft_strdup(args[i] + j);
 			node->equal = 1;
 		}
-		else
+		else if (node->key)
 		{
 			while (tmp->key != node->key && tmp)
 				tmp = tmp->next;
