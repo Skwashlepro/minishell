@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/26 16:44:14 by luctan           ###   ########.fr       */
+/*   Updated: 2024/09/26 16:44:59 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,14 +128,7 @@ void		loop_len(char *str, t_data *data, int *len, int *i);
 char		*get_value(char *str, int *i, t_data *data);
 int			wquote(char c, int *i, t_data *data);
 void		redirection_addback(t_redir **redir, t_redir *new);
-<<<<<<< HEAD
 int			ft_exec(t_command *command, t_data *data);
 void		lst_addback(t_env **node, t_env *new);
-=======
-int			ft_exec(t_data *data);
-void		ft_executor(t_data *data, char **env, int i);
-void		free_node(t_token *head);
-void		clean_cmd(t_command *cmd);
->>>>>>> main
 
 #endif
