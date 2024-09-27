@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:21:08 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/25 17:48:32 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/27 15:15:12 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,12 @@ int	add_redirection(t_token *token, t_data *data, t_command *command)
 
 bool	add_word(t_token *token, t_command *command, t_data *data)
 {
-	command->arguments = ft_join_tab(command->arguments, ft_expand(data,
-				token->str, token->type, token->nb_quotes));
+	char	*str;
+
+	str = ft_expand(data, token->str, token->type, token->nb_quotes);
+	if (!str)
+		return (true);
+	command->arguments = ft_join_tab(command->arguments, str);
 	if (command->arguments)
 		return (false);
 	return (true);

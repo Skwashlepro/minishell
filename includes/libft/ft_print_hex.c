@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_print_hex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 16:26:06 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/26 16:18:53 by tpassin          ###   ########.fr       */
+/*   Created: 2023/11/30 20:33:50 by tpassin           #+#    #+#             */
+/*   Updated: 2024/05/16 21:18:55 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+size_t	ft_print_hex(unsigned int nb, char c, int *ptr, t_buffer *buff)
 {
-	int		i;
-	char	*dest;
+	char	*base;
 
-	i = -1;
-	dest = malloc(sizeof(char) * (ft_strlen(s) + 1));
-	if (!dest)
-		return (NULL);
-	while (s[++i])
-		dest[i] = s[i];
-	dest[i] = '\0';
-	return (dest);
+	if (c == 'x')
+		base = "0123456789abcdef";
+	else if (c == 'X')
+		base = "0123456789ABCDEF";
+	if (nb < 16)
+		*ptr += ft_putchar(base[nb], buff);
+	else
+	{
+		ft_print_hex(nb / 16, c, ptr, buff);
+		*ptr += ft_putchar(base[nb % 16], buff);
+	}
+	return (*ptr);
 }

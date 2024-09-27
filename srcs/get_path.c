@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:46:53 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/25 18:37:11 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/27 20:01:36 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,34 +41,59 @@ static char	**find_path(t_env *env)
 	return (NULL);
 }
 
-int	ft_exec(t_data *data)
+void	ft_wait(t_data *data, t_command *cmd)
+{
+	while (cmd)
+	{
+		waitpid(cmd->pid, &data->exit_status, 0);
+		if (WIFEXITED(data->exit_status))
+			data->exit_status = WEXITSTATUS(data->exit_status);
+		cmd = cmd->next;
+	}
+}
+
+void run_herdoc(t_command *cmd, t_data *data)
+{
+	t_command *tmp;
+
+	tmp = cmd;
+	while (tmp)
+	{
+		if (tmp->redirection)
+		{
+			if (tmp->redirection->type == HERE_DOC)
+			{
+				ft_here_doc(tmp, tmp->redirection->file);
+				data->heredoc--;
+			}
+		}
+		tmp = tmp->next;
+	} 
+}
+
+int	ft_exec(t_command *cmd, t_data *data)
 {
 	t_env		*env_lst;
+	t_command	*tmp;
 	char		**env;
 	int			i;
 
-	// pid_t	pid;
 	i = 0;
 	data->prev = -1;
 	env = env_to_tab(data);
 	env_lst = data->get_env;
 	data->path = find_path(env_lst);
-	t_command *head = data->cmd;
-	while (data->cmd)
+	tmp = cmd;
+	if (data->heredoc)
+		run_heredoc(cmd, data);
+	while (cmd)
 	{
-		ft_executor(data, env, i);
-		data->cmd = data->cmd->next;
+		ft_executor(cmd, data, env, i);
+		cmd = cmd->next;
 		i++;
 	}
+	ft_wait(data, tmp);
 	close(data->fd[0]);
-	data->cmd = head;
-	while (data->cmd)
-	{
-		waitpid(data->cmd->pid, &data->exit_status, 0);
-		if (WIFEXITED(data->exit_status))
-			data->exit_status = WEXITSTATUS(data->exit_status);
-		data->cmd = data->cmd->next;
-	}
 	free_tab(env);
 	free_tab(data->path);
 	return (data->exit_status);

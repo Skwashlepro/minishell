@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/25 18:23:01 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/27 17:39:37 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,29 @@
 
 int		g_var = 0;
 
-// void print_node(t_token *token, int type)
-// {
-// 	while (token)
-// 	{
-// 		printf("\n----------------------------------------\n");
-// 		printf("string: %s\n", token->str);
-// 		printf("nb_quotes: %d\n", token->nb_quotes);
-//     	switch(type)
-// 		{
-//     		 case 0: printf("type: WORD\n"); break ;
-//     		 case 1: printf("type: PIPE\n"); break ;
-//     		 case 2: printf("type: REDIRECTION\n"); break ;
-// 		}
-// 		printf("----------------------------------------\n");
-// 		token = token->next;
-// 	}
-// }
+void print_node(t_token *token, int type)
+{
+	while (token)
+	{
+		printf("\n----------------------------------------\n");
+		printf("string: %s\n", token->str);
+		printf("nb_quotes: %d\n", token->nb_quotes);
+    	switch(type)
+		{
+    		 case 0: printf("type: WORD\n"); break ;
+    		 case 1: printf("type: PIPE\n"); break ;
+    		 case 2: printf("type: REDIRECTION\n"); break ;
+		}
+		printf("----------------------------------------\n");
+		token = token->next;
+	}
+}
 
 void	clean_all(t_data *data)
 {
-	printf("SIU22222222222222222222\n");
 	ft_clean(data);
 	free_env(data->get_env);
-	rl_clear_history();
+	// rl_clear_history();
 	exit(1);
 }
 
@@ -47,14 +46,17 @@ char	*prompter(t_data *data)
 
 	input = readline("minishell$ ");
 	if (input == NULL || (*input == EOF))
-		clean_all(data);
+		return (NULL);
 	if (ft_strchr("!#", input[0]) || input[0] == '\0')
-		return (free(input), ft_strdup(""));
-	if (*input)
 	{
-		// printf("%s\n", input);
-		add_history(input);
+		if (input[0] == '!')
+			data->exit_status = 0;
+		else
+			data->exit_status = 0;
+		return (free(input), ft_strdup(""));
 	}
+	// if (*input)
+	// 	add_history(input);
 	return (input);
 }
 
@@ -63,22 +65,14 @@ void	loop_prog(t_data *data)
 	while (1)
 	{
 		data->prompt = prompter(data);
+		if (!data->prompt)
+			break ;
 		data->head = tokenizer(data, data->prompt);
 		data->cmd = parsing(data);
-		// t_command *command = data->cmd;
-		// if (command)
-		// {
-		// 	int i = 0;
-		// 	while (command)
-		// 	{
-		// 		while (command->arguments[i])
-		// 			printf("%s\n", command->arguments[i++]);
-		// 		command = command->next;
-		// 	}
-		// }
 		if (data->cmd)
-			data->exit_status = ft_exec(data);
-		// print_node(data->head, data->head->type);
+			data->exit_status = ft_exec(data->cmd, data);
+		if (data->exit_status == -1)
+			continue ;
 		ft_clean(data);
 	}
 }

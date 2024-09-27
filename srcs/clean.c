@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:09:07 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/25 18:30:46 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/27 19:53:48 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@ void	free_node(t_token *head)
 			free(head->str);
 		free(head);
 		head = tmp;
+	}
+}
+
+void	free_redir(t_redir *redirection)
+{
+	t_redir	*tmp;
+
+	while (redirection)
+	{
+		tmp = redirection->next;
+		free(redirection->file);
+		free(redirection);
+		redirection = tmp;
 	}
 }
 
@@ -51,6 +64,7 @@ void	clean_cmd(t_command *cmd)
 		tmp = cmd->next;
 		if (cmd->arguments)
 			free_tab(cmd->arguments);
+		free_redir(cmd->redirection);
 		free(cmd);
 		cmd = tmp;
 	}
@@ -58,21 +72,19 @@ void	clean_cmd(t_command *cmd)
 
 void	ft_clean(t_data *data)
 {
+	data->heredoc = 0;
 	if (data->cmd)
 	{
-		printf("TAMEREEE\n");
 		clean_cmd(data->cmd);
 		data->cmd = NULL;
 	}
 	if (data->head)
 	{
-		printf("TAMEREEE22222\n");
 		free_node(data->head);
 		data->head = NULL;
 	}
 	if (data->prompt)
 	{
-		printf("TAMEREEE33333333333333\n");
 		free(data->prompt);
 		data->prompt = NULL;
 	}

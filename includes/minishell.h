@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/25 16:02:39 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/27 19:51:19 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <errno.h>
 
 extern int				g_var;
 
@@ -32,7 +33,7 @@ typedef enum s_token_type
 	WORD,
 	PIPE,
 	REDIRECTION,
-}	t_token_type;
+}						t_token_type;
 
 typedef enum s_redir_type
 {
@@ -40,24 +41,24 @@ typedef enum s_redir_type
 	REDIR_OUT,
 	HERE_DOC,
 	APPEND,
-}	t_redir_type;
+}						t_redir_type;
 
 typedef struct s_token
 {
-	char			*str;
-	int				nb_quotes;
-	t_token_type	type;
-	struct s_token	*next;
-	struct s_token	*prev;
-}	t_token;
+	char				*str;
+	int					nb_quotes;
+	t_token_type		type;
+	struct s_token		*next;
+	struct s_token		*prev;
+}						t_token;
 
 typedef struct s_redir
 {
-	char			*file;
-	int				fd_heredoc;
-	t_redir_type	type;
-	struct s_redir	*next;
-}	t_redir;
+	char				*file;
+	int					fd_heredoc;
+	t_redir_type		type;
+	struct s_redir		*next;
+}						t_redir;
 
 typedef struct s_command
 {
@@ -66,19 +67,20 @@ typedef struct s_command
 	char				**arguments;
 	t_redir				*redirection;
 	struct s_command	*next;
-}	t_command;
+}						t_command;
 
 typedef struct s_env
 {
-	char			*key;
-	char			*value;
-	int				equal;
-	struct s_env	*next;
-}	t_env;
+	char				*key;
+	char				*value;
+	int					equal;
+	struct s_env		*next;
+}						t_env;
 
 typedef struct s_data
 {
 	int			fd[2];
+	int			heredoc;
 	int			prev;
 	int			exit_status;
 	int			count;
@@ -90,7 +92,7 @@ typedef struct s_data
 	t_token		*head;
 	t_env		*get_env;
 	t_command	*cmd;
-}	t_data;
+}				t_data;
 
 int			check_input(char *str);
 void		print_env(t_data *data);
@@ -120,17 +122,26 @@ char		**ft_join_tab(char **oldtab, char *str);
 void		command_addback(t_command **command, t_command *new);
 void		clean_all(t_data *data);
 t_command	*parsing(t_data *data);
-char		*ft_expand(t_data *data, char *str, int heredoc, int nb_quotes);
+char		*ft_expand(t_data *data, char *str, int heredoc,
+				int nb_quotes);
 void		clean_cmd(t_command *cmd);
 int			is_quotes(int c);
-void		process_string(char *str, t_data *data, int *pos, int *i);
+void		process_string(char *str, t_data *data, int *pos,
+				int *i);
 void		loop_len(char *str, t_data *data, int *len, int *i);
 char		*get_value(char *str, int *i, t_data *data);
 int			wquote(char c, int *i, t_data *data);
 void		redirection_addback(t_redir **redir, t_redir *new);
-int			ft_exec(t_data *data);
-void		ft_executor(t_data *data, char **env, int i);
+int			ft_exec(t_command *cmd, t_data *data);
+void		ft_executor(t_command *cmd, t_data *data, char **env,
+				int i);
 void		free_node(t_token *head);
 void		clean_cmd(t_command *cmd);
-
+char		*expand_and_duplicate(char *str, t_data *data,
+				int heredoc);
+char		*get_varenv(char *str, t_data *data, int TYPE);
+void		free_redir(t_redir *redirection);
+void		fork_redir_free(t_data *data, char **env, char **path);
+void		fork_clean(t_data *data, char **envp);
+void		ft_here_doc(t_command *cmd, char *lim);
 #endif

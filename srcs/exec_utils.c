@@ -6,41 +6,31 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:47:02 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/25 15:59:15 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/27 19:28:36 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_exit_code(int code, t_data *data, char **tmp)
+void	ft_exit_code(int code, t_data *data, t_command *cmd, char **envp)
 {
 	if (data->path)
 		free_tab(data->path);
 	if (code == 1)
-		return (dprintf(2, "command not found\n"), free_tab(tmp), exit(127));
+		return (ft_printf(2, "Minishell: %s: command not found\n",
+				cmd->arguments[0]), fork_clean(data, envp), exit(127));
 	else if (code == 2)
-	{
-		dprintf(2, "permission denied: %s\n", tmp[0]);
-		return (free_tab(tmp), exit(126));
-	}
+		return (fork_clean(data, envp), ft_printf(2,
+				"Minishell:%s: Permission denied\n", cmd->arguments[0]),
+			exit(126));
 	else if (code == 3)
 	{
-		dprintf(2, "no such file or directory: %s\n", tmp[0]);
-		return (free_tab(tmp), exit(127));
-	}
-	else if (code == 4)
-	{
-		dprintf(2, "minishell: %s: command not found\n", tmp[0]);
-		return (free_tab(tmp), exit(127));
-	}
-	else if (code == 5)
-	{
-		perror("pipex");
-		return (free_tab(tmp), exit(126));
+		ft_printf(2, "No such file or directory: %s\n", cmd->arguments[0]);
+		return (fork_clean(data, envp), exit(127));
 	}
 }
 
-char	*cmd(t_data *data, char *command)
+char	*get_cmd(t_data *data, char *command)
 {
 	char	*str;
 	int		i;
@@ -57,68 +47,68 @@ char	*cmd(t_data *data, char *command)
 	return (NULL);
 }
 
-void	ft_execve(t_data *data, char **envp)
+void	ft_execve(t_data *data, char **envp, t_command *cmd)
 {
 	char	*path;
 
-	if (!data->cmd->arguments[0] && data->cmd->redirection)
-		return ;
-	if (!data->cmd->arguments || !data->cmd->arguments[0])
-		ft_exit_code(1, data, data->cmd->arguments);
-	if (ft_strchr(data->cmd->arguments[0], '/'))
+	if (!cmd->arguments && cmd->redirection)
+		exit(1);
+	if (!cmd->arguments || !cmd->arguments[0])
+		ft_exit_code(1, data, cmd, envp);
+	if (ft_strchr(cmd->arguments[0], '/'))
 	{
-		if (access(data->cmd->arguments[0], F_OK | X_OK | R_OK) == 0)
-			execve(data->cmd->arguments[0], data->cmd->arguments, envp);
-		else if (access(data->cmd->arguments[0], F_OK) == 0
-			&& (access(data->cmd->arguments[0], X_OK | R_OK)))
-			ft_exit_code(2, data, data->cmd->arguments);
+		if (access(cmd->arguments[0], F_OK | X_OK | R_OK) == 0)
+			execve(cmd->arguments[0], cmd->arguments, envp);
+		else if (access(cmd->arguments[0], F_OK) == 0
+			&& (access(cmd->arguments[0], X_OK | R_OK)))
+			ft_exit_code(2, data, cmd, envp);
 		else
-			ft_exit_code(3, data, data->cmd->arguments);
+			ft_exit_code(3, data, cmd, envp);
 	}
-	path = cmd(data, data->cmd->arguments[0]);
+	path = get_cmd(data, cmd->arguments[0]);
 	if (!path)
-		ft_exit_code(4, data, data->cmd->arguments);
-	execve(path, data->cmd->arguments, envp);
+		ft_exit_code(1, data, cmd, envp);
+	execve(path, cmd->arguments, envp);
 	free(path);
-	ft_exit_code(4, data, data->cmd->arguments);
+	ft_exit_code(1, data, cmd, envp);
 }
 
 int	ft_redirection(t_command *cmd)
 {
-	int	fd;
+	int		fd;
+	t_redir	*redirection;
 
 	fd = -1;
-	while (cmd->redirection)
+	redirection = cmd->redirection;
+	while (redirection)
 	{
-		if (cmd->redirection->type == REDIR_IN)
-			fd = open(cmd->redirection->file, O_RDONLY);
-		if (cmd->redirection->type == REDIR_OUT)
-			fd = open(cmd->redirection->file, O_WRONLY | O_CREAT | O_TRUNC,
-					0666);
-		if (cmd->redirection->type == APPEND)
-			fd = open(cmd->redirection->file, O_WRONLY | O_CREAT | O_APPEND,
-					0666);
+		if (redirection->type == REDIR_IN)
+			fd = open(redirection->file, O_RDONLY);
+		else if (redirection->type == REDIR_OUT)
+			fd = open(redirection->file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		else if (redirection->type == APPEND)
+			fd = open(redirection->file, O_WRONLY | O_CREAT | O_APPEND, 0666);
 		if (fd == -1)
-			return (perror("open"), 1);
-		if (cmd->redirection->type == REDIR_OUT
-			|| cmd->redirection->type == APPEND)
+			return (ft_printf(2, "Minishell: %s: Permission denied\n",
+					redirection->file), 1);
+		if (redirection->type == REDIR_OUT || redirection->type == APPEND)
 			dup2(fd, STDOUT_FILENO);
-		if (cmd->redirection->type == REDIR_IN)
+		else if (redirection->type == REDIR_IN)
 			dup2(fd, STDIN_FILENO);
 		close(fd);
-		cmd->redirection = cmd->redirection->next;
+		redirection = redirection->next;
 	}
 	return (0);
 }
 
-void	ft_executor(t_data *data, char **env, int i)
+void	ft_executor(t_command *cmd, t_data *data, char **env, int i)
 {
 	if (pipe(data->fd) == -1)
 		perror("pipe");
-	data->cmd->pid = fork();
-	if (data->cmd->pid == -1)
+	cmd->pid = fork();
+	if (cmd->pid == -1)
 		perror("fork");
-	if (data->cmd->pid == 0)
+	if (cmd->pid == 0)
 	{
 		close(data->fd[0]);
 		if (i != 0)
@@ -126,20 +116,13 @@ void	ft_executor(t_data *data, char **env, int i)
 			dup2(data->prev, STDIN_FILENO);
 			close(data->prev);
 		}
-		if (data->cmd->next != NULL)
+		if (cmd->next != NULL)
 			dup2(data->fd[1], STDOUT_FILENO);
 		close(data->fd[1]);
-		if (ft_redirection(data->cmd))
-		{
-			if (data->path)
-				free_tab(data->path);
-			free_tab(env);
-			clean_all(data);
-		}
-		ft_execve(data, env);
-		free_tab(data->path);
-		free_tab(env);
-		clean_all(data);
+		if (ft_redirection(cmd))
+			fork_redir_free(data, env, data->path);
+		ft_execve(data, env, cmd);
+		fork_redir_free(data, env, data->path);
 	}
 	close(data->fd[1]);
 	if (data->prev != -1)
