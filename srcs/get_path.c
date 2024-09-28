@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:46:53 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/27 20:01:36 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/28 18:09:45 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	ft_wait(t_data *data, t_command *cmd)
 	}
 }
 
-void run_herdoc(t_command *cmd, t_data *data)
+void	run_heredoc(t_command *cmd, t_data *data)
 {
-	t_command *tmp;
+	t_command	*tmp;
 
 	tmp = cmd;
 	while (tmp)
@@ -63,12 +63,15 @@ void run_herdoc(t_command *cmd, t_data *data)
 		{
 			if (tmp->redirection->type == HERE_DOC)
 			{
-				ft_here_doc(tmp, tmp->redirection->file);
+				ft_here_doc(tmp, tmp->redirection->file, data);
+				free(tmp->redirection->file);
+				tmp->redirection->file = tmp->redirection->heredoc_name;
 				data->heredoc--;
 			}
 		}
 		tmp = tmp->next;
-	} 
+	}
+	cmd = tmp;
 }
 
 int	ft_exec(t_command *cmd, t_data *data)

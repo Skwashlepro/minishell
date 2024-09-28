@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/27 19:51:19 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/28 17:18:50 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <errno.h>
+
+# define GET_HEREDOC	"/tmp/heredoc"
 
 extern int				g_var;
 
@@ -55,7 +57,7 @@ typedef struct s_token
 typedef struct s_redir
 {
 	char				*file;
-	int					fd_heredoc;
+	char				*heredoc_name;
 	t_redir_type		type;
 	struct s_redir		*next;
 }						t_redir;
@@ -143,5 +145,6 @@ char		*get_varenv(char *str, t_data *data, int TYPE);
 void		free_redir(t_redir *redirection);
 void		fork_redir_free(t_data *data, char **env, char **path);
 void		fork_clean(t_data *data, char **envp);
-void		ft_here_doc(t_command *cmd, char *lim);
+void		ft_here_doc(t_command *cmd, char *lim, t_data *data);
+void		run_heredoc(t_command *cmd, t_data *data);
 #endif

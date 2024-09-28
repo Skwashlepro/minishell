@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:47:02 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/27 19:28:36 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/28 17:58:35 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int	ft_redirection(t_command *cmd)
 	redirection = cmd->redirection;
 	while (redirection)
 	{
+		if (redirection->type == HERE_DOC)
+			fd = open(redirection->file, O_RDONLY);
 		if (redirection->type == REDIR_IN)
 			fd = open(redirection->file, O_RDONLY);
 		else if (redirection->type == REDIR_OUT)
@@ -93,7 +95,7 @@ int	ft_redirection(t_command *cmd)
 					redirection->file), 1);
 		if (redirection->type == REDIR_OUT || redirection->type == APPEND)
 			dup2(fd, STDOUT_FILENO);
-		else if (redirection->type == REDIR_IN)
+		else if (redirection->type == REDIR_IN || redirection->type == HERE_DOC)
 			dup2(fd, STDIN_FILENO);
 		close(fd);
 		redirection = redirection->next;
