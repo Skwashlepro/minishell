@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:21:08 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/27 15:15:12 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/01 16:03:21 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	add_redirection(t_token *token, t_data *data, t_command *command)
 	if (!str)
 		return (free(redir), 1);
 	redir->file = str;
+	redir->heredoc_name = NULL;
 	redir->next = NULL;
 	redirection_addback(&command->redirection, redir);
 	return (0);

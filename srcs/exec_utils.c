@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:47:02 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/28 17:58:35 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:56:57 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_execve(t_data *data, char **envp, t_command *cmd)
 	char	*path;
 
 	if (!cmd->arguments && cmd->redirection)
-		exit(1);
+		return ;
 	if (!cmd->arguments || !cmd->arguments[0])
 		ft_exit_code(1, data, cmd, envp);
 	if (ft_strchr(cmd->arguments[0], '/'))
@@ -83,13 +83,13 @@ int	ft_redirection(t_command *cmd)
 	while (redirection)
 	{
 		if (redirection->type == HERE_DOC)
-			fd = open(redirection->file, O_RDONLY);
+			fd = open(redirection->heredoc_name, O_RDONLY);
 		if (redirection->type == REDIR_IN)
 			fd = open(redirection->file, O_RDONLY);
 		else if (redirection->type == REDIR_OUT)
-			fd = open(redirection->file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+			fd = open(redirection->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else if (redirection->type == APPEND)
-			fd = open(redirection->file, O_WRONLY | O_CREAT | O_APPEND, 0666);
+			fd = open(redirection->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (fd == -1)
 			return (ft_printf(2, "Minishell: %s: Permission denied\n",
 					redirection->file), 1);

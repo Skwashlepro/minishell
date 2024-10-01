@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:02:26 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/27 15:06:59 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:55:21 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	len_varenv(t_data *data, char *str)
 	if (!str)
 		return (len);
 	loop_len(str, data, &len, &i);
-	// printf("TAILLE LEN AVANT RETURN: %d\n", len);
 	return (len);
 }
 
@@ -75,7 +74,6 @@ char	*get_varenv(char *str, t_data *data, int TYPE)
 		return (free(data->new), ft_strdup(str));
 	i = 0;
 	process_string(str, data, &pos, &i);
-	// printf("TAILLE LEN APRES RETURN: %zu\n", ft_strlen(new));
 	return (data->new);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/28 17:18:50 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:53:29 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ char		*get_varenv(char *str, t_data *data, int TYPE);
 void		free_redir(t_redir *redirection);
 void		fork_redir_free(t_data *data, char **env, char **path);
 void		fork_clean(t_data *data, char **envp);
-void		ft_here_doc(t_command *cmd, char *lim, t_data *data);
+void		ft_here_doc(t_redir *redir, t_data *data);
 void		run_heredoc(t_command *cmd, t_data *data);
+void		signals_child(void);
 #endif

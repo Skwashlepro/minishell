@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 18:30:51 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/10 17:38:42 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:57:15 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	inthandler(int sig)
 	rl_on_new_line();
 	rl_redisplay();
 	g_var = 130;
-	return ;
 }
 
 void	ft_signal(void)

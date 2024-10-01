@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:46:53 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/28 18:09:45 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:55:35 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,20 @@ static char	**find_path(t_env *env)
 	return (NULL);
 }
 
+void unlink_file(t_command *cmd)
+{
+	t_redir *tmp;
+
+	tmp = cmd->redirection;
+	while (tmp)
+	{
+		if (tmp->heredoc_name)
+			if (access(tmp->heredoc_name, F_OK | X_OK | R_OK) == 0)
+				unlink(tmp->heredoc_name);
+		tmp = tmp->next;
+	}
+}
+
 void	ft_wait(t_data *data, t_command *cmd)
 {
 	while (cmd)
@@ -48,7 +62,24 @@ void	ft_wait(t_data *data, t_command *cmd)
 		waitpid(cmd->pid, &data->exit_status, 0);
 		if (WIFEXITED(data->exit_status))
 			data->exit_status = WEXITSTATUS(data->exit_status);
+		unlink_file(cmd);
 		cmd = cmd->next;
+	}
+}
+
+void	check_heredoc(t_command *cmd, t_data *data)
+{
+	t_redir	*tmp;
+
+	tmp = cmd->redirection;
+	while (tmp)
+	{
+		if (tmp->type == HERE_DOC)
+		{
+			ft_here_doc(tmp, data);
+			data->heredoc--;
+		}
+		tmp = tmp->next;
 	}
 }
 
@@ -59,19 +90,9 @@ void	run_heredoc(t_command *cmd, t_data *data)
 	tmp = cmd;
 	while (tmp)
 	{
-		if (tmp->redirection)
-		{
-			if (tmp->redirection->type == HERE_DOC)
-			{
-				ft_here_doc(tmp, tmp->redirection->file, data);
-				free(tmp->redirection->file);
-				tmp->redirection->file = tmp->redirection->heredoc_name;
-				data->heredoc--;
-			}
-		}
+		check_heredoc(tmp, data);
 		tmp = tmp->next;
 	}
-	cmd = tmp;
 }
 
 int	ft_exec(t_command *cmd, t_data *data)
@@ -82,7 +103,6 @@ int	ft_exec(t_command *cmd, t_data *data)
 	int			i;
 
 	i = 0;
-	data->prev = -1;
 	env = env_to_tab(data);
 	env_lst = data->get_env;
 	data->path = find_path(env_lst);
@@ -91,9 +111,8 @@ int	ft_exec(t_command *cmd, t_data *data)
 		run_heredoc(cmd, data);
 	while (cmd)
 	{
-		ft_executor(cmd, data, env, i);
+		ft_executor(cmd, data, env, i++);
 		cmd = cmd->next;
-		i++;
 	}
 	ft_wait(data, tmp);
 	close(data->fd[0]);

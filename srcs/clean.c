@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:09:07 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/27 19:53:48 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/01 15:08:56 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	free_redir(t_redir *redirection)
 	while (redirection)
 	{
 		tmp = redirection->next;
-		free(redirection->file);
+		if (redirection->file)
+			free(redirection->file);
+		if (redirection->heredoc_name)
+			free(redirection->heredoc_name);
 		free(redirection);
 		redirection = tmp;
 	}

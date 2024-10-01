@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/27 17:39:37 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/01 17:50:37 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*prompter(t_data *data)
 	char	*input;
 
 	input = readline("minishell$ ");
-	if (input == NULL || (*input == EOF))
+	if (input == NULL)
 		return (NULL);
 	if (ft_strchr("!#", input[0]) || input[0] == '\0')
 	{
