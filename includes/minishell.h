@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/02 17:29:12 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/02 20:06:56 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,11 @@ typedef struct s_data
 
 int			check_input(char *str);
 void		print_env(t_data *data);
-void		ft_signal(void);
+void		ft_signal();
 t_env		*init_env(char **envp, int ac);
 void		init_data(t_data *data);
 int			is_space(char c);
 int			inquotes(char c, int i);
-void		ft_exit(char *str, t_data *data);
 void		free_tab(char **str);
 long		ft_atol(char **nb);
 t_token		*tokenizer(t_data *data, char *input);
@@ -148,4 +147,15 @@ void		fork_clean(t_data *data, char **envp);
 void		ft_here_doc(t_redir *redir, t_data *data);
 void		run_heredoc(t_command *cmd, t_data *data);
 void		signals_child(void);
+int			ft_builtin(t_data *data, char **cmd);
+void		cd(t_data *data, char *new_path);
+void		echo(char **args);
+void		env(t_data *data);
+void		ft_exit(char **args, t_data *data);
+int			export(t_data *data, char **args);
+void		pwd(t_data *data);
+void		unset(t_data *data, char *var);
+int			nb_check(char *str);
+void		lst_addback(t_env **node, t_env *new);
+
 #endif

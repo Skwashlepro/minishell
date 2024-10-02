@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:33:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/01 15:21:24 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/02 18:02:12 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ t_env	*init_env(char **envp, int ac)
 		ft_putstr_fd("Error too many args\n", 2);
 		exit(1);
 	}
-	i = 0;
 	ft_signal();
+	i = 0;
 	return (copy_env(envp));
 }
 

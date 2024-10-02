@@ -4,6 +4,7 @@
 		"signal.h": "c",
 		"stdio.h": "c",
 		"readline.h": "c",
-		"types.h": "c"
+		"types.h": "c",
+		"minishell.h": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:12:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/17 16:17:03 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/02 19:54:03 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	pwd(t_data *data)
 	
 	tmp = data->get_env;
 	
-	while (tmp->key != "PWD")
+	while (ft_strcmp(tmp->key, "PWD"))
 		tmp = tmp->next;
 	printf("%s\n", tmp->value);
 }

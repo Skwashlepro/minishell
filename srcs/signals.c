@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 18:30:51 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/01 18:57:15 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/02 18:01:19 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	inthandler(int sig)
 	g_var = 130;
 }
 
-void	ft_signal(void)
+void	ft_signal()
 {
 	struct sigaction	sa;
 

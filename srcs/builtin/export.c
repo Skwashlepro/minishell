@@ -6,11 +6,12 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:28:17 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/26 15:53:08 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/02 19:53:28 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 char *key_init(char *arg, int *index)
 {
 	char	*tmp;
@@ -18,13 +19,13 @@ char *key_init(char *arg, int *index)
 	int		j;
 
 	i = 0;
-	j = 0;
+	j = -1;
 	while (arg[i] != '=' && arg[i])
 		i++;
-	index = i;
+	*index = i;
 	tmp = malloc(sizeof(char) * i);
-	while (j != i)
-		tmp[j] = arg[j++];
+	while (++j != i)
+		tmp[j] = arg[j];
 	tmp[j + 1] = '\0';
 	return (tmp);
 }
@@ -54,6 +55,7 @@ int	export(t_data *data, char **args)
 	i = 0;
 	j = 0;
 	tmp = data->get_env;
+	node = malloc(sizeof(t_env));
 	if (!args)
 		return (print_exp(data), 1);
 	while (args[i])
@@ -70,7 +72,8 @@ int	export(t_data *data, char **args)
 			while (tmp->key != node->key && tmp)
 				tmp = tmp->next;
 		}
-		lst_addback(data->get_env, node);
+		lst_addback(&data->get_env, node);
 		i++;
 	}
+	return (0);
 }

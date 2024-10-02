@@ -3,7 +3,7 @@ LIB			= includes/libft/libft.a
 # CFLAGS		= -Wall -Werror -Wextra
 CFLAGS = -Wall -Werror -Wextra -g3
 CC			= cc
-VPATH		= srcs
+VPATH		= ./srcs/:./srcs/builtin 
 LIBFT_PATH 	= ./includes/libft
 INC = -Iincludes/
 
@@ -25,13 +25,17 @@ SRC_FILES	=	main \
 				exec_utils \
 				exec_free \
 				heredoc \
+				builtin_ch \
+				cd echo env_cmd exit export \
+				pwd unset \
+
 
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 
 all: $(LIB) $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INC) -I/usr/include -c $< -o $@
+	$(CC) $(CFLAGS) $(INC) -I/usr/include -Isrcs/builtin -c $< -o $@
 
 $(NAME): $(OBJ)
 	$(CC) $(INC) $(OBJ) $(LIB) -o $(NAME) -lreadline 
