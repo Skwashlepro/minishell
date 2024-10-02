@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   exec_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 16:26:06 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/26 16:18:53 by tpassin          ###   ########.fr       */
+/*   Created: 2024/09/27 19:07:11 by tpassin           #+#    #+#             */
+/*   Updated: 2024/09/30 13:47:50 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strdup(const char *s)
+void	fork_clean(t_data *data, char **envp)
 {
-	int		i;
-	char	*dest;
+	t_command *cmd;
 
-	i = -1;
-	dest = malloc(sizeof(char) * (ft_strlen(s) + 1));
-	if (!dest)
-		return (NULL);
-	while (s[++i])
-		dest[i] = s[i];
-	dest[i] = '\0';
-	return (dest);
+	cmd = data->cmd;
+	clean_cmd(cmd);
+	free_node(data->head);
+	if (data->prompt)
+		free(data->prompt);
+	free_tab(envp);
+	if (data->get_env)
+		free_env(data->get_env);
+}
+
+void	fork_redir_free(t_data *data, char **env, char **path)
+{
+	if (env)
+		free_tab(env);
+	if (path)
+		free_tab(path);
+	clean_all(data);
 }

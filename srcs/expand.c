@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:02:26 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/25 16:54:12 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:55:21 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,39 +41,39 @@ char	*get_value(char *str, int *i, t_data *data)
 
 int	len_varenv(t_data *data, char *str)
 {
-	int		len;
-	int		i;
+	int	len;
+	int	i;
 
 	i = 0;
 	len = 0;
 	if (!str)
 		return (len);
 	loop_len(str, data, &len, &i);
-	// printf("TAILLE LEN AVANT RETURN: %d\n", len);
 	return (len);
 }
 
 char	*get_varenv(char *str, t_data *data, int TYPE)
 {
-	int		i;
-	int		len;
-	int		pos;
+	int	i;
+	int	len;
+	int	pos;
 
+	if (!str)
+		return (NULL);
 	if (TYPE == HERE_DOC || !ft_strchr(str, '$'))
-		return (str);
+		return (ft_strdup(str));
 	i = 0;
 	pos = 0;
 	len = len_varenv(data, str);
 	data->new = ft_calloc(sizeof(char), len + 1);
 	if (!data->new)
 		return (NULL);
-	while (str[i] && str[i] == '$')
+	while (str[i] && (str[i] == '$' || is_quotes(str[i])))
 		i++;
 	if (str[i] == '\0')
 		return (free(data->new), ft_strdup(str));
 	i = 0;
 	process_string(str, data, &pos, &i);
-	// printf("TAILLE LEN APRES RETURN: %zu\n", ft_strlen(new));
 	return (data->new);
 }
 
@@ -85,23 +85,23 @@ char	*ft_expand(t_data *data, char *str, int heredoc, int nb_quotes)
 
 	i = 0;
 	j = 0;
-	str = get_varenv(str, data, heredoc);
-	if (!str)
+	char *s2 = get_varenv(str, data, heredoc);
+	if (!s2)
 		return (NULL);
-	if (nb_quotes && str)
+	if (nb_quotes && s2)
 	{
-		s = malloc(sizeof(char *) * ((ft_strlen(str) - nb_quotes) + 1));
+		s = malloc(sizeof(char *) * ((ft_strlen(s2) - nb_quotes) + 1));
 		if (!s)
-			return (free_array(str), NULL);
-		while (str && str[i])
+			return (NULL);
+		while (s2 && s2[i])
 		{
-			if (wquote(str[i], &i, data))
-				s[j++] = str[i++];
+			if (wquote(s2[i], &i, data))
+				s[j++] = s2[i++];
 		}
 		s[j] = '\0';
-		if (!s && str)
-			return (free_array(str), NULL);
-		return (free_array(str), s);
+		if (!s && s2)
+			return (NULL);
+		return (s);
 	}
-	return (str);
+	return (s2);
 }

@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 17:14:16 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/12 17:57:47 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:55:30 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ void	add_token(t_token **token_head, t_token_type type, char *str,
 		return ;
 	token = malloc(sizeof(t_token));
 	if (!token)
-		return ;
-	token->next = NULL;
+		return (free(str));
 	token->str = ft_strdup(str);
 	token->type = type;
 	token->nb_quotes = nb_quotes;
+	token->next = NULL;
 	if (!(*token_head))
 	{
 		*token_head = token;

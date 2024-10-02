@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 17:14:18 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/25 17:49:45 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/27 13:32:19 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,16 @@ char	**ft_join_tab(char **oldtab, char *str)
 	i = 0;
 	if (!oldtab)
 	{
-		printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
 		oldtab = (char **)malloc(sizeof(char *) * (1 + 1));
 		if (!oldtab || !str)
-			return (NULL);
+			return (free(oldtab), NULL);
 		oldtab[0] = str;
-		if (!oldtab[0])
-			return (free_tab(oldtab), NULL);
 		oldtab[1] = NULL;
 		return (oldtab);
 	}
-	while (oldtab && oldtab[i++])
-		newtab = malloc(sizeof(char *) * (i + 2));
+	while (oldtab[i])
+		i++;
+	newtab = malloc(sizeof(char *) * (i + 2));
 	if (!newtab)
 		return (free(oldtab), NULL);
 	i = -1;

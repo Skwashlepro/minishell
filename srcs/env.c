@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:33:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/12 18:03:47 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/01 15:21:24 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	init_data(t_data *data)
 {
 	ft_memset(data, 0, sizeof(t_data));
 	data->cquote = 'N';
+	data->prev = -1;
 }
 
 void	print_env(t_data *data)
@@ -51,18 +52,30 @@ char	**env_to_tab(t_data *data)
 {
 	t_env	*copy;
 	char	**tab;
+	char	*str;
 	int		i;
 
+	tab = NULL;
+	str = NULL;
 	i = lst_size(data->get_env);
 	tab = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!tab)
 		return (NULL);
 	copy = data->get_env;
 	i = 0;
-	while (copy)
+	while (copy && tab)
 	{
-		tab[i] = ft_strjoin(copy->key, "=");
-		tab[i] = ft_strjoin(tab[i], copy->value);
+		str = ft_strjoin(copy->key, "=");
+		if (!str)
+		{
+			if (tab)
+				free_tab(tab);
+			return (NULL);
+		}
+		tab[i] = ft_strjoin(str, copy->value);
+		if (!tab[i])
+			return (free(str), NULL);
+		free(str);
 		copy = copy->next;
 		i++;
 	}

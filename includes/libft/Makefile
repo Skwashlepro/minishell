@@ -40,6 +40,13 @@ SRC_FILES	=ft_atoi \
 			ft_strchri \
 			is_sep \
 			ft_strncat \
+			ft_printf \
+			ft_print_hex \
+			ft_putchar \
+			ft_putnbr \
+			ft_putstr \
+			ft_unsigned_nb \
+			ft_put_p \
 
 SRC_BFILES	= ft_lstadd_back \
 			ft_lstadd_front \

@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 16:26:06 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/26 16:18:53 by tpassin          ###   ########.fr       */
+/*   Created: 2023/11/14 12:48:50 by tpassin           #+#    #+#             */
+/*   Updated: 2024/05/16 21:20:08 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+int	ft_putnbr(int n, int *ptr, t_buffer *buff)
 {
-	int		i;
-	char	*dest;
+	long	nb;
 
-	i = -1;
-	dest = malloc(sizeof(char) * (ft_strlen(s) + 1));
-	if (!dest)
-		return (NULL);
-	while (s[++i])
-		dest[i] = s[i];
-	dest[i] = '\0';
-	return (dest);
+	nb = n;
+	if (nb < 0)
+	{
+		*ptr += ft_putchar('-', buff);
+		nb *= -1;
+	}
+	if (nb > 9)
+		ft_putnbr(nb / 10, ptr, buff);
+	*ptr += ft_putchar(nb % 10 + 48, buff);
+	return (*ptr);
 }

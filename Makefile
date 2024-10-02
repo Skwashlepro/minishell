@@ -23,6 +23,8 @@ SRC_FILES	=	main \
 				expand_utils \
 				get_path \
 				exec_utils \
+				exec_free \
+				heredoc \
 
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 

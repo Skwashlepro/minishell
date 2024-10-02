@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/23 11:52:59 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/09/27 19:52:28 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	isredirect(t_data *data, char *input, int *i)
 		{
 			add_token(&data->head, REDIRECTION, "<<", 0);
 			(*i)++;
+			data->heredoc++;
 		}
 		else
 			add_token(&data->head, REDIRECTION, "<", 0);
