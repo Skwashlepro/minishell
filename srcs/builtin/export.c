@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:28:17 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/02 19:53:28 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/02 20:18:19 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_exp(t_data *data)
 
 	i = 0;
 	tmp = data->get_env;
-	while (tmp)
+	while (tmp->next)
 	{
 		printf("export ");
 		printf("%s=", tmp->key);
@@ -52,12 +52,12 @@ int	export(t_data *data, char **args)
 	t_env	*tmp;
 	t_env	*node;
 
-	i = 0;
+	i = 1;
 	j = 0;
+	if (!args[i])
+		return (print_exp(data), 1);
 	tmp = data->get_env;
 	node = malloc(sizeof(t_env));
-	if (!args)
-		return (print_exp(data), 1);
 	while (args[i])
 	{
 		node->key = key_init(args[i], &j);
