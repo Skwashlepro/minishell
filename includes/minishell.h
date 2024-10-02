@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/02 20:06:56 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/02 23:57:51 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,14 +148,15 @@ void		ft_here_doc(t_redir *redir, t_data *data);
 void		run_heredoc(t_command *cmd, t_data *data);
 void		signals_child(void);
 int			ft_builtin(t_data *data, char **cmd);
-void		cd(t_data *data, char *new_path);
+void		cd(t_data *data, char **args);
 void		echo(char **args);
 void		env(t_data *data);
 void		ft_exit(char **args, t_data *data);
 int			export(t_data *data, char **args);
 void		pwd(t_data *data);
-void		unset(t_data *data, char *var);
+int			unset(t_data **data, char *var);
 int			nb_check(char *str);
 void		lst_addback(t_env **node, t_env *new);
+int			count_args(char **args);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:41:54 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/02 20:15:39 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/03 00:21:30 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,10 @@ int	ft_builtin(t_data *data, char **cmd)
 	char *command;
 	
 	command = finder(cmd[0]);
-	dprintf(2, "%s\n", command);
 	if (command == NULL)
-		return (1);
+		return (0);
 	if (!ft_strcmp(command, "cd"))
-	{
-		if (cmd[2])
-			return ((void)printf("%s%s\n", "cd: string not in pwd: ", cmd[1]), 1);
-		cd(data, cmd[1]);
-	}
+		cd(data, cmd);
 	else if (!ft_strcmp(command, "echo"))
 		echo(cmd + 1);
 	else if (!ft_strcmp(command, "env"))
@@ -89,7 +84,7 @@ int	ft_builtin(t_data *data, char **cmd)
 	else if (!ft_strcmp(command, "pwd"))
 		pwd(data);
 	else if (!ft_strcmp(command, "unset"))
-		unset(data, cmd[1]);
+		unset(&data, cmd[1]);
 	free_array(command);
 	return (1);
 }

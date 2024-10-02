@@ -16,10 +16,8 @@ static char	**find_path(t_env *env)
 {
 	char	*str;
 	char	**tab;
-	int		i;
 	int		j;
 
-	i = 0;
 	j = -1;
 	tab = NULL;
 	while (env)

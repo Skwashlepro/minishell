@@ -22,9 +22,7 @@ void	init_data(t_data *data)
 void	print_env(t_data *data)
 {
 	t_env	*tmp;
-	int		i;
 
-	i = 0;
 	tmp = data->get_env;
 	while (tmp)
 	{
@@ -36,15 +34,12 @@ void	print_env(t_data *data)
 
 t_env	*init_env(char **envp, int ac)
 {
-	int	i;
-
 	if (ac != 1)
 	{
 		ft_putstr_fd("Error too many args\n", 2);
 		exit(1);
 	}
 	ft_signal();
-	i = 0;
 	return (copy_env(envp));
 }
 

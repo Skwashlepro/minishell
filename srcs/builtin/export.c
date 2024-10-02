@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:28:17 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/02 20:18:19 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/02 23:47:35 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ char *key_init(char *arg, int *index)
 void	print_exp(t_data *data)
 {
 	t_env	*tmp;
-	int		i;
 
-	i = 0;
 	tmp = data->get_env;
 	while (tmp->next)
 	{

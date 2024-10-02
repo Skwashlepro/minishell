@@ -25,7 +25,7 @@ SRC_FILES	=	main \
 				exec_utils \
 				exec_free \
 				heredoc \
-				builtin_ch \
+				builtin_ch builtin_utils\
 				cd echo env_cmd exit export \
 				pwd unset \
 
