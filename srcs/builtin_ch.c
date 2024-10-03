@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:41:54 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/03 00:21:30 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/03 16:33:45 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*finder(char *cmd)
 	return (found);
 }
 
-int	ft_builtin(t_data *data, char **cmd)
+int ft_builtin(t_data *data, char **cmd)
 {
 	char *command;
 	

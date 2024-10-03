@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:47:02 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/03 00:59:34 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/03 16:33:25 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	ft_executor(t_command *cmd, t_data *data, char **env, int i)
 		if (ft_redirection(cmd))
 			fork_redir_free(data, env, data->path);
 		if (ft_builtin(data, cmd->arguments))
-			return ;
+			exit(0);
 		ft_execve(data, env, cmd);
 		fork_redir_free(data, env, data->path);
 	}
