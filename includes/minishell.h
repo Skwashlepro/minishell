@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/02 23:57:51 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/03 16:35:20 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ typedef struct s_data
 }				t_data;
 
 int			check_input(char *str);
-void		print_env(t_data *data);
 void		ft_signal();
 t_env		*init_env(char **envp, int ac);
 void		init_data(t_data *data);

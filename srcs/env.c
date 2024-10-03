@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:33:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/02 18:02:12 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/03 16:35:12 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,6 @@ void	init_data(t_data *data)
 	ft_memset(data, 0, sizeof(t_data));
 	data->cquote = 'N';
 	data->prev = -1;
-}
-
-void	print_env(t_data *data)
-{
-	t_env	*tmp;
-
-	tmp = data->get_env;
-	while (tmp)
-	{
-		printf("%s=", tmp->key);
-		printf("%s\n", tmp->value);
-		tmp = tmp->next;
-	}
 }
 
 t_env	*init_env(char **envp, int ac)

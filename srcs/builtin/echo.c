@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 15:52:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/02 20:09:14 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/03 16:30:59 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	echo(char **args)
 
 	print = 0;
 	i = 0;
-	if (!ft_strcmp(args[i], "-n"))
+	if (args[1] && !ft_strcmp(args[1], "-n"))
 	{
 		print = 1;
 		i++;
@@ -27,5 +27,5 @@ void	echo(char **args)
 	while (args[i])
 		printf("%s ", args[i++]);
 	if (!print)
-		printf("\n");
+		printf("%c", '\n');
 }
