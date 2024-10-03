@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:46:53 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/03 01:00:34 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:41:04 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ int	ft_exec(t_command *cmd, t_data *data)
 		run_heredoc(cmd, data);
 	while (cmd)
 	{
-		ft_executor(cmd, data, env, i++);
+		if (!ft_builtin(data, cmd->arguments, 0))
+			ft_executor(cmd, data, env, i++);
 		cmd = cmd->next;
 	}
 	ft_wait(data, tmp);
