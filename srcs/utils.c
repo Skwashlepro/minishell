@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 03:51:40 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/01 14:48:14 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/03 19:52:25 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ void	free_tab(char **str)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	if (str)
 	{
-		free(str[i]);
-		i++;
+		while (str[i])
+		{
+			free(str[i]);
+			i++;
+		}
+		free(str);
+		str = NULL;
 	}
-	free(str);
-	str = NULL;
 }
 
 void	free_array(char *str)
