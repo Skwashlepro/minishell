@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:47:02 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/01 18:56:57 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/04 20:56:21 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	ft_exit_code(int code, t_data *data, t_command *cmd, char **envp)
 	if (data->path)
 		free_tab(data->path);
 	if (code == 1)
-		return (ft_printf(2, "Minishell: %s: command not found\n",
+		return (ft_printf(2, "minishell: %s: command not found\n",
 				cmd->arguments[0]), fork_clean(data, envp), exit(127));
 	else if (code == 2)
 		return (fork_clean(data, envp), ft_printf(2,
-				"Minishell:%s: Permission denied\n", cmd->arguments[0]),
+				"minishell:%s: APermission denied\n", cmd->arguments[0]),
 			exit(126));
 	else if (code == 3)
 	{
@@ -91,7 +91,7 @@ int	ft_redirection(t_command *cmd)
 		else if (redirection->type == APPEND)
 			fd = open(redirection->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (fd == -1)
-			return (ft_printf(2, "Minishell: %s: Permission denied\n",
+			return (ft_printf(2, "minishell: %s: Permission denied\n",
 					redirection->file), 1);
 		if (redirection->type == REDIR_OUT || redirection->type == APPEND)
 			dup2(fd, STDOUT_FILENO);
@@ -103,15 +103,11 @@ int	ft_redirection(t_command *cmd)
 	return (0);
 }
 
-void	ft_executor(t_command *cmd, t_data *data, char **env, int i)
+void	exec_child(t_command *cmd, t_data *data, char **env, int i)
 {
-	if (pipe(data->fd) == -1)
-		perror("pipe");
-	cmd->pid = fork();
-	if (cmd->pid == -1)
-		perror("fork");
 	if (cmd->pid == 0)
 	{
+		child_signals();
 		close(data->fd[0]);
 		if (i != 0)
 		{
@@ -126,6 +122,16 @@ void	ft_executor(t_command *cmd, t_data *data, char **env, int i)
 		ft_execve(data, env, cmd);
 		fork_redir_free(data, env, data->path);
 	}
+}
+
+void	ft_executor(t_command *cmd, t_data *data, char **env, int i)
+{
+	if (pipe(data->fd) == -1)
+		perror("pipe");
+	cmd->pid = fork();
+	if (cmd->pid == -1)
+		perror("fork");
+	exec_child(cmd, data, env, i);
 	close(data->fd[1]);
 	if (data->prev != -1)
 		close(data->prev);

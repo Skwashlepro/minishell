@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:46:53 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/01 18:55:35 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/04 20:56:00 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static char	**find_path(t_env *env)
 	return (NULL);
 }
 
-void unlink_file(t_command *cmd)
+void	unlink_file(t_command *cmd)
 {
-	t_redir *tmp;
+	t_redir	*tmp;
 
 	tmp = cmd->redirection;
 	while (tmp)
@@ -55,16 +55,33 @@ void unlink_file(t_command *cmd)
 	}
 }
 
+int	nb_cmd(t_command *cmd)
+{
+	t_command	*tmp;
+	int			i;
+
+	tmp = cmd;
+	i = 0;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
+}
+
 void	ft_wait(t_data *data, t_command *cmd)
 {
+	dprintf(2, "g_var: %d\n", g_var);
 	while (cmd)
 	{
 		waitpid(cmd->pid, &data->exit_status, 0);
 		if (WIFEXITED(data->exit_status))
-			data->exit_status = WEXITSTATUS(data->exit_status);
+			g_var = WEXITSTATUS(data->exit_status);
 		unlink_file(cmd);
 		cmd = cmd->next;
 	}
+	dprintf(2, "g_var after: %d\n", g_var);
 }
 
 void	check_heredoc(t_command *cmd, t_data *data)
@@ -115,6 +132,7 @@ int	ft_exec(t_command *cmd, t_data *data)
 		cmd = cmd->next;
 	}
 	ft_wait(data, tmp);
+	ft_signal();
 	close(data->fd[0]);
 	free_tab(env);
 	free_tab(data->path);

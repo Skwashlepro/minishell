@@ -25,6 +25,7 @@ SRC_FILES	=	main \
 				exec_utils \
 				exec_free \
 				heredoc \
+				signals_child \
 
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 
