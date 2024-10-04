@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:41:54 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/03 20:41:25 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/04 18:18:24 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ char	**cmd_bank(int forked)
 	}
 	else
 	{
-		bank[++i] = ft_strdup("echo");
-		bank[++i] = ft_strdup("env");
-		bank[++i] = ft_strdup("pwd");
+		bank[++i] = ft_strdup("cd");
+		bank[++i] = ft_strdup("exit");
+		bank[++i] = ft_strdup("export");
+		bank[++i] = ft_strdup("unset");
 	}
 	bank[++i] = 0;
 	return (bank);
@@ -90,7 +91,7 @@ int	ft_builtin(t_data *data, char **cmd)
 	if (command == NULL)
 		return (0);
 	if (!ft_strcmp(command, "cd"))
-		cd(data, cmd);
+		return (1);
 	else if (!ft_strcmp(command, "exit"))
 		ft_exit(cmd, data);
 	else if (!ft_strcmp(command, "export"))
