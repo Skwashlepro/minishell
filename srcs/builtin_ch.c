@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:41:54 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/04 18:18:24 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/04 19:17:39 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ char	*finder(char *cmd, int forked)
 int	ft_onebuiltin(t_data *data, char **cmd)
 {
 	char	*command;
-	int		status;
 
-	status = 0;
 	command = finder(cmd[0], 0);
 	if (command == NULL)
 		return (0);
@@ -76,7 +74,6 @@ int	ft_onebuiltin(t_data *data, char **cmd)
 		export(data, cmd);
 	else if (!ft_strcmp(command, "unset"))
 		unset(&data, cmd[1]);
-	data->exit_status = 0;
 	free_array(command);
 	return (1);
 }
@@ -106,5 +103,5 @@ int	ft_builtin(t_data *data, char **cmd)
 		pwd(data);
 	free_array(command);
 	data->exit_status = 0;
-	return (1);
+	return (exit(0), 1);
 }
