@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:46:53 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/04 20:56:00 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/04 21:42:41 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,23 @@ int	nb_cmd(t_command *cmd)
 
 void	ft_wait(t_data *data, t_command *cmd)
 {
-	dprintf(2, "g_var: %d\n", g_var);
+	int	i;
+
+	i = 0;
 	while (cmd)
 	{
 		waitpid(cmd->pid, &data->exit_status, 0);
 		if (WIFEXITED(data->exit_status))
-			g_var = WEXITSTATUS(data->exit_status);
+			data->exit_status = WEXITSTATUS(data->exit_status);
 		unlink_file(cmd);
 		cmd = cmd->next;
+		i++;
 	}
-	dprintf(2, "g_var after: %d\n", g_var);
+	if (g_var != 0 && i < 2)
+	{
+		data->exit_status = g_var;
+		g_var = 0;
+	}
 }
 
 void	check_heredoc(t_command *cmd, t_data *data)

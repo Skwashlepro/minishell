@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:47:02 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/04 20:56:21 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/04 21:29:41 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ int	ft_redirection(t_command *cmd)
 
 void	exec_child(t_command *cmd, t_data *data, char **env, int i)
 {
+	child_signals();
 	if (cmd->pid == 0)
 	{
-		child_signals();
 		close(data->fd[0]);
 		if (i != 0)
 		{
