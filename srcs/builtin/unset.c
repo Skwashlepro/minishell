@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:32:03 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/03 19:50:50 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/04 20:04:39 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int unset(t_data **data, char *var)
 	tmp = (*data)->get_env;
 	fst = (*data)->get_env;
 	if (!var)
-		return (dprintf(2, "unset: not enough arguments\n"), 1);
+		return (1);
 	while (ft_strcmp(tmp->key, var) && tmp)
 		tmp = tmp->next;
 	if (!ft_strcmp(tmp->key, var))
