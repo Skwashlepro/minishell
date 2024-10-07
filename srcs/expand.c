@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:02:26 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/01 18:55:21 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/04 19:46:37 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*ft_expand(t_data *data, char *str, int heredoc, int nb_quotes)
 	{
 		s = malloc(sizeof(char *) * ((ft_strlen(s2) - nb_quotes) + 1));
 		if (!s)
-			return (NULL);
+			return (free(s2), NULL);
 		while (s2 && s2[i])
 		{
 			if (wquote(s2[i], &i, data))
@@ -100,8 +100,8 @@ char	*ft_expand(t_data *data, char *str, int heredoc, int nb_quotes)
 		}
 		s[j] = '\0';
 		if (!s && s2)
-			return (NULL);
-		return (s);
+			return (free(s2), NULL);
+		return (free(s2), s);
 	}
 	return (s2);
 }
