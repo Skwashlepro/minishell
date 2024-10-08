@@ -6,38 +6,46 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 18:30:51 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/02 18:01:19 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/08 16:32:21 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	error_msg(char *str)
-{
-	ft_putstr_fd("Error ", 2);
-	ft_putstr_fd(str, 2);
-	exit(1);
-}
-
 static void	inthandler(int sig)
 {
+	g_var = 130;
 	(void)sig;
 	(void)!write(1, "\n", 1);
-	rl_replace_line("", 0);
 	rl_on_new_line();
+	rl_replace_line("", 0);
 	rl_redisplay();
-	g_var = 130;
+}
+
+void	signal_ctrl_c(void)
+{
+	struct sigaction	ctrl_c;
+
+	ctrl_c.sa_handler = inthandler;
+	ctrl_c.sa_flags = SA_RESTART;
+	sigemptyset(&ctrl_c.sa_mask);
+	if (sigaction(SIGINT, &ctrl_c, NULL) == -1)
+		ft_printf(2, "ERROR SIGINT\n");
+}
+
+void	signal_backslash(void)
+{
+	struct sigaction	ctrl_back;
+
+	ctrl_back.sa_handler = SIG_IGN;
+	ctrl_back.sa_flags = SA_RESTART;
+	sigemptyset(&ctrl_back.sa_mask);
+	if (sigaction(SIGQUIT, &ctrl_back, NULL) == -1)
+		ft_printf(2, "ERROR SIGQUIT\n");
 }
 
 void	ft_signal()
 {
-	struct sigaction	sa;
-
-	ft_memset(&sa, 0, sizeof(sa));
-	sa.sa_handler = inthandler;
-	if (sigaction(SIGINT, &sa, NULL) == -1)
-		error_msg("SIGINT\n");
-	sa.sa_handler = SIG_IGN;
-	if (sigaction(SIGQUIT, &sa, NULL) == -1)
-		error_msg("SIGQUIT\n");
+	signal_ctrl_c();
+	signal_backslash();
 }

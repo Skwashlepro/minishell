@@ -6,7 +6,11 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/04 18:18:05 by luctan           ###   ########.fr       */
+=======
+/*   Updated: 2024/10/04 20:58:41 by tpassin          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,5 +162,7 @@ int			unset(t_data **data, char *var);
 int			nb_check(char *str);
 void		lst_addback(t_env **node, t_env *new);
 int			count_args(char **args);
+void		child_signals(void);
+void		ft_wait(t_data *data, t_command *cmd);
 
 #endif

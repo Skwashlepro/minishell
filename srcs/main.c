@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/04 19:36:18 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/08 16:32:17 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,24 @@
 
 int		g_var = 0;
 
-void print_node(t_token *token, int type)
+void	print_node(t_token *token, int type)
 {
 	while (token)
 	{
 		printf("\n----------------------------------------\n");
 		printf("string: %s\n", token->str);
 		printf("nb_quotes: %d\n", token->nb_quotes);
-    	switch(type)
+		switch (type)
 		{
-    		 case 0: printf("type: WORD\n"); break ;
-    		 case 1: printf("type: PIPE\n"); break ;
-    		 case 2: printf("type: REDIRECTION\n"); break ;
+		case 0:
+			printf("type: WORD\n");
+			break ;
+		case 1:
+			printf("type: PIPE\n");
+			break ;
+		case 2:
+			printf("type: REDIRECTION\n");
+			break ;
 		}
 		printf("----------------------------------------\n");
 		token = token->next;
@@ -44,17 +50,10 @@ char	*prompter(t_data *data)
 {
 	char	*input;
 
+	(void)data;
 	input = readline("minishell$ ");
 	if (input == NULL)
 		return (NULL);
-	if (ft_strchr("!#", input[0]) || input[0] == '\0')
-	{
-		if (input[0] == '!')
-			data->exit_status = 0;
-		else
-			data->exit_status = 0;
-		return (free(input), ft_strdup(""));
-	}
 	// if (*input)
 	// 	add_history(input);
 	return (input);

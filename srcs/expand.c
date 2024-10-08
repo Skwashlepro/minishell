@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:02:26 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/04 19:46:37 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/08 16:32:05 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,11 @@ char	*ft_expand(t_data *data, char *str, int heredoc, int nb_quotes)
 	int		i;
 	int		j;
 	char	*s;
+	char	*s2;
 
 	i = 0;
 	j = 0;
-	char *s2 = get_varenv(str, data, heredoc);
+	s2 = get_varenv(str, data, heredoc);
 	if (!s2)
 		return (NULL);
 	if (nb_quotes && s2)
@@ -101,6 +102,7 @@ char	*ft_expand(t_data *data, char *str, int heredoc, int nb_quotes)
 		s[j] = '\0';
 		if (!s && s2)
 			return (free(s2), NULL);
+		// dprintf(2, "STRING: %s LEN: %zu\n", s, ft_strlen(s));
 		return (free(s2), s);
 	}
 	return (s2);

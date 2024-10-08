@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:46:53 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/04 19:52:07 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/08 16:32:13 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ static char	**find_path(t_env *env)
 	return (NULL);
 }
 
-void unlink_file(t_command *cmd)
+void	unlink_file(t_command *cmd)
 {
-	t_redir *tmp;
+	t_redir	*tmp;
 
 	tmp = cmd->redirection;
 	while (tmp)
@@ -53,8 +53,26 @@ void unlink_file(t_command *cmd)
 	}
 }
 
+int	nb_cmd(t_command *cmd)
+{
+	t_command	*tmp;
+	int			i;
+
+	tmp = cmd;
+	i = 0;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
+}
+
 void	ft_wait(t_data *data, t_command *cmd)
 {
+	int	i;
+
+	i = 0;
 	while (cmd)
 	{
 		waitpid(cmd->pid, &data->exit_status, 0);
@@ -62,6 +80,12 @@ void	ft_wait(t_data *data, t_command *cmd)
 			data->exit_status = WEXITSTATUS(data->exit_status);
 		unlink_file(cmd);
 		cmd = cmd->next;
+		i++;
+	}
+	if (g_var != 0 && i < 2)
+	{
+		data->exit_status = g_var;
+		g_var = 0;
 	}
 }
 
@@ -118,6 +142,7 @@ int	ft_exec(t_command *cmd, t_data *data)
 		cmd = cmd->next;
 	}
 	ft_wait(data, tmp);
+	ft_signal();
 	close(data->fd[0]);
 	free_tab(env);
 	free_tab(data->path);

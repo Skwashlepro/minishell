@@ -25,10 +25,14 @@ SRC_FILES	=	main \
 				exec_utils \
 				exec_free \
 				heredoc \
+<<<<<<< HEAD
 				builtin_ch builtin_utils\
 				cd echo env_cmd exit export \
 				pwd unset \
 
+=======
+				signals_child \
+>>>>>>> main
 
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 
