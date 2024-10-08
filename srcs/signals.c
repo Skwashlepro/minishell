@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 18:30:51 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/08 16:32:21 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/08 19:21:28 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	inthandler(int sig)
 {
-	g_var = 130;
 	(void)sig;
 	(void)!write(1, "\n", 1);
+	g_var = 130;
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();

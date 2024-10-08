@@ -6,66 +6,44 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:46:53 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/08 17:37:12 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/08 19:21:14 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**find_path(t_env *env)
+static char	**find_path(t_data *data)
 {
 	char	*str;
 	char	**tab;
 	int		j;
+	t_env	*env;
 
 	j = -1;
 	tab = NULL;
+	env = data->get_env;
 	while (env)
 	{
 		if (ft_strcmp(env->key, "PATH") == 0)
 		{
 			tab = ft_split(env->value, ':');
+			if (!tab)
+				return (NULL);
 			while (tab[++j])
 			{
 				str = ft_strdup(tab[j]);
 				free(tab[j]);
-				tab[j] = ft_strjoin(str, "/");
-				free(str);
+				if (str)
+				{
+					tab[j] = ft_strjoin(str, "/");
+					free(str);
+				}
 			}
 			return (tab);
 		}
 		env = env->next;
 	}
 	return (NULL);
-}
-
-void	unlink_file(t_command *cmd)
-{
-	t_redir	*tmp;
-
-	tmp = cmd->redirection;
-	while (tmp)
-	{
-		if (tmp->heredoc_name)
-			if (access(tmp->heredoc_name, F_OK | X_OK | R_OK) == 0)
-				unlink(tmp->heredoc_name);
-		tmp = tmp->next;
-	}
-}
-
-int	nb_cmd(t_command *cmd)
-{
-	t_command	*tmp;
-	int			i;
-
-	tmp = cmd;
-	i = 0;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (i);
 }
 
 void	ft_wait(t_data *data, t_command *cmd)
@@ -77,57 +55,51 @@ void	ft_wait(t_data *data, t_command *cmd)
 	{
 		waitpid(cmd->pid, &data->exit_status, 0);
 		if (WIFEXITED(data->exit_status))
-			data->exit_status = WEXITSTATUS(data->exit_status);
+			g_var = WEXITSTATUS(data->exit_status);
 		unlink_file(cmd);
 		cmd = cmd->next;
 		i++;
-	}
-	if (g_var != 0 && i < 2)
-	{
-		data->exit_status = g_var;
-		g_var = 0;
-	}
-}
-
-void	check_heredoc(t_command *cmd, t_data *data)
-{
-	t_redir	*tmp;
-
-	tmp = cmd->redirection;
-	while (tmp)
-	{
-		if (tmp->type == HERE_DOC)
-		{
-			ft_here_doc(tmp, data);
-			data->heredoc--;
-		}
-		tmp = tmp->next;
 	}
 }
 
 void	run_heredoc(t_command *cmd, t_data *data)
 {
 	t_command	*tmp;
+	t_redir		*redir;
 
 	tmp = cmd;
 	while (tmp)
 	{
-		check_heredoc(tmp, data);
+		redir = tmp->redirection;
+		while (redir)
+		{
+			if (redir->type == HERE_DOC)
+			{
+				ft_here_doc(redir, data);
+				data->heredoc--;
+			}
+			redir = redir->next;
+		}
 		tmp = tmp->next;
 	}
 }
 
 int	ft_exec(t_command *cmd, t_data *data)
 {
-	t_env		*env_lst;
 	t_command	*tmp;
 	char		**env;
 	int			i;
 
 	i = 0;
+	if (data->heredoc > 15)
+	{
+		ft_printf(2, "minishell: maximum here-document count exceeded\n");
+		clean_all(data);
+	}
 	env = env_to_tab(data);
-	env_lst = data->get_env;
-	data->path = find_path(env_lst);
+	data->path = find_path(data);
+	if (!data->path)
+		return (free_tab(env), -1);
 	tmp = cmd;
 	if (data->heredoc)
 		run_heredoc(cmd, data);
