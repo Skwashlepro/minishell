@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:53:16 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/03 16:36:55 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/08 19:45:44 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	update_env(t_env *old, char *new)
 {
-	if (old->value)
+	if (old->value && new)
+	{
 		free(old->value);
-	old->value = ft_strdup(new);
+		old->value = ft_strdup(new);
+	}
 }
 
 t_env *search_key(t_env *get_env, char *key)
@@ -26,12 +28,21 @@ t_env *search_key(t_env *get_env, char *key)
 	tmp = get_env;
 	if (!tmp)
 		return (NULL);
-	while (ft_strcmp(tmp->key, key) && tmp)
+	while (ft_strcmp(tmp->key, key) && tmp->next)
 		tmp = tmp->next;
 	if (!ft_strcmp(tmp->key, key))
 		return (tmp);
 	else
 		return (NULL);
+}
+
+int	args_errors(char **args)
+{
+	if (count_args(args) == 3)
+		return ((void)printf("%s%s\n", "cd: string not in pwd: ", args[1]), 1);
+	if (count_args(args) > 3)
+		return ((void)printf("cd: too many arguments\n"), 1);
+	return (0);
 }
 
 void	cd(t_data *data, char **args)
@@ -43,10 +54,6 @@ void	cd(t_data *data, char **args)
 	tmp = NULL;
 	old_pwd = search_key(data->get_env, "OLDPWD");
 	pwd = search_key(data->get_env, "PWD");
-	if (count_args(args) == 3)
-		return ((void)printf("%s%s\n", "cd: string not in pwd: ", args[1]));
-	if (count_args(args) > 3)
-		return ((void)printf("cd: too many arguments\n"));
 	if (count_args(args) == 1)
 	{
 		tmp = search_key(data->get_env, "HOME");
