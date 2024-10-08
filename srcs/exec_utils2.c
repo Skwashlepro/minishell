@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:05:34 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/08 17:06:36 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/08 21:08:55 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	unlink_file(t_command *cmd)
 
 int	nb_cmd(t_command *cmd)
 {
-	t_command *tmp;
-	int i;
+	t_command	*tmp;
+	int			i;
 
 	tmp = cmd;
 	i = 0;

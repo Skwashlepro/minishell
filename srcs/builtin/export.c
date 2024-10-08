@@ -6,13 +6,13 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:28:17 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/08 19:26:07 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/08 21:08:00 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *key_init(char *arg, int *index)
+char	*key_init(char *arg, int *index)
 {
 	char	*tmp;
 	int		i;
@@ -27,7 +27,7 @@ char *key_init(char *arg, int *index)
 	while (++j != i)
 		tmp[j] = arg[j];
 	tmp[j] = '\0';
-	printf("tmp is : %s\n", tmp);
+	// printf("tmp is : %s\n", tmp);
 	return (tmp);
 }
 
@@ -38,21 +38,21 @@ void	print_exp(t_data *data)
 	tmp = data->get_env;
 	while (tmp)
 	{
-		printf("export ");
-		printf("%s", tmp->key);
+		ft_printf(1, "export ");
+		ft_printf(1, "%s", tmp->key);
 		if (tmp->equal)
 		{
-			printf("=");
-			printf("%c%s%c", '"', tmp->value, '"');
+			ft_printf(1, "=");
+			ft_printf(1, "%c%s%c", '"', tmp->value, '"');
 		}
-		printf("\n");
+		ft_printf(1, "\n");
 		tmp = tmp->next;
 	}
 }
 
 int	exp_check(t_env **node, t_data *data)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	if (!(*node)->key)
 		return (1);

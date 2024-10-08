@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:12:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/08 19:40:28 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/08 21:08:03 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	pwd(t_data *data)
 {
-	t_env *tmp;
+	t_env	*tmp;
 	char	*PWD;
 
 	tmp = data->get_env;
@@ -24,7 +24,7 @@ void	pwd(t_data *data)
 	if (ft_strcmp(tmp->key, "PWD"))
 	{
 		PWD = getcwd(PWD, 0);
-		return((void)printf("%s\n", PWD));
+		return ((void)ft_printf(1, "%s\n", PWD), free_array(PWD));
 	}
-	printf("%s\n", tmp->value);
+	ft_printf(1, "%s\n", tmp->value);
 }
