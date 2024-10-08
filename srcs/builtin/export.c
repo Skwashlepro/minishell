@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:28:17 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/08 17:37:38 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/08 18:39:04 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,44 @@ void	print_exp(t_data *data)
 	while (tmp)
 	{
 		printf("export ");
-		printf("%s=", tmp->key);
-		printf("%c%s%c\n", '"', tmp->value, '"');
+		printf("%s", tmp->key);
+		if (tmp->equal)
+		{
+			printf("=");
+			printf("%c%s%c", '"', tmp->value, '"');
+		}
+		printf("\n");
 		tmp = tmp->next;
 	}
 }
+
+int	exp_check(t_env **node, t_data *data)
+{
+	t_env *tmp;
+
+	if (!(*node)->key)
+		return (1);
+	tmp = data->get_env;
+	while (ft_strcmp(tmp->key, (*node)->key) && tmp->next)
+		tmp = tmp->next;
+	if (!ft_strcmp(tmp->key, (*node)->key))
+		return (free_array((*node)->key), free((*node)), 1);
+	(*node)->value = ft_strdup("");
+	(*node)->equal = 0;
+	(*node)->next = NULL;
+	return (0);
+}
+
 int	export(t_data *data, char **args)
 {
 	int		i;
 	int		j;
-	t_env	*tmp;
 	t_env	*node;
 
 	i = 0;
 	j = 0;
 	if (!args[1])
 		return (print_exp(data), 1);
-	tmp = data->get_env;
 	node = malloc(sizeof(t_env));
 	while (args[++i])
 	{
@@ -66,9 +87,8 @@ int	export(t_data *data, char **args)
 			node->equal = 1;
 			node->next = NULL;
 		}
-		else if (node->key)
-			while (tmp->key != node->key && tmp)
-				tmp = tmp->next;
+		else if (exp_check(&node, data))
+			return (0);
 		lst_addback(&data->get_env, node);
 	}
 	return (0);

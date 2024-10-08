@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:32:03 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/04 20:04:39 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/08 18:44:16 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int unset(t_data **data, char *var)
 			(*data)->get_env->next = NULL;
 		free_array(tmp->key);
 		free_array(tmp->value);
+		free(tmp);
 	}
 	(*data)->get_env = fst;
 	return (0);
