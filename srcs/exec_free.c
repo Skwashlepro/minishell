@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 19:07:11 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/04 21:54:19 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/08 16:20:15 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ void	fork_clean(t_data *data, char **env)
 {
 	if (env)
 		free_tab(env);
+	if (data->get_env)
+		free_env(data->get_env);
 	ft_clean(data);
-	free_env(data->get_env);
 }
 
 void	fork_redir_free(t_data *data, char **env, char **path)
@@ -26,7 +27,8 @@ void	fork_redir_free(t_data *data, char **env, char **path)
 		free_tab(env);
 	if (path)
 		free_tab(path);
+	if (data->get_env)
+		free_env(data->get_env);
 	ft_clean(data);
-	free_env(data->get_env);
 	exit(1);
 }

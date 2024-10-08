@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 18:30:51 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/04 21:53:55 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/08 12:54:40 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	inthandler(int sig)
 {
-	g_var = 130;
 	(void)sig;
 	(void)!write(1, "\n", 1);
+	g_var = 130;
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();

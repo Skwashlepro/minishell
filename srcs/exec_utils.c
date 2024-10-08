@@ -6,46 +6,11 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:47:02 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/04 21:29:41 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/08 17:04:47 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_exit_code(int code, t_data *data, t_command *cmd, char **envp)
-{
-	if (data->path)
-		free_tab(data->path);
-	if (code == 1)
-		return (ft_printf(2, "minishell: %s: command not found\n",
-				cmd->arguments[0]), fork_clean(data, envp), exit(127));
-	else if (code == 2)
-		return (fork_clean(data, envp), ft_printf(2,
-				"minishell:%s: APermission denied\n", cmd->arguments[0]),
-			exit(126));
-	else if (code == 3)
-	{
-		ft_printf(2, "No such file or directory: %s\n", cmd->arguments[0]);
-		return (fork_clean(data, envp), exit(127));
-	}
-}
-
-char	*get_cmd(t_data *data, char *command)
-{
-	char	*str;
-	int		i;
-
-	i = 0;
-	while (data->path[i])
-	{
-		str = ft_strjoin(data->path[i], command);
-		if (access(str, F_OK | X_OK | R_OK) == 0)
-			return (str);
-		free(str);
-		i++;
-	}
-	return (NULL);
-}
 
 void	ft_execve(t_data *data, char **envp, t_command *cmd)
 {
@@ -73,6 +38,26 @@ void	ft_execve(t_data *data, char **envp, t_command *cmd)
 	ft_exit_code(1, data, cmd, envp);
 }
 
+int	redirection_file(int fd, t_redir *redirection)
+{
+	if (redirection->type == HERE_DOC)
+		fd = open(redirection->heredoc_name, O_RDONLY);
+	if (redirection->type == REDIR_IN)
+		fd = open(redirection->file, O_RDONLY);
+	else if (redirection->type == REDIR_OUT)
+		fd = open(redirection->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (redirection->type == APPEND)
+		fd = open(redirection->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd == -1)
+		return (1);
+	if (redirection->type == REDIR_OUT || redirection->type == APPEND)
+		dup2(fd, STDOUT_FILENO);
+	else if (redirection->type == REDIR_IN || redirection->type == HERE_DOC)
+		dup2(fd, STDIN_FILENO);
+	close(fd);
+	return (0);
+}
+
 int	ft_redirection(t_command *cmd)
 {
 	int		fd;
@@ -82,22 +67,16 @@ int	ft_redirection(t_command *cmd)
 	redirection = cmd->redirection;
 	while (redirection)
 	{
-		if (redirection->type == HERE_DOC)
-			fd = open(redirection->heredoc_name, O_RDONLY);
-		if (redirection->type == REDIR_IN)
-			fd = open(redirection->file, O_RDONLY);
-		else if (redirection->type == REDIR_OUT)
-			fd = open(redirection->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else if (redirection->type == APPEND)
-			fd = open(redirection->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (fd == -1)
-			return (ft_printf(2, "minishell: %s: Permission denied\n",
-					redirection->file), 1);
-		if (redirection->type == REDIR_OUT || redirection->type == APPEND)
-			dup2(fd, STDOUT_FILENO);
-		else if (redirection->type == REDIR_IN || redirection->type == HERE_DOC)
-			dup2(fd, STDIN_FILENO);
-		close(fd);
+		if (redirection_file(fd, redirection) == 1)
+		{
+			if (access(redirection->file, F_OK) != 0)
+				ft_printf(2, "minishell: %s: No such file or directory\n",
+					redirection->file);
+			else
+				ft_printf(2, "minishell: %s: Permission denied\n",
+					redirection->file);
+			return (1);
+		}
 		redirection = redirection->next;
 	}
 	return (0);
@@ -120,7 +99,6 @@ void	exec_child(t_command *cmd, t_data *data, char **env, int i)
 		if (ft_redirection(cmd))
 			fork_redir_free(data, env, data->path);
 		ft_execve(data, env, cmd);
-		fork_redir_free(data, env, data->path);
 	}
 }
 

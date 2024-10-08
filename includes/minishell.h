@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/04 20:58:41 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/08 18:05:24 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_data
 	char		*new;
 	char		*value;
 	char		**path;
+	char		*s2;
 	char		*prompt;
 	t_token		*head;
 	t_env		*get_env;
@@ -139,8 +140,6 @@ void		ft_executor(t_command *cmd, t_data *data, char **env,
 				int i);
 void		free_node(t_token *head);
 void		clean_cmd(t_command *cmd);
-char		*expand_and_duplicate(char *str, t_data *data,
-				int heredoc);
 char		*get_varenv(char *str, t_data *data, int TYPE);
 void		free_redir(t_redir *redirection);
 void		fork_redir_free(t_data *data, char **env, char **path);
@@ -149,4 +148,7 @@ void		ft_here_doc(t_redir *redir, t_data *data);
 void		run_heredoc(t_command *cmd, t_data *data);
 void		child_signals(void);
 void		ft_wait(t_data *data, t_command *cmd);
+void		ft_exit_code(int code, t_data *data, t_command *cmd, char **envp);
+void		unlink_file(t_command *cmd);
+char		*get_cmd(t_data *data, char *command);
 #endif

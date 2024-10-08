@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/04 21:54:13 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/08 16:53:55 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,18 @@ void	print_node(t_token *token, int type)
 
 void	clean_all(t_data *data)
 {
+
+	int quit;
+
+	quit = 0;
+	if (data->heredoc)
+		quit = data->heredoc;
 	ft_clean(data);
 	free_env(data->get_env);
 	// rl_clear_history();
-	exit(1);
+	if (quit > 15)
+		exit(2);
+	exit(0);
 }
 
 char	*prompter(t_data *data)
@@ -66,6 +74,11 @@ void	loop_prog(t_data *data)
 		data->prompt = prompter(data);
 		if (!data->prompt)
 			break ;
+		if (g_var != 0)
+		{
+			data->exit_status = g_var;
+			g_var = 0;
+		}
 		data->head = tokenizer(data, data->prompt);
 		data->cmd = parsing(data);
 		if (data->cmd)
@@ -84,7 +97,7 @@ int	main(int ac, char **av, char **envp)
 	init_data(&data);
 	data.get_env = init_env(envp, ac);
 	if (!data.get_env)
-		return (free_env(data.get_env), 1);
+		free_env(data.get_env);
 	loop_prog(&data);
 	clean_all(&data);
 	// printf("exit\n");
