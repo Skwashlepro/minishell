@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/11 00:04:15 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/11 00:05:40 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,6 @@ void		free_redir(t_redir *redirection);
 void		fork_redir_free(t_data *data, char **env, char **path);
 void		fork_clean(t_data *data, char **envp);
 void		ft_here_doc(t_redir *redir, t_data *data);
-void		run_heredoc(t_command *cmd, t_data *data);
 void		signals_child(void);
 int			ft_builtin(t_data *data, char **cmd);
 int			ft_onebuiltin(t_data *data, char **cmd);

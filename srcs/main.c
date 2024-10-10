@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/11 00:04:54 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/11 00:06:16 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,6 @@ void	loop_prog(t_data *data)
 			data->exit_status = g_var;
 			g_var = 0;
 		}
-		if (ft_strcmp("env", data->prompt) == 0)
-			print_env(data);
 		data->head = tokenizer(data, data->prompt);
 		data->cmd = parsing(data);
 		if (data->cmd)

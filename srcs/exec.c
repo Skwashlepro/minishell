@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:46:53 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/11 00:04:45 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/11 00:06:32 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,10 @@ static char	**tab_env(char **tab)
 char	**find_path(t_data *data)
 {
 	char	**tab;
-<<<<<<< HEAD:srcs/get_path.c
-	int		j;
-	t_env	*env;
-
-	j = -1;
-=======
 	int		i;
 	t_env	*env;
 
 	i = 0;
->>>>>>> main:srcs/exec.c
 	tab = NULL;
 	env = data->get_env;
 	while (env)
@@ -98,12 +91,6 @@ int	ft_exec(t_command *cmd, t_data *data)
 	ft_wait(data, tmp);
 	ft_signal();
 	close(data->fd[0]);
-<<<<<<< HEAD:srcs/get_path.c
-	free_tab(env);
-	free_tab(data->path);
-	// printf("this : %i\n", data->exit_status);
-=======
 	free_exec(env, data->path);
->>>>>>> main:srcs/exec.c
 	return (data->exit_status);
 }
