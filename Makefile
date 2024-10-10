@@ -28,7 +28,8 @@ SRC_FILES	=	main \
 				builtin_ch builtin_utils\
 				cd echo env_cmd exit export \
 				pwd unset \
-
+				signals_child \
+				exec_utils2 \
 
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 

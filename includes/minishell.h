@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/04 18:18:05 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/08 19:23:21 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_data
 	char		*new;
 	char		*value;
 	char		**path;
+	char		*s2;
 	char		*prompt;
 	t_token		*head;
 	t_env		*get_env;
@@ -137,8 +138,6 @@ void		ft_executor(t_command *cmd, t_data *data, char **env,
 				int i);
 void		free_node(t_token *head);
 void		clean_cmd(t_command *cmd);
-char		*expand_and_duplicate(char *str, t_data *data,
-				int heredoc);
 char		*get_varenv(char *str, t_data *data, int TYPE);
 void		free_redir(t_redir *redirection);
 void		fork_redir_free(t_data *data, char **env, char **path);
@@ -158,5 +157,11 @@ int			unset(t_data **data, char *var);
 int			nb_check(char *str);
 void		lst_addback(t_env **node, t_env *new);
 int			count_args(char **args);
+void		child_signals(void);
+void		ft_wait(t_data *data, t_command *cmd);
+int			nb_cmd(t_command *cmd);
+void		ft_exit_code(int code, t_data *data, t_command *cmd, char **envp);
+void		unlink_file(t_command *cmd);
+char		*get_cmd(t_data *data, char *command);
 
 #endif

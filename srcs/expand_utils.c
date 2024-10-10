@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 17:20:47 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/04 17:57:02 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/08 21:09:06 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,19 +92,4 @@ void	loop_len(char *str, t_data *data, int *len, int *i)
 			(*len)++;
 		}
 	}
-}
-
-char	*expand_and_duplicate(char *str, t_data *data, int heredoc)
-{
-	char	*new_s;
-
-	new_s = NULL;
-	if (!str)
-		return (NULL);
-	new_s = get_varenv(str, data, heredoc);
-	if (new_s)
-		free(str);
-	str = ft_strdup(new_s);
-	free(new_s);
-	return (str);
 }

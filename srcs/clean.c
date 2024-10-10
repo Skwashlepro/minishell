@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 16:09:07 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/01 15:08:56 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/08 21:08:17 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	clean_cmd(t_command *cmd)
 		tmp = cmd->next;
 		if (cmd->arguments)
 			free_tab(cmd->arguments);
-		free_redir(cmd->redirection);
+		if (cmd->redirection)
+			free_redir(cmd->redirection);
 		free(cmd);
 		cmd = tmp;
 	}

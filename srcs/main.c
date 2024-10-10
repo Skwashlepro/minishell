@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/04 19:36:18 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/08 21:09:35 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,24 @@
 
 int		g_var = 0;
 
-void print_node(t_token *token, int type)
+void	print_node(t_token *token, int type)
 {
 	while (token)
 	{
 		printf("\n----------------------------------------\n");
 		printf("string: %s\n", token->str);
 		printf("nb_quotes: %d\n", token->nb_quotes);
-    	switch(type)
+		switch (type)
 		{
-    		 case 0: printf("type: WORD\n"); break ;
-    		 case 1: printf("type: PIPE\n"); break ;
-    		 case 2: printf("type: REDIRECTION\n"); break ;
+		case 0:
+			printf("type: WORD\n");
+			break ;
+		case 1:
+			printf("type: PIPE\n");
+			break ;
+		case 2:
+			printf("type: REDIRECTION\n");
+			break ;
 		}
 		printf("----------------------------------------\n");
 		token = token->next;
@@ -34,27 +40,28 @@ void print_node(t_token *token, int type)
 
 void	clean_all(t_data *data)
 {
+
+	int quit;
+
+	quit = 0;
+	if (data->heredoc)
+		quit = data->heredoc;
 	ft_clean(data);
 	free_env(data->get_env);
 	// rl_clear_history();
-	exit(1);
+	if (quit > 15)
+		exit(2);
+	exit(0);
 }
 
 char	*prompter(t_data *data)
 {
 	char	*input;
 
+	(void)data;
 	input = readline("minishell$ ");
 	if (input == NULL)
 		return (NULL);
-	if (ft_strchr("!#", input[0]) || input[0] == '\0')
-	{
-		if (input[0] == '!')
-			data->exit_status = 0;
-		else
-			data->exit_status = 0;
-		return (free(input), ft_strdup(""));
-	}
 	// if (*input)
 	// 	add_history(input);
 	return (input);
@@ -67,6 +74,11 @@ void	loop_prog(t_data *data)
 		data->prompt = prompter(data);
 		if (!data->prompt)
 			break ;
+		if (g_var != 0)
+		{
+			data->exit_status = g_var;
+			g_var = 0;
+		}
 		data->head = tokenizer(data, data->prompt);
 		data->cmd = parsing(data);
 		if (data->cmd)
@@ -85,7 +97,7 @@ int	main(int ac, char **av, char **envp)
 	init_data(&data);
 	data.get_env = init_env(envp, ac);
 	if (!data.get_env)
-		return (free_env(data.get_env), 1);
+		free_env(data.get_env);
 	loop_prog(&data);
 	clean_all(&data);
 	// printf("exit\n");
