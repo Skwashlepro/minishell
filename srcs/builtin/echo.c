@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 15:52:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/08 21:07:54 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/11 01:55:43 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ void	echo(char **args)
 {
 	int print;
 	int i;
+	int	j;
 
 	print = 0;
 	i = 1;
-	while (args[i] && !dash_n(args[i++]))
+	j = -1;
+	while (!dash_n(args[i]) && args[i][++j])
 		print = 1;
 	while (args[i])
 	{
