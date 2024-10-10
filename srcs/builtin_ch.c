@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:41:54 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/08 21:08:08 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/10 03:41:43 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,7 @@ int	ft_onebuiltin(t_data *data, char **cmd)
 int	ft_builtin(t_data *data, char **cmd)
 {
 	char	*command;
-	int		status;
 
-	status = 0;
 	command = finder(cmd[0], 1);
 	if (command == NULL)
 		return (0);

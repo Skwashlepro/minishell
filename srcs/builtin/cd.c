@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:53:16 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/08 21:07:51 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/10 03:44:43 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	update_env(t_env *old, t_env *pwd)
 {
-	char	*tmp;
-
-	tmp = NULL;
 	if (pwd)
 	{
 		if (old)
@@ -84,5 +81,5 @@ void	cd(t_data *data, char **args)
 	if (chdir(args[1]) == -1)
 		return ((void)ft_printf(2,
 				"minishell$ cd: No such file or directory\n"));
-	// update_env(old_pwd, pwd);
+	update_env(old_pwd, pwd);
 }
