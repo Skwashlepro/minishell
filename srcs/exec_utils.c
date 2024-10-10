@@ -6,7 +6,11 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:47:02 by tpassin           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/08 19:21:52 by luctan           ###   ########.fr       */
+=======
+/*   Updated: 2024/10/10 17:59:54 by tpassin          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +22,6 @@ void	ft_execve(t_data *data, char **envp, t_command *cmd)
 
 	if (!cmd->arguments && cmd->redirection)
 		return ;
-	if (!cmd->arguments || !cmd->arguments[0])
-		ft_exit_code(1, data, cmd, envp);
 	if (ft_strchr(cmd->arguments[0], '/'))
 	{
 		if (access(cmd->arguments[0], F_OK | X_OK | R_OK) == 0)
@@ -35,7 +37,6 @@ void	ft_execve(t_data *data, char **envp, t_command *cmd)
 		ft_exit_code(1, data, cmd, envp);
 	execve(path, cmd->arguments, envp);
 	free(path);
-	ft_exit_code(1, data, cmd, envp);
 }
 
 int	redirection_file(int fd, t_redir *redirection)
@@ -84,7 +85,6 @@ int	ft_redirection(t_command *cmd)
 
 void	exec_child(t_command *cmd, t_data *data, char **env, int i)
 {
-	child_signals();
 	if (cmd->pid == 0)
 	{
 		close(data->fd[0]);
@@ -97,9 +97,14 @@ void	exec_child(t_command *cmd, t_data *data, char **env, int i)
 			dup2(data->fd[1], STDOUT_FILENO);
 		close(data->fd[1]);
 		if (ft_redirection(cmd))
+		{
 			fork_redir_free(data, env, data->path);
+			exit(1);
+		}
 		if (!ft_builtin(data, cmd->arguments))
 			ft_execve(data, env, cmd);
+		fork_redir_free(data, env, data->path);
+		exit(0);
 	}
 }
 
@@ -110,6 +115,7 @@ void	ft_executor(t_command *cmd, t_data *data, char **env, int i)
 	cmd->pid = fork();
 	if (cmd->pid == -1)
 		perror("fork");
+	child_signals();
 	exec_child(cmd, data, env, i);
 	close(data->fd[1]);
 	if (data->prev != -1)

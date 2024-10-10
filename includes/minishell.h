@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/08 19:23:21 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/11 00:04:15 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,8 +160,14 @@ int			count_args(char **args);
 void		child_signals(void);
 void		ft_wait(t_data *data, t_command *cmd);
 int			nb_cmd(t_command *cmd);
+void		child_signals(void);
 void		ft_exit_code(int code, t_data *data, t_command *cmd, char **envp);
-void		unlink_file(t_command *cmd);
 char		*get_cmd(t_data *data, char *command);
+void		free_exec(char **env, char **path);
+void		init_exec(t_data *data, char ***env, char ***path);
+char		**find_path(t_data *data);
+int			nb_cmd(t_command *cmd);
+void		sig_heredoc(t_data *data);
+int			run_heredoc(t_command *cmd, t_data *data);
 
 #endif
