@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 18:30:51 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/08 12:54:40 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/10 18:29:27 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	inthandler(int sig)
 	rl_redisplay();
 }
 
-void	signal_ctrl_c(void)
+static void	signal_ctrl_c(void)
 {
 	struct sigaction	ctrl_c;
 
@@ -33,7 +33,7 @@ void	signal_ctrl_c(void)
 		ft_printf(2, "ERROR SIGINT\n");
 }
 
-void	signal_backslash(void)
+static void	signal_backslash(void)
 {
 	struct sigaction	ctrl_back;
 

@@ -21,12 +21,13 @@ SRC_FILES	=	main \
 				parsing \
 				expand \
 				expand_utils \
-				get_path \
+				exec \
 				exec_utils \
 				exec_free \
 				heredoc \
 				signals_child \
 				exec_utils2 \
+				signals_heredoc \
 
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 

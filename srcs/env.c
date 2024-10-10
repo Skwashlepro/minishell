@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:33:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/08 12:58:15 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/09 17:16:04 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	init_data(t_data *data)
 {
 	ft_memset(data, 0, sizeof(t_data));
 	data->cquote = 'N';
-	data->prev = -1;
 }
 
 void	print_env(t_data *data)

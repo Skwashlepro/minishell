@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 17:20:47 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/08 16:13:02 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/10 18:29:55 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,3 @@ void	loop_len(char *str, t_data *data, int *len, int *i)
 		}
 	}
 }
-

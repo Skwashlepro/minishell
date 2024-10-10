@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/08 18:05:24 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/10 16:35:16 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,11 +144,13 @@ char		*get_varenv(char *str, t_data *data, int TYPE);
 void		free_redir(t_redir *redirection);
 void		fork_redir_free(t_data *data, char **env, char **path);
 void		fork_clean(t_data *data, char **envp);
-void		ft_here_doc(t_redir *redir, t_data *data);
-void		run_heredoc(t_command *cmd, t_data *data);
 void		child_signals(void);
-void		ft_wait(t_data *data, t_command *cmd);
 void		ft_exit_code(int code, t_data *data, t_command *cmd, char **envp);
-void		unlink_file(t_command *cmd);
 char		*get_cmd(t_data *data, char *command);
+void		free_exec(char **env, char **path);
+void		init_exec(t_data *data, char ***env, char ***path);
+char		**find_path(t_data *data);
+int			nb_cmd(t_command *cmd);
+void		sig_heredoc(t_data *data);
+int			run_heredoc(t_command *cmd, t_data *data);
 #endif
