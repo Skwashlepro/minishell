@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/11 00:07:42 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/11 00:15:36 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,6 @@ char		*get_varenv(char *str, t_data *data, int TYPE);
 void		free_redir(t_redir *redirection);
 void		fork_redir_free(t_data *data, char **env, char **path);
 void		fork_clean(t_data *data, char **envp);
-void		ft_here_doc(t_redir *redir, t_data *data);
 void		signals_child(void);
 int			ft_builtin(t_data *data, char **cmd);
 int			ft_onebuiltin(t_data *data, char **cmd);
@@ -157,7 +156,6 @@ int			nb_check(char *str);
 void		lst_addback(t_env **node, t_env *new);
 int			count_args(char **args);
 void		child_signals(void);
-static void	ft_wait(t_data *data, t_command *cmd);
 void		child_signals(void);
 void		ft_exit_code(int code, t_data *data, t_command *cmd, char **envp);
 char		*get_cmd(t_data *data, char *command);
