@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/11 00:15:36 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/11 05:56:55 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,5 +165,8 @@ char		**find_path(t_data *data);
 int			nb_cmd(t_command *cmd);
 void		sig_heredoc(t_data *data);
 int			run_heredoc(t_command *cmd, t_data *data);
+t_env		*init_noenv(int ac);
+t_env		*new_env(void);
+t_env	*lstnew(char *key, char *value);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:28:17 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/11 01:50:32 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/11 05:22:33 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	export(t_data *data, char **args)
 
 	i = 0;
 	j = 0;
-	if (!args[1])
+	if (!args[1] || !data->get_env)
 		return (print_exp(data), 1);
 	node = NULL;
 	while (args[++i])

@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:32:03 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/11 02:02:04 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/11 05:19:07 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	unset(t_data **data, char *var)
 
 	tmp = (*data)->get_env;
 	fst = (*data)->get_env;
-	if (!var)
+	if (!var || !(*data)->get_env)
 		return (1);
 	while (ft_strcmp(tmp->key, var) && tmp->next)
 		tmp = tmp->next;

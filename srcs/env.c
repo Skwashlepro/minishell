@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:33:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/11 00:04:27 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/11 06:02:28 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@ void	init_data(t_data *data)
 {
 	ft_memset(data, 0, sizeof(t_data));
 	data->cquote = 'N';
+}
+
+t_env	*init_noenv(int ac)
+{
+	if (ac != 1)
+	{
+		ft_putstr_fd("Error too many args\n", 2);
+		exit(1);
+	}
+	ft_signal();
+	return(new_env());
 }
 
 t_env	*init_env(char **envp, int ac)

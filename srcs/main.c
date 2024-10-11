@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/11 00:06:16 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/11 06:02:38 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,10 @@ int	main(int ac, char **av, char **envp)
 
 	(void)av;
 	init_data(&data);
-	data.get_env = init_env(envp, ac);
-	if (!data.get_env)
-		free_env(data.get_env);
+	if (!envp[0])
+		data.get_env = init_noenv(ac);
+	else
+		data.get_env = init_env(envp, ac);
 	loop_prog(&data);
 	clean_all(&data);
 	return (0);

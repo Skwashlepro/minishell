@@ -31,6 +31,7 @@ SRC_FILES	=	main \
 				signals_child \
 				exec_utils2 \
 				signals_heredoc \
+				no_env \
 
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 
