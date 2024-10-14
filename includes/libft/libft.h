@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:17:57 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/14 12:54:56 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/14 18:52:23 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,5 @@ int			ft_putstr(char *s, t_buffer *buff);
 size_t		ft_unsigned_nb(unsigned int nb, int *ptr, t_buffer *buff);
 int			ft_printf(int fd, const char *str, ...);
 int			ft_put_p(void *nbr, t_buffer *buff);
+
 #endif

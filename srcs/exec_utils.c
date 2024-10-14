@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:47:02 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/12 20:33:15 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/14 19:56:28 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ void	exec_child(t_command *cmd, t_data *data, char **env, int i)
 			fork_redir_free(data, env, data->path);
 			exit(1);
 		}
-		ft_execve(data, env, cmd);
+		if (!ft_builtin(data, cmd->arguments))
+			ft_execve(data, env, cmd);
 		fork_redir_free(data, env, data->path);
 		exit(0);
 	}

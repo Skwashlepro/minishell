@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:46:53 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/10 17:47:21 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/14 19:57:51 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ int	ft_exec(t_command *cmd, t_data *data)
 			return (free_exec(env, data->path), 130);
 	while (cmd)
 	{
+		if (!i && nb_cmd(cmd) == 1)
+			if (ft_onebuiltin(data, cmd->arguments))
+				return (free_tab(env), free_tab(data->path), data->exit_status);
 		ft_executor(cmd, data, env, i++);
 		cmd = cmd->next;
 	}

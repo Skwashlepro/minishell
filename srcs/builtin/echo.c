@@ -1,30 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 16:12:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/14 18:54:17 by luctan           ###   ########.fr       */
+/*   Created: 2024/09/26 15:52:28 by luctan            #+#    #+#             */
+/*   Updated: 2024/10/14 18:54:24 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd(t_data *data)
+int	dash_n(char *str)
 {
-	t_env	*tmp;
-	char	*pwd;
+	int	i;
 
-	tmp = data->get_env;
-	pwd = NULL;
-	while (ft_strcmp(tmp->key, "PWD") && tmp->next)
-		tmp = tmp->next;
-	if (!tmp || ft_strcmp(tmp->key, "PWD"))
+	i = 0;
+	if (str[0] == '-')
 	{
-		pwd = getcwd(pwd, 0);
-		return ((void)ft_printf(1, "%s\n", pwd), free_array(pwd));
+		i++;
+		while (str[i] == 'n')
+			i++;
+		if (!str[i])
+			return (0);
 	}
-	ft_printf(1, "%s\n", tmp->value);
+	return (1);
+}
+
+void	echo(char **args)
+{
+	int	print;
+	int	i;
+
+	print = 0;
+	i = 1;
+	while (args[i] && !dash_n(args[i]))
+	{
+		print = 1;
+		i++;
+	}
+	while (args[i])
+	{
+		ft_printf(1, "%s", args[i++]);
+		if (args[i])
+			ft_printf(1, " ");
+	}
+	if (!print)
+		ft_printf(1, "\n");
 }
