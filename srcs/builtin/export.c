@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:28:17 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/11 05:22:33 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/14 18:51:29 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	known_key(char *args, t_data *data, int *i)
 {
-	t_env *env;
-	int	k;
+	t_env	*env;
+	int		k;
 
 	k = 0;
 	env = data->get_env;
@@ -105,14 +105,12 @@ int	export(t_data *data, char **args)
 	node = NULL;
 	while (args[++i])
 	{
+		if (!valid_id(args[i]))
+			continue ;
 		if (known_key(args[i], data, &i))
 			node = key_init(args[i], &j);
 		if (args[i] && args[i][j])
-		{
-			node->value = ft_strdup(args[i] + (++j));
-			node->equal = 1;
-			node->next = NULL;
-		}
+			value_paste(node, args[i], ++j);
 		else if (exp_check(&node, data))
 			return (0);
 		lst_addback(&data->get_env, node);

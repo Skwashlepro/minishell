@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/11 05:56:55 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/14 18:51:59 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct s_data
 }				t_data;
 
 int			check_input(char *str);
-void		ft_signal();
+void		ft_signal(void);
 t_env		*init_env(char **envp, int ac);
 void		init_data(t_data *data);
 int			is_space(char c);
@@ -167,6 +167,8 @@ void		sig_heredoc(t_data *data);
 int			run_heredoc(t_command *cmd, t_data *data);
 t_env		*init_noenv(int ac);
 t_env		*new_env(void);
-t_env	*lstnew(char *key, char *value);
+t_env		*lstnew(char *key, char *value);
+void		value_paste(t_env *node, char *args, int j);
+int			valid_id(char *args);
 
 #endif

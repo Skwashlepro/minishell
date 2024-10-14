@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 05:40:22 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/11 06:26:34 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/14 18:53:08 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_values(char *value, char *key)
 		free_array(key);
 }
 
-t_env *new_env(void)
+t_env	*new_env(void)
 {
 	t_env	*new;
 	t_env	*new_node;

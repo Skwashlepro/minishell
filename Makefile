@@ -26,7 +26,7 @@ SRC_FILES	=	main \
 				exec_free \
 				heredoc \
 				builtin_ch builtin_utils\
-				cd echo env_cmd exit export \
+				cd echo env_cmd exit export export_utils \
 				pwd unset \
 				signals_child \
 				exec_utils2 \

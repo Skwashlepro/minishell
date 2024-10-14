@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:33:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/11 06:02:28 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/14 18:52:48 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_env	*init_noenv(int ac)
 		exit(1);
 	}
 	ft_signal();
-	return(new_env());
+	return (new_env());
 }
 
 t_env	*init_env(char **envp, int ac)

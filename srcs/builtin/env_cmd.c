@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:47:54 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/11 05:19:26 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/14 18:54:26 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	env(t_data *data)
 {
-	t_env *env;
+	t_env	*env;
 
 	env = data->get_env;
 	while (env)
