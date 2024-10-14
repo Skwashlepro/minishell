@@ -1,25 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:46:53 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/08 19:21:14 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/14 20:46:24 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**find_path(t_data *data)
+static char	**tab_env(char **tab)
 {
 	char	*str;
-	char	**tab;
 	int		j;
-	t_env	*env;
 
 	j = -1;
+	str = NULL;
+	while (tab[++j])
+	{
+		str = ft_strdup(tab[j]);
+		free(tab[j]);
+		if (str)
+		{
+			tab[j] = ft_strjoin(str, "/");
+			free(str);
+		}
+	}
+	return (tab);
+}
+
+char	**find_path(t_data *data)
+{
+	char	**tab;
+	int		i;
+	t_env	*env;
+
+	i = 0;
 	tab = NULL;
 	env = data->get_env;
 	while (env)
@@ -29,58 +48,21 @@ static char	**find_path(t_data *data)
 			tab = ft_split(env->value, ':');
 			if (!tab)
 				return (NULL);
-			while (tab[++j])
-			{
-				str = ft_strdup(tab[j]);
-				free(tab[j]);
-				if (str)
-				{
-					tab[j] = ft_strjoin(str, "/");
-					free(str);
-				}
-			}
-			return (tab);
+			return (tab_env(tab));
 		}
 		env = env->next;
 	}
 	return (NULL);
 }
 
-void	ft_wait(t_data *data, t_command *cmd)
+static void	ft_wait(t_data *data, t_command *cmd)
 {
-	int	i;
-
-	i = 0;
 	while (cmd)
 	{
 		waitpid(cmd->pid, &data->exit_status, 0);
 		if (WIFEXITED(data->exit_status))
 			g_var = WEXITSTATUS(data->exit_status);
-		unlink_file(cmd);
 		cmd = cmd->next;
-		i++;
-	}
-}
-
-void	run_heredoc(t_command *cmd, t_data *data)
-{
-	t_command	*tmp;
-	t_redir		*redir;
-
-	tmp = cmd;
-	while (tmp)
-	{
-		redir = tmp->redirection;
-		while (redir)
-		{
-			if (redir->type == HERE_DOC)
-			{
-				ft_here_doc(redir, data);
-				data->heredoc--;
-			}
-			redir = redir->next;
-		}
-		tmp = tmp->next;
 	}
 }
 
@@ -91,31 +73,24 @@ int	ft_exec(t_command *cmd, t_data *data)
 	int			i;
 
 	i = 0;
-	if (data->heredoc > 15)
-	{
-		ft_printf(2, "minishell: maximum here-document count exceeded\n");
-		clean_all(data);
-	}
-	env = env_to_tab(data);
-	data->path = find_path(data);
-	if (!data->path)
-		return (free_tab(env), -1);
+	env = NULL;
+	data->prev = -1;
+	init_exec(data, &env, &data->path);
 	tmp = cmd;
 	if (data->heredoc)
-		run_heredoc(cmd, data);
+		if (run_heredoc(cmd, data))
+			return (free_exec(env, data->path), 130);
 	while (cmd)
 	{
 		if (!i && nb_cmd(cmd) == 1)
 			if (ft_onebuiltin(data, cmd->arguments))
-				return (free_tab(env), free_tab(data->path), data->exit_status);
+				return (free_exec(env, data->path), data->exit_status);
 		ft_executor(cmd, data, env, i++);
 		cmd = cmd->next;
 	}
 	ft_wait(data, tmp);
 	ft_signal();
 	close(data->fd[0]);
-	free_tab(env);
-	free_tab(data->path);
-	// printf("this : %i\n", data->exit_status);
+	free_exec(env, data->path);
 	return (data->exit_status);
 }

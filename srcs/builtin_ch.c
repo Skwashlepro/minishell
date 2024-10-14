@@ -6,11 +6,19 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:41:54 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/10 03:41:43 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/14 21:31:59 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_bin(char *command, t_data *data, char **envp)
+{
+	free_array(command);
+	free_tab(envp);
+	free_tab(data->path);
+	ft_clean(data);
+}
 
 char	**cmd_bank(int forked)
 {
@@ -65,7 +73,7 @@ int	ft_onebuiltin(t_data *data, char **cmd)
 
 	command = finder(cmd[0], 0);
 	if (command == NULL)
-		return (free_array(command), 0);
+		return (0);
 	else if (!cmd[1] && !ft_strcmp(command, "export"))
 		return (free_array(command), 0);
 	else if (!ft_strcmp(command, "cd"))
@@ -80,7 +88,7 @@ int	ft_onebuiltin(t_data *data, char **cmd)
 	return (1);
 }
 
-int	ft_builtin(t_data *data, char **cmd)
+int	ft_builtin(t_data *data, char **cmd, char **envp)
 {
 	char	*command;
 
@@ -101,7 +109,7 @@ int	ft_builtin(t_data *data, char **cmd)
 		env(data);
 	else if (!ft_strcmp(command, "pwd"))
 		pwd(data);
-	free_array(command);
+	free_bin(command, data, envp);
 	data->exit_status = 0;
 	return (exit(0), 1);
 }

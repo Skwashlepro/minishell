@@ -6,29 +6,54 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:28:17 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/08 21:08:00 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/14 20:53:06 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*key_init(char *arg, int *index)
+int	known_key(char *args, t_data *data, int *i)
 {
-	char	*tmp;
+	t_env	*env;
+	int		k;
+
+	k = 0;
+	env = data->get_env;
+	while (args[k] && args[k] != '=')
+		k++;
+	while (env && ft_strncmp(env->key, args, (size_t)k))
+		env = env->next;
+	if (env && !ft_strncmp(env->key, args, (size_t)k))
+	{
+		if (args[k] == '=')
+		{
+			free_array(env->value);
+			env->equal = 1;
+			env->value = ft_strdup(args + (++k));
+			(*i)++;
+			return (0);
+		}
+	}
+	return (1);
+}
+
+t_env	*key_init(char *arg, int *index)
+{
+	t_env	*node;
 	int		i;
 	int		j;
 
+	node = malloc(sizeof(t_env));
 	i = 0;
 	j = -1;
 	while (arg[i] != '=' && arg[i])
 		i++;
 	*index = i;
-	tmp = malloc(sizeof(char) * (i + 1));
+	node->key = malloc(sizeof(char) * (i + 1));
 	while (++j != i)
-		tmp[j] = arg[j];
-	tmp[j] = '\0';
-	// printf("tmp is : %s\n", tmp);
-	return (tmp);
+		node->key[j] = arg[j];
+	node->key[j] = '\0';
+	return (node);
 }
 
 void	print_exp(t_data *data)
@@ -48,13 +73,14 @@ void	print_exp(t_data *data)
 		ft_printf(1, "\n");
 		tmp = tmp->next;
 	}
+	free_env(data->get_env);
 }
 
 int	exp_check(t_env **node, t_data *data)
 {
 	t_env	*tmp;
 
-	if (!(*node)->key)
+	if (!(*node))
 		return (1);
 	tmp = data->get_env;
 	while (ft_strcmp(tmp->key, (*node)->key) && tmp->next)
@@ -75,21 +101,21 @@ int	export(t_data *data, char **args)
 
 	i = 0;
 	j = 0;
-	if (!args[1])
+	if (!args[1] || !data->get_env)
 		return (print_exp(data), 1);
-	node = malloc(sizeof(t_env));
+	node = NULL;
 	while (args[++i])
 	{
-		node->key = key_init(args[i], &j);
-		if (args[i][j])
-		{
-			node->value = ft_strdup(args[i] + (++j));
-			node->equal = 1;
-			node->next = NULL;
-		}
+		if (!valid_id(args[i]))
+			continue ;
+		if (known_key(args[i], data, &i))
+			node = key_init(args[i], &j);
+		if (args[i] && args[i][j])
+			value_paste(node, args[i], ++j);
 		else if (exp_check(&node, data))
 			return (0);
 		lst_addback(&data->get_env, node);
+		node_free(node);
 	}
 	return (0);
 }

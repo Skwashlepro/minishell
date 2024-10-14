@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:33:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/08 21:08:22 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/14 14:32:50 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,26 @@ void	init_data(t_data *data)
 {
 	ft_memset(data, 0, sizeof(t_data));
 	data->cquote = 'N';
-	data->prev = -1;
 }
 
 t_env	*init_env(char **envp, int ac)
 {
+	int	i;
+
 	if (ac != 1)
 	{
 		ft_putstr_fd("Error too many args\n", 2);
 		exit(1);
 	}
+	i = 0;
 	ft_signal();
 	return (copy_env(envp));
 }
 
-char	**env_to_tab(t_data *data)
+static char	**env_tab(t_env *copy, char *str, char **tab)
 {
-	t_env	*copy;
-	char	**tab;
-	char	*str;
-	int		i;
+	int	i;
 
-	tab = NULL;
-	str = NULL;
-	i = lst_size(data->get_env);
-	tab = (char **)malloc(sizeof(char *) * (i + 1));
-	if (!tab)
-		return (NULL);
-	copy = data->get_env;
 	i = 0;
 	while (copy && tab)
 	{
@@ -63,4 +55,21 @@ char	**env_to_tab(t_data *data)
 	}
 	tab[i] = NULL;
 	return (tab);
+}
+
+char	**env_to_tab(t_data *data)
+{
+	t_env	*copy;
+	char	**tab;
+	char	*str;
+	int		i;
+
+	tab = NULL;
+	str = NULL;
+	i = lst_size(data->get_env);
+	tab = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!tab)
+		return (NULL);
+	copy = data->get_env;
+	return (env_tab(copy, str, tab));
 }

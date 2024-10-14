@@ -1,51 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 15:52:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/14 18:54:24 by luctan           ###   ########.fr       */
+/*   Created: 2024/10/14 18:34:50 by luctan            #+#    #+#             */
+/*   Updated: 2024/10/14 20:26:59 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	dash_n(char *str)
+void	value_paste(t_env *node, char *args, int j)
 {
-	int	i;
+	node->value = ft_strdup(args + j);
+	node->equal = 1;
+	node->next = NULL;
+}
 
-	i = 0;
-	if (str[0] == '-')
+int	valid_id(char *args)
+{
+	if (!ft_isalpha(args[0]))
 	{
-		i++;
-		while (str[i] == 'n')
-			i++;
-		if (!str[i])
-			return (0);
+		ft_printf(2, "minishell$: export: '%s': not a valid identifier\n", args);
+		return (0);
 	}
 	return (1);
 }
 
-void	echo(char **args)
+void	node_free(t_env *node)
 {
-	int	print;
-	int	i;
-
-	print = 0;
-	i = 1;
-	while (args[i] && !dash_n(args[i]))
+	if (node)
 	{
-		print = 1;
-		i++;
+		if (node->value)
+			free_array(node->value);
+		if (node->key)
+			free_array(node->key);
+		free(node);
 	}
-	while (args[i])
-	{
-		ft_printf(1, "%s", args[i++]);
-		if (args[i])
-			ft_printf(1, " ");
-	}
-	if (!print)
-		ft_printf(1, "\n");
 }

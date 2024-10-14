@@ -21,15 +21,17 @@ SRC_FILES	=	main \
 				parsing \
 				expand \
 				expand_utils \
-				get_path \
+				exec \
 				exec_utils \
 				exec_free \
 				heredoc \
 				builtin_ch builtin_utils\
-				cd echo env_cmd exit export \
+				cd echo env_cmd exit export export_utils \
 				pwd unset \
 				signals_child \
 				exec_utils2 \
+				signals_heredoc \
+				no_env \
 
 OBJ	= $(addsuffix .o, $(SRC_FILES))
 

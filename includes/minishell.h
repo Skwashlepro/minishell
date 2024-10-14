@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/08 19:23:21 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/14 21:19:56 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ typedef struct s_data
 	int			prev;
 	int			exit_status;
 	int			count;
+	int			save;
+	int			in_heredoc;
 	char		cquote;
 	char		*new;
 	char		*value;
@@ -98,7 +100,7 @@ typedef struct s_data
 }				t_data;
 
 int			check_input(char *str);
-void		ft_signal();
+void		ft_signal(void);
 t_env		*init_env(char **envp, int ac);
 void		init_data(t_data *data);
 int			is_space(char c);
@@ -142,10 +144,8 @@ char		*get_varenv(char *str, t_data *data, int TYPE);
 void		free_redir(t_redir *redirection);
 void		fork_redir_free(t_data *data, char **env, char **path);
 void		fork_clean(t_data *data, char **envp);
-void		ft_here_doc(t_redir *redir, t_data *data);
-void		run_heredoc(t_command *cmd, t_data *data);
 void		signals_child(void);
-int			ft_builtin(t_data *data, char **cmd);
+int			ft_builtin(t_data *data, char **cmd, char **envp);
 int			ft_onebuiltin(t_data *data, char **cmd);
 void		cd(t_data *data, char **args);
 void		echo(char **args);
@@ -158,10 +158,20 @@ int			nb_check(char *str);
 void		lst_addback(t_env **node, t_env *new);
 int			count_args(char **args);
 void		child_signals(void);
-void		ft_wait(t_data *data, t_command *cmd);
-int			nb_cmd(t_command *cmd);
+void		child_signals(void);
 void		ft_exit_code(int code, t_data *data, t_command *cmd, char **envp);
-void		unlink_file(t_command *cmd);
 char		*get_cmd(t_data *data, char *command);
+void		free_exec(char **env, char **path);
+void		init_exec(t_data *data, char ***env, char ***path);
+char		**find_path(t_data *data);
+int			nb_cmd(t_command *cmd);
+void		sig_heredoc(t_data *data);
+int			run_heredoc(t_command *cmd, t_data *data);
+t_env		*init_noenv(int ac);
+t_env		*new_env(void);
+t_env		*lstnew(char *key, char *value);
+void		value_paste(t_env *node, char *args, int j);
+int			valid_id(char *args);
+void		node_free(t_env *node);
 
 #endif

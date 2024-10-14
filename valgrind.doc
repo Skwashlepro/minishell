@@ -6,6 +6,13 @@
         fun:readline
 }
 {
+    _add_history_
+        Memcheck:Leak
+        match-leak-kinds: all
+        ...
+        fun:add_history
+} 
+{
     bin2
     Memcheck:Leak
     ...

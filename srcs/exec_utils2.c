@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:05:34 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/08 21:08:55 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/09 15:41:15 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*get_cmd(t_data *data, char *command)
 	int		i;
 
 	i = 0;
-	while (data->path[i])
+	while (data->path && data->path[i])
 	{
 		str = ft_strjoin(data->path[i], command);
 		if (access(str, F_OK | X_OK | R_OK) == 0)
@@ -45,20 +45,6 @@ char	*get_cmd(t_data *data, char *command)
 		i++;
 	}
 	return (NULL);
-}
-
-void	unlink_file(t_command *cmd)
-{
-	t_redir	*tmp;
-
-	tmp = cmd->redirection;
-	while (tmp)
-	{
-		if (tmp->heredoc_name)
-			if (access(tmp->heredoc_name, F_OK | X_OK | R_OK) == 0)
-				unlink(tmp->heredoc_name);
-		tmp = tmp->next;
-	}
 }
 
 int	nb_cmd(t_command *cmd)
@@ -74,4 +60,15 @@ int	nb_cmd(t_command *cmd)
 		i++;
 	}
 	return (i);
+}
+
+void	init_exec(t_data *data, char ***env, char ***path)
+{
+	if (data->heredoc > 15)
+	{
+		ft_printf(2, "minishell: maximum here-document count exceeded\n");
+		clean_all(data);
+	}
+	*env = env_to_tab(data);
+	*path = find_path(data);
 }

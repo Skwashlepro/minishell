@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:01:11 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/08 21:07:58 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/14 18:54:28 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_exit(char **args, t_data *data)
 {
-	int i;
-	long nb;
+	int		i;
+	long	nb;
 
 	i = 0;
 	(void)data;
@@ -24,7 +24,7 @@ void	ft_exit(char **args, t_data *data)
 	if (i == 1)
 		return (exit(0));
 	if (i > 2)
-		return ((void)!ft_printf(2, "minishell: exit: too many arguments\n"));
+		return ((void) !ft_printf(2, "minishell: exit: too many arguments\n"));
 	if ((i == 2 && !nb_check(args[1])))
 		return (ft_printf(2, "minishell: exit: %s: numeric argument required\n",
 				args[1]), free_tab(args), exit(2));
