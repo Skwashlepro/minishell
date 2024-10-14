@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 17:20:47 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/11 00:04:46 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/12 18:22:44 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	process_string(char *str, t_data *data, int *pos, int *i)
 	while (str && str[*i])
 	{
 		wordinquote(str[*i], data);
-		if (str[*i] == '$' && str[*i + 1] && data->cquote != '\''
-			&& !is_quotes(str[*i + 1]))
+		if (str[*i] == '$' && str[*i + 1] && str[(*i) + 1] != '$'
+			&& data->cquote != '\'' && !is_quotes(str[*i + 1]))
 		{
 			(*i)++;
 			data->value = get_value(str, i, data);
@@ -59,8 +59,8 @@ void	process_string(char *str, t_data *data, int *pos, int *i)
 				free_array(data->value);
 			}
 		}
-		else if (data->cquote == 'N' && is_quotes(str[*i + 1])
-			&& str[*i] == '$')
+		else if (data->cquote == 'N' && is_quotes(str[*i + 1]
+				&& data->in_heredoc == 0) && str[*i] == '$')
 			(*i)++;
 		else
 			(data->new)[(*pos)++] = str[(*i)++];
@@ -73,7 +73,7 @@ void	loop_len(char *str, t_data *data, int *len, int *i)
 	{
 		wordinquote(str[(*i)], data);
 		if (str[(*i)] == '$' && str[(*i) + 1] && data->cquote != '\''
-			&& !is_quotes(str[(*i) + 1]))
+			&& str[(*i) + 1] != '$' && !is_quotes(str[(*i) + 1]))
 		{
 			(*i)++;
 			data->new = get_value(str, i, data);
@@ -83,8 +83,8 @@ void	loop_len(char *str, t_data *data, int *len, int *i)
 				free_array(data->new);
 			}
 		}
-		else if (data->cquote == 'N' && is_quotes(str[*i + 1])
-			&& str[*i] == '$')
+		else if (data->cquote == 'N' && is_quotes(str[*i + 1]
+				&& data->heredoc == 0) && str[*i] == '$')
 			(*i)++;
 		else
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:02:26 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/08 19:21:06 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/12 18:22:49 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ char	*get_value(char *str, int *i, t_data *data)
 
 	env = data->get_env;
 	j = 0;
-	if (str[*i] == '$')
-		return (NULL);
 	if (str[*i] == '?')
 		return ((*i += 1), ft_itoa(data->exit_status));
 	if (str[*i] >= '0' && str[*i] <= '9')

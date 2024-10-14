@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 15:15:48 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/27 19:52:28 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/12 18:19:30 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	wordinquote(char c, t_data *data)
 	{
 		if (data->cquote == '"')
 			return (1);
-		else if (data->cquote == 'N')
+		else if (data->cquote == 'N' && data->in_heredoc == 0)
 			data->cquote = c;
 		else if (data->cquote == c)
 			data->cquote = 'N';

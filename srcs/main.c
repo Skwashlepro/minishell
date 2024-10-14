@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/11 06:02:38 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/14 13:00:27 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	clean_all(t_data *data)
 	quit = 0;
 	if (data->heredoc)
 		quit = data->heredoc;
+	rl_clear_history();
 	ft_clean(data);
 	free_env(data->get_env);
-	// rl_clear_history();
 	if (quit > 15)
 		exit(2);
 	exit(0);
@@ -61,8 +61,7 @@ char	*prompter(t_data *data)
 	input = readline("minishell$ ");
 	if (input == NULL)
 		return (NULL);
-	// if (*input)
-	// 	add_history(input);
+	add_history(input);
 	return (input);
 }
 
@@ -76,16 +75,19 @@ void	unlink_file(void)
 	while (1)
 	{
 		tmp_itoa = ft_itoa(i);
-		filename = ft_strjoin(GET_HEREDOC, tmp_itoa);
-		if (access(filename, F_OK) == -1)
+		if (tmp_itoa)
 		{
-			free(tmp_itoa);
+			filename = ft_strjoin(GET_HEREDOC, tmp_itoa);
+			if (access(filename, F_OK) == -1)
+			{
+				free(tmp_itoa);
+				free(filename);
+				break ;
+			}
+			unlink(filename);
 			free(filename);
-			break ;
+			free(tmp_itoa);
 		}
-		unlink(filename);
-		free(tmp_itoa);
-		free(filename);
 		i++;
 	}
 }
@@ -117,10 +119,7 @@ int	main(int ac, char **av, char **envp)
 
 	(void)av;
 	init_data(&data);
-	if (!envp[0])
-		data.get_env = init_noenv(ac);
-	else
-		data.get_env = init_env(envp, ac);
+	data.get_env = init_env(envp, ac);
 	loop_prog(&data);
 	clean_all(&data);
 	return (0);
