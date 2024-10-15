@@ -6,19 +6,11 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:41:54 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/14 21:31:59 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/15 15:22:11 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_bin(char *command, t_data *data, char **envp)
-{
-	free_array(command);
-	free_tab(envp);
-	free_tab(data->path);
-	ft_clean(data);
-}
 
 char	**cmd_bank(int forked)
 {
@@ -85,10 +77,11 @@ int	ft_onebuiltin(t_data *data, char **cmd)
 	else if (!ft_strcmp(command, "unset"))
 		unset(&data, cmd[1]);
 	free_array(command);
+	data->exit_status = 0;
 	return (1);
 }
 
-int	ft_builtin(t_data *data, char **cmd, char **envp)
+int	ft_builtin(t_data *data, char **cmd)
 {
 	char	*command;
 
@@ -109,7 +102,7 @@ int	ft_builtin(t_data *data, char **cmd, char **envp)
 		env(data);
 	else if (!ft_strcmp(command, "pwd"))
 		pwd(data);
-	free_bin(command, data, envp);
+	free_array(command);
 	data->exit_status = 0;
-	return (exit(0), 1);
+	return (1);
 }

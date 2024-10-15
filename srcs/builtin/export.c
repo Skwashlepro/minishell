@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:28:17 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/14 20:53:06 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/15 15:23:40 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	print_exp(t_data *data)
 		ft_printf(1, "\n");
 		tmp = tmp->next;
 	}
-	free_env(data->get_env);
 }
 
 int	exp_check(t_env **node, t_data *data)
