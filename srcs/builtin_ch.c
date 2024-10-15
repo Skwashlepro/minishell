@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:41:54 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/15 15:22:11 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/15 15:40:57 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*finder(char *cmd, int forked)
 	return (found);
 }
 
-int	ft_onebuiltin(t_data *data, char **cmd)
+int	ft_onebuiltin(t_data *data, char **cmd, char **env)
 {
 	char	*command;
 
@@ -71,7 +71,11 @@ int	ft_onebuiltin(t_data *data, char **cmd)
 	else if (!ft_strcmp(command, "cd"))
 		cd(data, cmd);
 	else if (!ft_strcmp(command, "exit"))
+	{
+		free_exec(env, data->path);
+		free_array(command);
 		ft_exit(cmd, data);
+	}
 	else if (!ft_strcmp(command, "export"))
 		export(data, cmd);
 	else if (!ft_strcmp(command, "unset"))
@@ -81,17 +85,19 @@ int	ft_onebuiltin(t_data *data, char **cmd)
 	return (1);
 }
 
-int	ft_builtin(t_data *data, char **cmd)
+int	ft_builtin(t_data *data, char **cmd, char **envp)
 {
 	char	*command;
 
 	command = finder(cmd[0], 1);
 	if (command == NULL)
 		return (0);
-	if (!ft_strcmp(command, "cd"))
-		return (1);
 	else if (!ft_strcmp(command, "exit"))
+	{
+		free_exec(envp, data->path);
+		free_array(command);
 		ft_exit(cmd, data);
+	}
 	else if (!ft_strcmp(command, "export"))
 		export(data, cmd);
 	else if (!ft_strcmp(command, "unset"))
