@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:12:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/15 15:19:30 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/15 15:43:57 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,8 @@ void	pwd(t_data *data)
 		return ((void)ft_printf(1, "%s\n", pwd), free_array(pwd));
 	}
 	if (tmp)
-		ft_printf(1, "%s\n", tmp->value);
+	{
+		ft_putstr_fd(tmp->value, 1);
+		ft_putchar_fd('\n', 1);
+	}
 }
