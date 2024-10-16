@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:34:50 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/16 22:55:37 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/16 23:04:36 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_putstrn(char *str, int i)
 	int	j;
 
 	j = -1;
-	while (str[i] != '=')
+	while (str[i] != '=' && str[i])
 		i++;
 	while (str[++j] && j != i)
 		write(2, &str[j], 1);
@@ -34,7 +34,7 @@ int	valid_id(t_data **data, char *args)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	if (!ft_isalpha(args[0]))
 	{
 		ft_printf(2, "minishell$: export: '");
@@ -43,16 +43,17 @@ int	valid_id(t_data **data, char *args)
 		(*data)->exit_status = 1;
 		return (0);
 	}
-	while (args[++i] && args[i] != '=')
+	while (args[i] && args[i] != '=')
 	{
 		if (!ft_isalnum(args[i]) && ft_isascii(args[i]))
-			{
-				ft_printf(2, "minishell$: export: '");
-				ft_putstrn(args, i);
-				ft_printf(2,"': not a valid identifier\n");
-				(*data)->exit_status = 1;
-				return (0);
-			}
+		{
+			ft_printf(2, "minishell$: export: '");
+			ft_putstrn(args, i);
+			ft_printf(2, "': not a valid identifier\n");
+			(*data)->exit_status = 1;
+			return (0);
+		}
+		i++;
 	}
 	return (1);
 }
