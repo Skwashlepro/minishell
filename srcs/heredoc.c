@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 19:42:49 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/10 18:24:19 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/14 12:52:36 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,31 @@ static char	*generate_name(t_data *data)
 	return (free(s), str);
 }
 
-void	loop_heredoc(char *filename, int save, int fd, t_redir *redir)
+void	loop_heredoc(char *filename, t_data *data, int fd, t_redir *redir)
 {
+	char	*name;
+
+	name = NULL;
 	while (1)
 	{
 		filename = readline("> ");
 		if (!filename)
 		{
-			dup2(save, STDIN_FILENO);
-			close(save);
+			dup2(data->save, STDIN_FILENO);
+			close(data->save);
 			break ;
 		}
 		if (ft_strcmp(filename, redir->file) == 0)
 		{
-			close(save);
+			close(data->save);
 			free(filename);
 			break ;
 		}
-		ft_printf(fd, "%s\n", filename);
+		data->in_heredoc++;
+		name = get_varenv(filename, data, WORD);
+		ft_printf(fd, "%s\n", name);
 		free(filename);
+		free(name);
 	}
 }
 
@@ -54,10 +60,8 @@ static int	ft_here_doc(t_redir *redir, t_data *data)
 {
 	int		fd;
 	char	*str;
-	int		save;
 
 	str = NULL;
-	save = dup(STDIN_FILENO);
 	redir->heredoc_name = generate_name(data);
 	if (!redir->heredoc_name)
 		return (1);
@@ -66,7 +70,8 @@ static int	ft_here_doc(t_redir *redir, t_data *data)
 		return (perror("open"), 1);
 	sig_heredoc(data);
 	g_var = 0;
-	loop_heredoc(str, save, fd, redir);
+	data->save = dup(STDIN_FILENO);
+	loop_heredoc(str, data, fd, redir);
 	close(fd);
 	if (g_var == 130)
 		return (1);

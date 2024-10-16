@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:28:17 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/14 18:51:29 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/16 22:04:32 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	known_key(char *args, t_data *data, int *i)
 	env = data->get_env;
 	while (args[k] && args[k] != '=')
 		k++;
-	while (env && ft_strncmp(env->key, args, (size_t)k))
+	while (env && ft_strncmp(env->key, args, ft_strlen(env->key)))
 		env = env->next;
 	if (env && !ft_strncmp(env->key, args, (size_t)k))
 	{
@@ -63,14 +63,16 @@ void	print_exp(t_data *data)
 	tmp = data->get_env;
 	while (tmp)
 	{
-		ft_printf(1, "export ");
-		ft_printf(1, "%s", tmp->key);
+		write(1, "export ", 8);
+		write(1, tmp->key, ft_strlen(tmp->key));
 		if (tmp->equal)
 		{
-			ft_printf(1, "=");
-			ft_printf(1, "%c%s%c", '"', tmp->value, '"');
+			write(1, "=", 1);
+			write(1, "\"", 1);
+			write(1, tmp->value, ft_strlen(tmp->value));
+			write(1, "\"", 1);
 		}
-		ft_printf(1, "\n");
+		write(1, "\n", 1);
 		tmp = tmp->next;
 	}
 }
@@ -101,11 +103,11 @@ int	export(t_data *data, char **args)
 	i = 0;
 	j = 0;
 	if (!args[1] || !data->get_env)
-		return (print_exp(data), 1);
+		return (print_exp(data), 0);
 	node = NULL;
 	while (args[++i])
 	{
-		if (!valid_id(args[i]))
+		if (!valid_id(&data, args[i]))
 			continue ;
 		if (known_key(args[i], data, &i))
 			node = key_init(args[i], &j);

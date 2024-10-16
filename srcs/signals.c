@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 18:30:51 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/11 00:05:02 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/12 20:01:32 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	signal_backslash(void)
 		ft_printf(2, "ERROR SIGQUIT\n");
 }
 
-void	ft_signal()
+void	ft_signal(void)
 {
 	signal_ctrl_c();
 	signal_backslash();

@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:46:53 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/11 00:07:00 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/16 21:07:00 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ int	ft_exec(t_command *cmd, t_data *data)
 	while (cmd)
 	{
 		if (!i && nb_cmd(cmd) == 1)
-			if (ft_onebuiltin(data, cmd->arguments))
-				return (free_tab(env), free_tab(data->path), data->exit_status);
+			if (ft_onebuiltin(data, cmd->arguments, env))
+				return (free_exec(env, data->path), data->exit_status);
 		ft_executor(cmd, data, env, i++);
 		cmd = cmd->next;
 	}
+	close(data->fd[0]);
 	ft_wait(data, tmp);
 	ft_signal();
-	close(data->fd[0]);
 	free_exec(env, data->path);
 	return (data->exit_status);
 }

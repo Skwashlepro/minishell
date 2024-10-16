@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:41:54 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/11 06:24:38 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/16 22:03:11 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,38 +59,43 @@ char	*finder(char *cmd, int forked)
 	return (found);
 }
 
-int	ft_onebuiltin(t_data *data, char **cmd)
+int	ft_onebuiltin(t_data *data, char **cmd, char **env)
 {
 	char	*command;
 
+	data->exit_status = 0;
+	if (!cmd)
+		return (0);
 	command = finder(cmd[0], 0);
 	if (command == NULL)
-		return (free_array(command), 0);
+		return (0);
 	else if (!cmd[1] && !ft_strcmp(command, "export"))
 		return (free_array(command), 0);
 	else if (!ft_strcmp(command, "cd"))
-		cd(data, cmd);
+		data->exit_status = cd(data, cmd);
 	else if (!ft_strcmp(command, "exit"))
-		ft_exit(cmd, data);
+		return (free_array(command), ft_exit(cmd, data, env), 1);
 	else if (!ft_strcmp(command, "export"))
 		export(data, cmd);
 	else if (!ft_strcmp(command, "unset"))
 		unset(&data, cmd[1]);
-	free_array(command);
+	if (command)
+		free_array(command);
 	return (1);
 }
 
-int	ft_builtin(t_data *data, char **cmd)
+int	ft_builtin(t_data *data, char **cmd, char **envp)
 {
 	char	*command;
 
+	data->exit_status = 0;
+	if (!cmd)
+		return (0);
 	command = finder(cmd[0], 1);
 	if (command == NULL)
 		return (0);
-	if (!ft_strcmp(command, "cd"))
-		return (1);
 	else if (!ft_strcmp(command, "exit"))
-		ft_exit(cmd, data);
+		return (free_array(command), ft_exit(cmd, data, envp), 1);
 	else if (!ft_strcmp(command, "export"))
 		export(data, cmd);
 	else if (!ft_strcmp(command, "unset"))
@@ -101,7 +106,7 @@ int	ft_builtin(t_data *data, char **cmd)
 		env(data);
 	else if (!ft_strcmp(command, "pwd"))
 		pwd(data);
-	free_array(command);
-	data->exit_status = 0;
-	return (exit(0), 1);
+	if (command)
+		free_array(command);
+	return (1);
 }
