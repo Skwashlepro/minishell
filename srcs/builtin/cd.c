@@ -6,11 +6,22 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:53:16 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/16 21:50:20 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/16 22:22:38 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	is_file(char *arg)
+{
+	int	status;
+
+	status = access(arg, F_OK);
+	if (status == 0)
+		ft_printf(2, "minishell$ cd: %s: Not a directory\n", arg);
+	else
+		ft_printf(2, "minishell$ cd: No such file or directory\n");
+}
 
 void	update_env(t_env *old, t_env *pwd)
 {
@@ -79,7 +90,6 @@ int	cd(t_data *data, char **args)
 	else if (old_pwd && !ft_strcmp(args[1], "-"))
 		return ((void)ft_printf(1, "%s\n", old_pwd->value), (void)chdir(old_pwd->value), 1);
 	else if (chdir(args[1]) == -1)
-		return ((void)ft_printf(2,
-				"minishell$ cd: No such file or directory\n"), 1);
+		return (is_file(args[1]), 1);
 	return (update_env(old_pwd, pwd), 1);
 }
