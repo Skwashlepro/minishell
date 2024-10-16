@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:01:11 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/16 21:48:52 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/16 22:29:04 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_exit(char **args, t_data *data, char **envp)
 
 	i = 0;
 	nb = 0;
+	ft_printf(1, "exit\n");
 	while (args[i])
 		i++;
 	if (i == 1)

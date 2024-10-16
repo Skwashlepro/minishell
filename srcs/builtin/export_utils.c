@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:34:50 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/16 21:56:22 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/16 22:39:09 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,25 @@ void	value_paste(t_env *node, char *args, int j)
 
 int	valid_id(t_data **data, char *args)
 {
+	int	i;
+
+	i = -1;
 	if (!ft_isalpha(args[0]))
 	{
 		ft_printf(2, "minishell$: export: '%s': not a valid identifier\n",
 			args);
 		(*data)->exit_status = 1;
 		return (0);
+	}
+	while (args[++i] && args[i] != '=')
+	{
+		if (args[i] == '-')
+			{
+				ft_printf(2, "minishell$: export: '%s': not a valid identifier\n",
+					args);
+				(*data)->exit_status = 1;
+				return (0);
+			}
 	}
 	return (1);
 }
