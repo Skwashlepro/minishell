@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:46:53 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/16 17:06:36 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/16 21:07:00 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ static char	**tab_env(char **tab)
 char	**find_path(t_data *data)
 {
 	char	**tab;
-	int		i;
 	t_env	*env;
 
-	i = 0;
 	tab = NULL;
 	env = data->get_env;
 	while (env)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:34:50 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/16 15:19:29 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/16 21:56:22 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ void	value_paste(t_env *node, char *args, int j)
 	node->next = NULL;
 }
 
-int	valid_id(char *args)
+int	valid_id(t_data **data, char *args)
 {
 	if (!ft_isalpha(args[0]))
 	{
 		ft_printf(2, "minishell$: export: '%s': not a valid identifier\n",
 			args);
+		(*data)->exit_status = 1;
 		return (0);
 	}
 	return (1);

@@ -6,13 +6,13 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:32:03 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/14 19:33:56 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/16 21:52:50 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	unset(t_data **data, char *var)
+void	unset(t_data **data, char *var)
 {
 	t_env	*tmp;
 	t_env	*fst;
@@ -20,7 +20,7 @@ int	unset(t_data **data, char *var)
 	tmp = (*data)->get_env;
 	fst = (*data)->get_env;
 	if (!var || !(*data)->get_env)
-		return (1);
+		return ;
 	while (ft_strcmp(tmp->key, var) && tmp->next)
 		tmp = tmp->next;
 	if (!ft_strcmp(tmp->key, var))
@@ -36,5 +36,5 @@ int	unset(t_data **data, char *var)
 		free(tmp);
 	}
 	(*data)->get_env = fst;
-	return (0);
+	return ;
 }

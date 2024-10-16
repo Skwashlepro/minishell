@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:28:17 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/16 15:29:37 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/16 22:04:32 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,11 @@ int	export(t_data *data, char **args)
 	i = 0;
 	j = 0;
 	if (!args[1] || !data->get_env)
-		return (print_exp(data), 1);
+		return (print_exp(data), 0);
 	node = NULL;
 	while (args[++i])
 	{
-		if (!valid_id(args[i]))
+		if (!valid_id(&data, args[i]))
 			continue ;
 		if (known_key(args[i], data, &i))
 			node = key_init(args[i], &j);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/16 13:20:39 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/16 21:56:30 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,13 +147,13 @@ void		fork_clean(t_data *data, char **envp);
 void		signals_child(void);
 int			ft_builtin(t_data *data, char **cmd, char **envp);
 int			ft_onebuiltin(t_data *data, char **cmd, char **env);
-void		cd(t_data *data, char **args);
+int			cd(t_data *data, char **args);
 void		echo(char **args);
 void		env(t_data *data);
-void		ft_exit(char **args, t_data *data);
+void		ft_exit(char **args, t_data *data, char **envp);
 int			export(t_data *data, char **args);
 void		pwd(t_data *data);
-int			unset(t_data **data, char *var);
+void		unset(t_data **data, char *var);
 int			nb_check(char *str);
 void		lst_addback(t_env **node, t_env *new);
 int			count_args(char **args);
@@ -171,6 +171,7 @@ t_env		*init_noenv(int ac);
 t_env		*new_env(void);
 t_env		*lstnew(char *key, char *value);
 void		value_paste(t_env *node, char *args, int j);
-int			valid_id(char *args);
+int			valid_id(t_data **data, char *args);
 void		node_free(t_env *node);
+
 #endif

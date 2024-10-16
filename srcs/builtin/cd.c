@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:53:16 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/14 19:57:16 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/16 21:50:20 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	args_errors(t_env *old_pwd, char **args)
 	return (0);
 }
 
-void	cd(t_data *data, char **args)
+int	cd(t_data *data, char **args)
 {
 	t_env	*old_pwd;
 	t_env	*tmp;
@@ -66,20 +66,20 @@ void	cd(t_data *data, char **args)
 	old_pwd = search_key(data->get_env, "OLDPWD");
 	pwd = search_key(data->get_env, "PWD");
 	if (args_errors(old_pwd, args))
-		return ;
+		return (1);
 	if (count_args(args) == 1)
 	{
 		tmp = search_key(data->get_env, "HOME");
 		if (!tmp)
-			return ((void)ft_printf(2, "minishell$ cd: HOME not set\n"));
-		if (chdir(tmp->value) != -1)
-			update_env(old_pwd, pwd);
-		return ;
+			return ((void)ft_printf(2, "minishell$ cd: HOME not set\n"), 1);
+		if (chdir(tmp->value) == -1)
+			return ((void)ft_printf(2, "minishell$ cd: No such file or directory\n"), 1);
+		return (update_env(old_pwd, pwd), 1);
 	}
-	if (old_pwd && !ft_strcmp(args[1], "-"))
-		return ((void)chdir(old_pwd->value));
-	if (chdir(args[1]) == -1)
+	else if (old_pwd && !ft_strcmp(args[1], "-"))
+		return ((void)ft_printf(1, "%s\n", old_pwd->value), (void)chdir(old_pwd->value), 1);
+	else if (chdir(args[1]) == -1)
 		return ((void)ft_printf(2,
-				"minishell$ cd: No such file or directory\n"));
-	update_env(old_pwd, pwd);
+				"minishell$ cd: No such file or directory\n"), 1);
+	return (update_env(old_pwd, pwd), 1);
 }

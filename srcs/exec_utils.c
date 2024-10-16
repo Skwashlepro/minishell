@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:47:02 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/16 18:47:53 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/16 21:09:18 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	ft_execve(t_data *data, char **envp, t_command *cmd)
 {
 	char	*path;
-	char	**tab;
 
 	if (!cmd->arguments && cmd->redirection)
 		return ;
@@ -29,7 +28,6 @@ void	ft_execve(t_data *data, char **envp, t_command *cmd)
 		else
 			ft_exit_code(3, data, cmd, envp);
 	}
-	copy_tab(cmd->arguments, tab);
 	path = get_cmd(data, cmd->arguments[0]);
 	if (!path)
 		ft_exit_code(1, data, cmd, envp);
