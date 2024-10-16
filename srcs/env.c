@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:33:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/14 14:32:50 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/16 12:32:41 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,13 @@ char	**env_to_tab(t_data *data)
 {
 	t_env	*copy;
 	char	**tab;
-	char	*str;
 	int		i;
 
 	tab = NULL;
-	str = NULL;
 	i = lst_size(data->get_env);
 	tab = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!tab)
 		return (NULL);
 	copy = data->get_env;
-	return (env_tab(copy, str, tab));
+	return (env_tab(copy, NULL, tab));
 }

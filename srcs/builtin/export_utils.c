@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:34:50 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/14 20:26:59 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/16 15:19:29 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	valid_id(char *args)
 {
 	if (!ft_isalpha(args[0]))
 	{
-		ft_printf(2, "minishell$: export: '%s': not a valid identifier\n", args);
+		ft_printf(2, "minishell$: export: '%s': not a valid identifier\n",
+			args);
 		return (0);
 	}
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 11:47:02 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/15 15:39:07 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/16 18:47:53 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_execve(t_data *data, char **envp, t_command *cmd)
 {
 	char	*path;
+	char	**tab;
 
 	if (!cmd->arguments && cmd->redirection)
 		return ;
@@ -28,6 +29,7 @@ void	ft_execve(t_data *data, char **envp, t_command *cmd)
 		else
 			ft_exit_code(3, data, cmd, envp);
 	}
+	copy_tab(cmd->arguments, tab);
 	path = get_cmd(data, cmd->arguments[0]);
 	if (!path)
 		ft_exit_code(1, data, cmd, envp);
@@ -98,7 +100,10 @@ void	exec_child(t_command *cmd, t_data *data, char **env, int i)
 			fork_redir_free(data, env, data->path);
 			exit(1);
 		}
-		if (!ft_builtin(data, cmd->arguments, env))
+		if (ft_builtin(data, cmd->arguments, env))
+			return (fork_redir_free(data, env, data->path),
+				exit(data->exit_status));
+		else
 			ft_execve(data, env, cmd);
 		fork_redir_free(data, env, data->path);
 		exit(0);
@@ -108,10 +113,16 @@ void	exec_child(t_command *cmd, t_data *data, char **env, int i)
 void	ft_executor(t_command *cmd, t_data *data, char **env, int i)
 {
 	if (pipe(data->fd) == -1)
+	{
 		perror("pipe");
+		return ;
+	}
 	cmd->pid = fork();
 	if (cmd->pid == -1)
+	{
 		perror("fork");
+		return ;
+	}
 	child_signals();
 	exec_child(cmd, data, env, i);
 	close(data->fd[1]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/15 15:39:21 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/16 13:20:39 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,5 +173,4 @@ t_env		*lstnew(char *key, char *value);
 void		value_paste(t_env *node, char *args, int j);
 int			valid_id(char *args);
 void		node_free(t_env *node);
-
 #endif

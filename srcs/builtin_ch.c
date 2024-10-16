@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_ch.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:41:54 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/15 15:40:57 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/16 14:33:25 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	ft_onebuiltin(t_data *data, char **cmd, char **env)
 {
 	char	*command;
 
+	if (!cmd)
+		return (0);
 	command = finder(cmd[0], 0);
 	if (command == NULL)
 		return (0);
@@ -89,6 +91,8 @@ int	ft_builtin(t_data *data, char **cmd, char **envp)
 {
 	char	*command;
 
+	if (!cmd)
+		return (0);
 	command = finder(cmd[0], 1);
 	if (command == NULL)
 		return (0);
