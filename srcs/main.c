@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/14 13:00:27 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/18 01:39:06 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,10 @@ void	loop_prog(t_data *data)
 	{
 		data->prompt = prompter(data);
 		if (!data->prompt)
+		{
+			(void)printf("exit\n");
 			break ;
+		}
 		if (g_var != 0)
 		{
 			data->exit_status = g_var;
