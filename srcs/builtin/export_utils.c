@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:34:50 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/16 23:04:36 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/18 01:45:16 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	valid_id(t_data **data, char *args)
 	{
 		ft_printf(2, "minishell$: export: '");
 		ft_putstrn(args, i);
-		ft_printf(2,"': not a valid identifier\n");
+		ft_printf(2, "': not a valid identifier\n");
 		(*data)->exit_status = 1;
 		return (0);
 	}

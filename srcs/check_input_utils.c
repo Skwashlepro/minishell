@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:47:15 by tpassin           #+#    #+#             */
-/*   Updated: 2024/09/17 16:06:47 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/18 01:44:29 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,21 @@ void	char_redir(char *str, int *redir_out, int *redir)
 		*redir = 0;
 	else if (ft_isalnum(*str) && *redir_out <= 2 && !(*redir))
 		*redir_out = 0;
+}
+
+int	only_quote(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (is_space(s[i]))
+		i++;
+	if (s[i])
+	{
+		while (s[i] == '"' || s[i] == '\'')
+			i++;
+		if (s[i] == '\0')
+			return (1);
+	}
+	return (0);
 }

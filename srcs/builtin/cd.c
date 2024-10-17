@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:53:16 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/16 22:22:38 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/18 01:46:46 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,13 @@ int	cd(t_data *data, char **args)
 		if (!tmp)
 			return ((void)ft_printf(2, "minishell$ cd: HOME not set\n"), 1);
 		if (chdir(tmp->value) == -1)
-			return ((void)ft_printf(2, "minishell$ cd: No such file or directory\n"), 1);
+			return ((void)ft_printf(2,
+					"minishell$ cd: No such file or directory\n"), 1);
 		return (update_env(old_pwd, pwd), 1);
 	}
 	else if (old_pwd && !ft_strcmp(args[1], "-"))
-		return ((void)ft_printf(1, "%s\n", old_pwd->value), (void)chdir(old_pwd->value), 1);
+		return ((void)ft_printf(1, "%s\n", old_pwd->value)
+			, (void)chdir(old_pwd->value), 1);
 	else if (chdir(args[1]) == -1)
 		return (is_file(args[1]), 1);
 	return (update_env(old_pwd, pwd), 1);

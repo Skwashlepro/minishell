@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:21:08 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/17 21:49:37 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/18 01:43:57 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,6 @@ int	add_redirection(t_token *token, t_data *data, t_command *command)
 	redir->heredoc_name = NULL;
 	redir->next = NULL;
 	redirection_addback(&command->redirection, redir);
-	return (0);
-}
-
-int	only_quote(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (is_space(s[i]))
-		i++;
-	if (s[i])
-	{
-		while (s[i] == '"' || s[i] == '\'')
-			i++;
-		if (s[i] == '\0')
-			return (1);
-	}
 	return (0);
 }
 

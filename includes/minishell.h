@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/18 00:47:43 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/18 01:47:46 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void		env(t_data *data);
 void		ft_exit(char **args, t_data *data, char **envp);
 int			export(t_data *data, char **args);
 void		pwd(t_data *data);
-void		unset(t_data **data, char **var);
+void		unset(t_data *data, char **var);
 int			nb_check(char *str);
 void		lst_addback(t_env **node, t_env *new);
 int			count_args(char **args);
@@ -176,5 +176,6 @@ void		value_paste(t_env *node, char *args, int j);
 int			valid_id(t_data **data, char *args);
 void		node_free(t_env *node);
 char		**new_tab(char **tab);
+int			only_quote(char *s);
 
 #endif
