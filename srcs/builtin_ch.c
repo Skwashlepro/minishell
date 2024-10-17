@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_ch.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:41:54 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/17 15:48:40 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/18 00:45:48 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_onebuiltin(t_data *data, char **cmd, char **env)
 	else if (!ft_strcmp(command, "export"))
 		export(data, cmd);
 	else if (!ft_strcmp(command, "unset"))
-		unset(&data, cmd[1]);
+		unset(&data, cmd);
 	if (command)
 		free_array(command);
 	return (1);
@@ -99,7 +99,7 @@ int	ft_builtin(t_data *data, char **cmd, char **envp)
 	else if (!ft_strcmp(command, "export"))
 		export(data, cmd);
 	else if (!ft_strcmp(command, "unset"))
-		unset(&data, cmd[1]);
+		unset(&data, cmd);
 	else if (!ft_strcmp(command, "echo"))
 		echo(cmd);
 	else if (!ft_strcmp(command, "env"))

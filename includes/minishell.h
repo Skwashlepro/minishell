@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/17 20:46:36 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/18 00:47:43 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void		env(t_data *data);
 void		ft_exit(char **args, t_data *data, char **envp);
 int			export(t_data *data, char **args);
 void		pwd(t_data *data);
-void		unset(t_data **data, char *var);
+void		unset(t_data **data, char **var);
 int			nb_check(char *str);
 void		lst_addback(t_env **node, t_env *new);
 int			count_args(char **args);
