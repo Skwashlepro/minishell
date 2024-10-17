@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 15:02:26 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/16 16:34:07 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/17 21:25:51 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ char	*get_varenv(char *str, t_data *data, int TYPE)
 	i = 0;
 	pos = 0;
 	len = len_varenv(data, str);
+	data->new = NULL;
 	data->new = ft_calloc(sizeof(char), len + 1);
 	if (!data->new)
 		return (NULL);

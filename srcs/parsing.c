@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:21:08 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/16 18:29:29 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/17 21:49:37 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,41 @@ int	add_redirection(t_token *token, t_data *data, t_command *command)
 	return (0);
 }
 
+int	only_quote(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (is_space(s[i]))
+		i++;
+	if (s[i])
+	{
+		while (s[i] == '"' || s[i] == '\'')
+			i++;
+		if (s[i] == '\0')
+			return (1);
+	}
+	return (0);
+}
+
 bool	add_word(t_token *token, t_command *command, t_data *data)
 {
 	char	*str;
 
+	if ((only_quote(token->str)) && !command->arguments)
+	{
+		command->arguments = ft_join_tab(command->arguments,
+				ft_strdup(token->str));
+		return (false);
+	}
 	str = ft_expand(data, token->str, token->type, token->nb_quotes);
 	if (!str)
 		return (true);
+	if (!*str)
+	{
+		free(str);
+		return (false);
+	}
 	command->arguments = ft_join_tab(command->arguments, str);
 	if (command->arguments)
 		return (false);

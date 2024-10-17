@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/16 21:56:30 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/17 20:46:36 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <errno.h>
+# include <sys/stat.h>
 
-# define GET_HEREDOC	"/tmp/heredoc"
+# define GET_HEREDOC	"/tmp/hd"
 
 extern int				g_var;
 
@@ -90,6 +91,7 @@ typedef struct s_data
 	int			in_heredoc;
 	char		cquote;
 	char		*new;
+	int			err;
 	char		*value;
 	char		**path;
 	char		*s2;
@@ -173,5 +175,6 @@ t_env		*lstnew(char *key, char *value);
 void		value_paste(t_env *node, char *args, int j);
 int			valid_id(t_data **data, char *args);
 void		node_free(t_env *node);
+char		**new_tab(char **tab);
 
 #endif
