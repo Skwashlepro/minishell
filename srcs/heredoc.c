@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 19:42:49 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/14 12:52:36 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/18 18:45:11 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	loop_heredoc(char *filename, t_data *data, int fd, t_redir *redir)
 		free(filename);
 		free(name);
 	}
+	data->in_heredoc = 0;
 }
 
 static int	ft_here_doc(t_redir *redir, t_data *data)

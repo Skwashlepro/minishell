@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 17:20:47 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/18 15:06:48 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/18 18:42:48 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	loop_len(char *str, t_data *data, int *len, int *i)
 			}
 		}
 		else if (data->cquote == 'N' && is_quotes(str[(*i) + 1])
-			&& (data->heredoc == 0) && str[*i] == '$')
+			&& (data->in_heredoc == 0) && str[*i] == '$')
 			(*i)++;
 		else
 		{
