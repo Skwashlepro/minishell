@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:05:34 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/18 14:25:02 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/18 19:22:20 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	ft_exit_code(int code, t_data *data, t_command *cmd, char **envp)
 				cmd->arguments[0]), fork_clean(data, envp), exit(126));
 	else if (code == 3)
 	{
-		ft_printf(2, "No such file or directory\n");
+		ft_printf(2, "minishell: %s: No such file or directory\n",
+			cmd->arguments[0]);
 		return (fork_clean(data, envp), exit(127));
 	}
 	else if (code == 4)
@@ -32,7 +33,8 @@ void	ft_exit_code(int code, t_data *data, t_command *cmd, char **envp)
 			fork_clean(data, envp), exit(127));
 	else if (code == 5)
 	{
-		ft_printf(2, "Is a directory\n");
+		ft_printf(2, "minishell: %s: Is a directory\n",
+			cmd->arguments[0]);
 		return (fork_clean(data, envp), exit(126));
 	}
 }

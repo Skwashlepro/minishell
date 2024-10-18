@@ -3,40 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/18 15:33:18 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/18 19:28:43 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int		g_var = 0;
-
-// void	print_node(t_token *token, int type)
-// {
-// 	while (token)
-// 	{
-// 		printf("\n----------------------------------------\n");
-// 		printf("string: %s\n", token->str);
-// 		printf("nb_quotes: %d\n", token->nb_quotes);
-// 		switch (type)
-// 		{
-// 		case 0:
-// 			printf("type: WORD\n");
-// 			break ;
-// 		case 1:
-// 			printf("type: PIPE\n");
-// 			break ;
-// 		case 2:
-// 			printf("type: REDIRECTION\n");
-// 			break ;
-// 		}
-// 		printf("----------------------------------------\n");
-// 		token = token->next;
-// 	}
-// }
 
 void	clean_all(t_data *data)
 {
@@ -61,7 +37,8 @@ char	*prompter(t_data *data)
 	input = readline("minishell$ ");
 	if (input == NULL)
 		return (NULL);
-	add_history(input);
+	if (*input)
+		add_history(input);
 	return (input);
 }
 
