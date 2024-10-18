@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:23:02 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/18 01:41:10 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/18 15:33:18 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	loop_prog(t_data *data)
 		data->cmd = parsing(data);
 		if (data->cmd)
 			data->exit_status = ft_exec(data->cmd, data);
+		data->err = 0;
 		ft_clean(data);
 		unlink_file();
 	}

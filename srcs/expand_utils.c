@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 17:20:47 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/17 14:35:59 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/18 15:06:48 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ void	process_string(char *str, t_data *data, int *pos, int *i)
 	while (str && str[*i])
 	{
 		wordinquote(str[*i], data);
-		if (str[*i] == '$' && str[*i + 1] && str[(*i) + 1] != '$'
-			&& data->cquote != '\'' && !is_quotes(str[*i + 1]))
+		if (str[*i] == '$' && str[(*i) + 1] && str[(*i) + 1] != '$'
+			&& data->cquote != '\'' && !is_quotes(str[*i + 1])
+			&& !is_space(str[(*i) + 1]))
 		{
 			(*i)++;
 			data->value = get_value(str, i, data);
@@ -73,7 +74,8 @@ void	loop_len(char *str, t_data *data, int *len, int *i)
 	{
 		wordinquote(str[(*i)], data);
 		if (str[(*i)] == '$' && str[(*i) + 1] && data->cquote != '\''
-			&& str[(*i) + 1] != '$' && !is_quotes(str[(*i) + 1]))
+			&& str[(*i) + 1] != '$' && !is_quotes(str[(*i) + 1])
+			&& !is_space(str[(*i) + 1]))
 		{
 			(*i)++;
 			data->new = get_value(str, i, data);
@@ -83,7 +85,7 @@ void	loop_len(char *str, t_data *data, int *len, int *i)
 				free_array(data->new);
 			}
 		}
-		else if (data->cquote == 'N' && is_quotes(str[*i + 1])
+		else if (data->cquote == 'N' && is_quotes(str[(*i) + 1])
 			&& (data->heredoc == 0) && str[*i] == '$')
 			(*i)++;
 		else

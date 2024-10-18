@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:22:28 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/18 01:47:46 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/18 14:25:39 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,6 @@ char		*get_varenv(char *str, t_data *data, int TYPE);
 void		free_redir(t_redir *redirection);
 void		fork_redir_free(t_data *data, char **env, char **path);
 void		fork_clean(t_data *data, char **envp);
-void		signals_child(void);
 int			ft_builtin(t_data *data, char **cmd, char **envp);
 int			ft_onebuiltin(t_data *data, char **cmd, char **env);
 int			cd(t_data *data, char **args);
@@ -169,13 +168,11 @@ char		**find_path(t_data *data);
 int			nb_cmd(t_command *cmd);
 void		sig_heredoc(t_data *data);
 int			run_heredoc(t_command *cmd, t_data *data);
-t_env		*init_noenv(int ac);
 t_env		*new_env(void);
 t_env		*lstnew(char *key, char *value);
 void		value_paste(t_env *node, char *args, int j);
 int			valid_id(t_data **data, char *args);
 void		node_free(t_env *node);
-char		**new_tab(char **tab);
 int			only_quote(char *s);
-
+int			contains_dollar(const char *str);
 #endif

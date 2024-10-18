@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 12:21:08 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/18 01:43:57 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/18 14:24:29 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,23 @@ bool	add_word(t_token *token, t_command *command, t_data *data)
 {
 	char	*str;
 
+	data->err = -1;
 	if ((only_quote(token->str)) && !command->arguments)
 	{
 		command->arguments = ft_join_tab(command->arguments,
 				ft_strdup(token->str));
 		return (false);
 	}
+	data->err = contains_dollar(token->str);
 	str = ft_expand(data, token->str, token->type, token->nb_quotes);
 	if (!str)
 		return (true);
-	if (!*str)
+	if (!*str && data->err == 2)
+		return (free(str), false);
+	if (!*str && data->err == 1)
 	{
 		free(str);
-		return (false);
+		str = ft_strdup("\"\"");
 	}
 	command->arguments = ft_join_tab(command->arguments, str);
 	if (command->arguments)

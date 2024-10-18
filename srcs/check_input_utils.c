@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_input_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:47:15 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/18 01:44:29 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/18 16:00:12 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	nb_check(char *str)
 
 	i = 0;
 	error = 1;
-	if (str[0] == '-')
+	if (str[0] == '-' || str[0] == '+')
 		i++;
 	while (str[i])
 	{
@@ -55,11 +55,13 @@ void	char_redir(char *str, int *redir_out, int *redir)
 {
 	if (*str == '<')
 		(*redir)++;
-	else if (*str == '>')
+	if (*str == '>')
 		(*redir_out)++;
-	else if (ft_isalnum(*str) && *redir <= 2 && !(*redir_out))
+	if ((*str != '<' && *str != '>' && !is_space(*str)) && *redir <= 2
+		&& !(*redir_out))
 		*redir = 0;
-	else if (ft_isalnum(*str) && *redir_out <= 2 && !(*redir))
+	if ((*str != '<' && *str != '>' && !is_space(*str)) && *redir_out <= 2
+		&& !(*redir))
 		*redir_out = 0;
 }
 

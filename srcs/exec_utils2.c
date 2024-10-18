@@ -6,7 +6,7 @@
 /*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:05:34 by tpassin           #+#    #+#             */
-/*   Updated: 2024/10/17 21:09:27 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/18 14:25:02 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,31 @@ void	init_exec(t_data *data, char ***env, char ***path)
 	}
 	*env = env_to_tab(data);
 	*path = find_path(data);
+}
+
+int	contains_dollar(const char *str)
+{
+	int	in_double_quotes;
+	int	in_single_quotes;
+
+	in_double_quotes = 0;
+	in_single_quotes = 0;
+	while (*str)
+	{
+		if (*str == '"')
+			in_double_quotes = !in_double_quotes;
+		else if (*str == '\'')
+			in_single_quotes = !in_single_quotes;
+		else if (*str == '$')
+		{
+			if (in_single_quotes)
+				return (0);
+			else if (in_double_quotes)
+				return (1);
+			else
+				return (2);
+		}
+		str++;
+	}
+	return (-1);
 }
