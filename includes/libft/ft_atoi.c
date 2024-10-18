@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:09:10 by luctan            #+#    #+#             */
-/*   Updated: 2023/11/15 19:45:24 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/18 20:16:32 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,3 @@ int	ft_atoi(const char *nptr)
 	}
 	return (r * sign);
 }
-
-// int	main(int ac, char **av)
-// {
-// 	printf("%i\n", ft_atoi(av[1]));
-// 	printf("%i\n", atoi(av[1]));
-// }

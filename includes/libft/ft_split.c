@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 17:15:56 by luctan            #+#    #+#             */
-/*   Updated: 2024/05/06 15:30:19 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/18 20:18:23 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,26 +93,3 @@ char	**ft_split(const char *s, char c)
 	dest[j] = 0;
 	return (dest);
 }
-
-// int	main(int ac, char **av)
-// {
-
-// 	// char *splitme = strdup("Tripouille");
-// 	// char **tab = ft_split(splitme, ' ');
-// 	char **dest;
-
-// 	// printf("\"%s\"", splitme);
-// 	int		i;
-
-// 	i = 0;
-// 	dest = ft_split("^^^1^^2a,^^^^3^^^^--h^^^^", '^');
-// 	if (dest)
-// 	{
-// 		while (dest[i])
-// 			printf("%s\n", dest[i++]);
-// 	}
-// 	// printf(" tab[0] : %s\n tab[1] %s", tab[0], tab[1]);
-// 	for (int i = 0; dest[i]; i++)
-// 		free(dest[i]);
-// 	// free(dest);
-// }

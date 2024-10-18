@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 14:22:51 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/23 12:56:24 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/18 20:16:55 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,3 @@ int	ft_strcmp(const char *s1, const char *s2)
 		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
-/*int	main(int ac, char **av)
-{
-	printf("%i\n", ft_strncmp(av[1], av[2], atoi(av[3])));
-	printf("%i\n", strncmp(av[1], av[2], atoi(av[3])));
-}*/

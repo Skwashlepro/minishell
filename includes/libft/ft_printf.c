@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:57:51 by tpassin           #+#    #+#             */
-/*   Updated: 2024/05/27 11:22:31 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/18 20:18:17 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,3 @@ int	ft_printf(int fd, const char *str, ...)
 		count += write(buff.fd, buff.buff, buff.length);
 	return (count);
 }
-// int main()
-// {
-// 	//int y = ft_printf(0);
-// 	ft_printf(1, "salut les gars");
-// }

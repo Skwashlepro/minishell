@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:37:38 by luctan            #+#    #+#             */
-/*   Updated: 2024/09/12 12:21:19 by tpassin          ###   ########.fr       */
+/*   Updated: 2024/10/18 20:17:33 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-// #include "../minishell.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -37,15 +36,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	dest[i] = '\0';
 	return (dest);
 }
-
-// int main()
-// {
-// 	char	*str;
-
-// 	str = "Un jour je serai, le meilleur dresseur !";
-// 	char *test = ft_substr(str, 55, 55);
-// 	if(!test)
-// 		printf("mdr\n");
-// 	else
-// 		printf("%s\n",test);
-// }

@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:45:40 by luctan            #+#    #+#             */
-/*   Updated: 2023/11/10 18:02:37 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/18 20:16:40 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,3 @@ char	*ft_itoa(int n)
 	}
 	return (nbr);
 }
-/*
-int	main(int ac, char **av)
-{
-	char	*pute;
-	(void)ac;
-	pute = ft_itoa(atoi(av[1]));
-	printf("%s\n", pute);
-	free(pute);
-}*/

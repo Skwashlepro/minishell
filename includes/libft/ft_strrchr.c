@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:11:10 by luctan            #+#    #+#             */
-/*   Updated: 2023/11/15 20:23:56 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/18 20:16:04 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,3 @@ char	*ft_strrchr(const char *s, int c)
 	}
 	return (NULL);
 }
-
-// int	main(int ac, char **av)
-// {
-// 	printf("%s\n", ft_strrchr(av[1], av[2][0]));
-// }
