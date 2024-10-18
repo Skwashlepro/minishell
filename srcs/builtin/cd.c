@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:53:16 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/18 01:46:46 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/18 18:15:47 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ void	update_env(t_env *old, t_env *pwd)
 		free_array(pwd->value);
 		pwd->value = NULL;
 		pwd->value = getcwd(pwd->value, 0);
+		if (!pwd->value)
+		{
+			free_array(pwd->value);
+			pwd->value = ft_strdup(old->value);
+		}
 	}
 }
 
