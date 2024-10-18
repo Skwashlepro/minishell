@@ -6,7 +6,7 @@
 /*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:53:16 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/18 18:22:42 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/18 18:29:07 by luctan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int	args_errors(t_env *old_pwd, char **args)
 		if (!old_pwd && !ft_strcmp(args[1], "-"))
 			return ((void)ft_printf(2, "minishell$ cd: OLDPWD not set\n"), 1);
 	if (count_args(args) == 3)
-		return ((void)ft_printf(2, "%s%s\n", "cd: string not in pwd: ",
-				args[1]), 1);
+		return ((void)ft_printf(2, "%s\n", "minishell$ cd:
+			 too many arguments"), 1);
 	if (count_args(args) > 3)
 		return ((void)ft_printf(2, "cd: too many arguments\n"), 1);
 	return (0);
