@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luctan <luctan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tpassin <tpassin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:53:16 by luctan            #+#    #+#             */
-/*   Updated: 2024/10/18 18:29:07 by luctan           ###   ########.fr       */
+/*   Updated: 2024/10/18 18:50:37 by tpassin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int	args_errors(t_env *old_pwd, char **args)
 		if (!old_pwd && !ft_strcmp(args[1], "-"))
 			return ((void)ft_printf(2, "minishell$ cd: OLDPWD not set\n"), 1);
 	if (count_args(args) == 3)
-		return ((void)ft_printf(2, "%s\n", "minishell$ cd:
-			 too many arguments"), 1);
+		return ((void)ft_printf(2, "%s\n", "minishell$ cd: too many arguments")
+			, 1);
 	if (count_args(args) > 3)
 		return ((void)ft_printf(2, "cd: too many arguments\n"), 1);
 	return (0);
@@ -94,8 +94,8 @@ int	cd(t_data *data, char **args)
 		return (update_env(old_pwd, pwd), 1);
 	}
 	else if (old_pwd && !ft_strcmp(args[1], "-"))
-		return ((void)ft_printf(1, "%s\n", old_pwd->value)
-			, (void)chdir(old_pwd->value), 1);
+		return ((void)ft_printf(1, "%s\n", old_pwd->value),
+			(void)chdir(old_pwd->value), 1);
 	else if (chdir(args[1]) == -1 && ft_strcmp(args[1], pwd->value))
 		return (is_file(args[1]), 1);
 	return (update_env(old_pwd, pwd), 0);
