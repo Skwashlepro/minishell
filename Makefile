@@ -3,7 +3,8 @@ LIB			= includes/libft/libft.a
 CFLAGS		= -Wall -Werror -Wextra
 # CFLAGS = -Wall -Werror -Wextra -g3
 CC			= cc
-VPATH		= ./srcs/:./srcs/builtin 
+VPATH		= ./srcs/:./srcs/builtin:./srcs/exec:./srcs/signals:./srcs/parsing:./srcs/env:./srcs/utils: \
+./srcs/parsing/heredoc
 LIBFT_PATH 	= ./includes/libft
 INC = -Iincludes/
 
